@@ -1,10 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Icon, type IconName } from "@/components/icon";
 import { SectionHeader } from "@/components/site/section-header";
 import { ProductCard } from "@/components/site/product-card";
 import { StoryCard } from "@/components/site/story-card";
 import { toneClass } from "@/lib/data";
+import { cloudinaryUrl } from "@/lib/cloudinary";
 import {
   getCategories,
   getAllProducts,
@@ -157,6 +159,52 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── Istaknute radnje ── */}
+      {shops.length > 0 && (
+        <section className="border-y border-line-soft bg-surface py-16">
+          <div className="mx-auto max-w-7xl px-4 md:px-8">
+            <SectionHeader
+              eyebrow="Naše majstorice"
+              title="Radnje u fokusu"
+              sub="Iza svake radnje stoji jedna žena, jedan grad i jedna priča."
+              action={{ href: "/radnje", label: "Sve radnje" }}
+            />
+            <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
+              {shops.slice(0, 4).map((shop) => (
+                <Link
+                  key={shop.id}
+                  href={`/radnja/${shop.id}`}
+                  className="group overflow-hidden rounded-2xl border border-line-soft bg-card transition-all hover:-translate-y-1 hover:shadow-[var(--zr-shadow-sm)]"
+                >
+                  <div
+                    className={`relative aspect-[3/2] w-full overflow-hidden ${shop.coverPublicId ? "" : toneClass[shop.tone]}`}
+                  >
+                    {shop.coverPublicId && (
+                      <Image
+                        src={cloudinaryUrl(shop.coverPublicId, { width: 500 })}
+                        alt={shop.name}
+                        fill
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                        className="object-cover"
+                      />
+                    )}
+                  </div>
+                  <div className="p-4">
+                    <div className="font-semibold text-pink-dark transition-colors group-hover:text-pink">
+                      {shop.name}
+                    </div>
+                    <div className="mt-1 flex items-center gap-1.5 text-xs text-ink">
+                      <Icon name="location" size={13} /> {shop.city} · ★{" "}
+                      {shop.rating}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── Manifest ── */}
       <section className="bg-pink-tint py-20">
