@@ -3,10 +3,11 @@
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { auth } from "@clerk/nextjs/server";
+import { auth, clerkClient, currentUser } from "@clerk/nextjs/server";
 import { db } from "./db";
 import { conversations, messages, shops } from "./db/schema";
 import { getOrCreateConversation } from "./messages";
+import { sendNewMessageEmail } from "./email";
 
 // „Pošalji upit majstorici" — kupac otvara (ili nastavlja) razgovor sa radnjom.
 export async function startConversation(formData: FormData) {
@@ -56,6 +57,35 @@ export async function sendMessage(
       ...(isOwner ? { sellerLastReadAt: now } : { buyerLastReadAt: now }),
     })
     .where(eq(conversations.id, conversationId));
+
+  // Email obaveštenje primaocu (ne prekida tok ako padne).
+  const recipientId = isOwner ? c.buyerId : c.ownerId;
+  if (recipientId && recipientId !== userId) {
+    try {
+      const client = await clerkClient();
+      const recipient = await client.users.getUser(recipientId);
+      const to =
+        recipient.emailAddresses.find(
+          (e) => e.id === recipient.primaryEmailAddressId,
+        )?.emailAddress ?? recipient.emailAddresses[0]?.emailAddress;
+      const sender = await currentUser();
+      const senderName =
+        [sender?.firstName, sender?.lastName].filter(Boolean).join(" ") ||
+        sender?.username ||
+        "Korisnik";
+      if (to) {
+        await sendNewMessageEmail({
+          to,
+          senderName,
+          conversationId,
+          recipientRole: isOwner ? "buyer" : "seller",
+          preview: body.slice(0, 140),
+        });
+      }
+    } catch (e) {
+      console.error("Email primaocu nije poslat:", e);
+    }
+  }
 
   revalidatePath(`/profil/poruke/${conversationId}`);
   revalidatePath(`/prodavac/poruke/${conversationId}`);
