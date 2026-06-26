@@ -6,6 +6,9 @@ import { PanelNav, type PanelNavItem } from "@/components/panel/panel-nav";
 import { requireRole } from "@/lib/auth";
 import { getOrCreateSellerShop } from "@/lib/seller";
 import { getSellerUnreadCount } from "@/lib/messages";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 // Panel prodavca koristi „radnju u fokusu" (Mila) kao primer naloga dok ne
 // uvedemo auth. Tada ćemo prikazivati radnju ulogovanog prodavca.

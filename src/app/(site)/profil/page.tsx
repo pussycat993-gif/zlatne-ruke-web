@@ -8,7 +8,10 @@ import { BecomeSellerButton } from "@/components/site/become-seller-button";
 import { getCurrentRole } from "@/lib/auth";
 import { getBuyerUnreadCount } from "@/lib/messages";
 
-export const metadata: Metadata = { title: "Moj profil — Zlatne Ruke" };
+export const metadata: Metadata = {
+  title: "Moj profil — Zlatne Ruke",
+  robots: { index: false, follow: false },
+};
 
 const ROLE_LABEL: Record<string, string> = {
   kupac: "Kupac",

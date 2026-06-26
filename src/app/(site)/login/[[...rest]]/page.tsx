@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { SignIn } from "@clerk/nextjs";
 
-export const metadata: Metadata = { title: "Prijava — Zlatne Ruke" };
+export const metadata: Metadata = {
+  title: "Prijava — Zlatne Ruke",
+  robots: { index: false, follow: false },
+};
 
 export default function LoginPage() {
   return (

@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { Icon } from "@/components/icon";
+import type { Metadata } from "next";
 import { PanelNav, type PanelNavItem } from "@/components/panel/panel-nav";
 import { requireRole } from "@/lib/auth";
+
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 const ADMIN_NAV: PanelNavItem[] = [
   { href: "/admin", label: "Pregled", icon: "home" },

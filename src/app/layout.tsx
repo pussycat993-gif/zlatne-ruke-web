@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans, Caveat, JetBrains_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
+import { SITE_URL, SITE_NAME } from "@/lib/site";
 import "./globals.css";
 
 // DM Sans — body + headings (--zr-font / --zr-font-display)
@@ -25,9 +26,15 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Zlatne Ruke — rukotvorine žena iz Srbije",
   description:
     "Marketplace za rukotvorine žena iz Srbije. Svaki predmet ima ime, mesto i priču.",
+  openGraph: {
+    siteName: SITE_NAME,
+    locale: "sr_RS",
+    type: "website",
+  },
 };
 
 // Postavlja temu pre prvog renderovanja da nema treperenja (FOUC).
