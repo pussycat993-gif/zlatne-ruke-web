@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { Show } from "@clerk/nextjs";
 import { Icon } from "@/components/icon";
 import { ContactSellerButton } from "@/components/site/contact-seller-button";
+import { ReviewForm } from "@/components/site/review-form";
 import { Crumbs } from "@/components/site/crumbs";
 import { ProductCard } from "@/components/site/product-card";
 import { ProductGallery } from "@/components/site/product-gallery";
@@ -248,6 +250,23 @@ export default async function ProductPage({
               </p>
             )}
           </div>
+        </div>
+
+        <div className="mt-8 md:max-w-2xl">
+          <Show when="signed-in">
+            <ReviewForm productId={product.id} />
+          </Show>
+          <Show when="signed-out">
+            <p className="rounded-2xl bg-cream px-5 py-4 text-sm text-ink">
+              <Link
+                href="/login"
+                className="font-semibold text-pink hover:text-pink-dark"
+              >
+                Prijavi se
+              </Link>{" "}
+              da napišeš recenziju.
+            </p>
+          </Show>
         </div>
       </section>
 

@@ -43,6 +43,13 @@
       "when": 1782468512791,
       "tag": "0005_condemned_archangel",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1782469341896,
+      "tag": "0006_square_hairball",
+      "breakpoints": true
     }
   ]
 }

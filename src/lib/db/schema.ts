@@ -71,25 +71,30 @@ export const products = pgTable("products", {
     .defaultNow(),
 });
 
-export const reviews = pgTable("reviews", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
-  productId: text("product_id")
-    .notNull()
-    .references(() => products.id, { onDelete: "cascade" }),
-  shopId: text("shop_id")
-    .notNull()
-    .references(() => shops.id, { onDelete: "cascade" }),
-  authorId: text("author_id"), // Clerk user id (null za seed)
-  author: text("author").notNull(),
-  rating: integer("rating").notNull(),
-  text: text("text").notNull(),
-  dateLabel: text("date_label").notNull().default(""),
-  createdAt: timestamp("created_at", { withTimezone: true })
-    .notNull()
-    .defaultNow(),
-});
+export const reviews = pgTable(
+  "reviews",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    productId: text("product_id")
+      .notNull()
+      .references(() => products.id, { onDelete: "cascade" }),
+    shopId: text("shop_id")
+      .notNull()
+      .references(() => shops.id, { onDelete: "cascade" }),
+    authorId: text("author_id"), // Clerk user id (null za seed)
+    author: text("author").notNull(),
+    rating: integer("rating").notNull(),
+    text: text("text").notNull(),
+    dateLabel: text("date_label").notNull().default(""),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  // Jedna recenzija po korisniku po proizvodu (NULL authorId za seed je ok).
+  (t) => [uniqueIndex("reviews_author_product_uq").on(t.authorId, t.productId)],
+);
 
 export const stories = pgTable("stories", {
   id: text("id")
