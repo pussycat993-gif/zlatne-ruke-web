@@ -1,15 +1,34 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+
+  /* Fonts — fed by next/font CSS vars (see layout.tsx) via the --zr-* aliases */
+  --font-sans: var(--zr-font);
+  --font-mono: var(--zr-font-mono);
+  --font-script: var(--zr-font-script);
+  --font-heading: var(--zr-font-display);
+
+  /* Zlatne Ruke brand palette → utilities (bg-cream, text-pink-dark, …) */
+  --color-pink: var(--zr-pink);
+  --color-pink-dark: var(--zr-pink-dark);
+  --color-pink-light: var(--zr-pink-light);
+  --color-pink-tint: var(--zr-pink-tint);
+  --color-cream: var(--zr-cream);
+  --color-cream-deep: var(--zr-cream-deep);
+  --color-surface: var(--zr-surface);
+  --color-ink: var(--zr-gray);
+  --color-ink-soft: var(--zr-gray-soft);
+  --color-line: var(--zr-border);
+  --color-line-soft: var(--zr-border-soft);
+  --color-hero: var(--zr-hero-bg);
+  --color-hero-foreground: var(--zr-hero-text);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -49,24 +68,49 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  /* ── Zlatne Ruke brand tokens — light (source of truth) ── */
+  --zr-pink: #c0637a;
+  --zr-pink-dark: #a0445a;
+  --zr-pink-light: #f5ecee;
+  --zr-pink-tint: #fbe7ec;
+  --zr-cream: #fdf6f0;
+  --zr-cream-deep: #f8ebdd;
+  --zr-surface: #ffffff;
+  --zr-gray: #7a6068;
+  --zr-gray-soft: #b69ba1;
+  --zr-border: #e8c8d0;
+  --zr-border-soft: #f1dce2;
+  --zr-hero-bg: #a0445a;
+  --zr-hero-text: #ffffff;
+  --zr-shadow: 0 6px 20px -8px rgba(160, 68, 90, 0.18);
+  --zr-shadow-sm: 0 2px 8px -2px rgba(160, 68, 90, 0.12);
+  --zr-shadow-lg: 0 14px 32px -10px rgba(160, 68, 90, 0.22);
+
+  /* Fonts — aliased onto the next/font CSS vars exposed in layout.tsx */
+  --zr-font: var(--font-dm-sans), -apple-system, system-ui, sans-serif;
+  --zr-font-display: var(--font-dm-sans), -apple-system, system-ui, sans-serif;
+  --zr-font-script: var(--font-caveat), "Segoe Script", cursive;
+  --zr-font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  /* ── shadcn semantic tokens, mapped onto the ZR palette ── */
+  --background: var(--zr-cream);
+  --foreground: #3a2c30;
+  --card: var(--zr-surface);
+  --card-foreground: #3a2c30;
+  --popover: var(--zr-surface);
+  --popover-foreground: #3a2c30;
+  --primary: var(--zr-pink);
+  --primary-foreground: #ffffff;
+  --secondary: var(--zr-pink-light);
+  --secondary-foreground: var(--zr-pink-dark);
+  --muted: var(--zr-pink-light);
+  --muted-foreground: var(--zr-gray);
+  --accent: var(--zr-pink-tint);
+  --accent-foreground: var(--zr-pink-dark);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: var(--zr-border);
+  --input: var(--zr-border);
+  --ring: var(--zr-pink);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -84,24 +128,43 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  /* ── Zlatne Ruke brand tokens — dark (pink-* carry the gold accent role) ── */
+  --zr-pink: #d4a155;
+  --zr-pink-dark: #e8bb6d;
+  --zr-pink-light: #2b2123;
+  --zr-pink-tint: #3a2c2e;
+  --zr-cream: #14100f;
+  --zr-cream-deep: #1b1614;
+  --zr-surface: #221b1c;
+  --zr-gray: #bbafa5;
+  --zr-gray-soft: #7e7269;
+  --zr-border: #3a2d2e;
+  --zr-border-soft: #2a2122;
+  --zr-hero-bg: #1a1411;
+  --zr-hero-text: #e8bb6d;
+  --zr-shadow: 0 6px 24px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(212, 161, 85, 0.04);
+  --zr-shadow-sm: 0 2px 10px -2px rgba(0, 0, 0, 0.5);
+  --zr-shadow-lg: 0 18px 40px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(212, 161, 85, 0.05);
+
+  /* ── shadcn semantic tokens, mapped onto the ZR dark palette ── */
+  --background: var(--zr-cream);
+  --foreground: #ece3da;
+  --card: var(--zr-surface);
+  --card-foreground: #ece3da;
+  --popover: var(--zr-surface);
+  --popover-foreground: #ece3da;
+  --primary: var(--zr-pink);
+  --primary-foreground: #14100f;
+  --secondary: var(--zr-pink-light);
+  --secondary-foreground: var(--zr-pink-dark);
+  --muted: var(--zr-pink-light);
+  --muted-foreground: var(--zr-gray);
+  --accent: var(--zr-pink-tint);
+  --accent-foreground: var(--zr-pink-dark);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --border: var(--zr-border);
+  --input: var(--zr-border);
+  --ring: var(--zr-pink);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);

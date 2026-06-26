@@ -1,0 +1,179 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { Show, UserButton } from "@clerk/nextjs";
+import { Icon } from "@/components/icon";
+import { Logo } from "@/components/site/logo";
+import { ThemeToggle } from "@/components/site/theme-toggle";
+import { cn } from "@/lib/utils";
+
+// Glavni linkovi (v1 opseg — bez korpe/plaćanja).
+const NAV_LINKS = [
+  { href: "/katalog", label: "Kategorije" },
+  { href: "/magazin", label: "Priče" },
+  { href: "/saveti", label: "Saveti" },
+  { href: "/postani-prodavac", label: "Postani prodavac" },
+  { href: "/o-nama", label: "O nama" },
+] as const;
+
+export function SiteNav() {
+  const pathname = usePathname();
+  const router = useRouter();
+  const [query, setQuery] = useState("");
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(href + "/");
+
+  function submitSearch(e: React.FormEvent) {
+    e.preventDefault();
+    const q = query.trim();
+    router.push(q ? `/katalog?q=${encodeURIComponent(q)}` : "/katalog");
+    setMobileOpen(false);
+  }
+
+  return (
+    <header className="sticky top-0 z-50 border-b border-line-soft bg-surface/95 backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 md:gap-8 md:px-8 md:py-4">
+        <Logo />
+
+        {/* Linkovi — desktop */}
+        <nav className="hidden flex-1 items-center gap-7 lg:flex">
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={cn(
+                "text-sm font-semibold transition-colors hover:text-pink-dark",
+                isActive(link.href) ? "text-pink-dark" : "text-ink",
+              )}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Pretraga — desktop */}
+        <form
+          onSubmit={submitSearch}
+          className="relative hidden flex-1 lg:block lg:max-w-xs"
+        >
+          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-ink-soft">
+            <Icon name="search" size={16} />
+          </span>
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Pretraži šal, sveće, sapune…"
+            className="w-full rounded-full border border-line bg-cream py-2.5 pl-11 pr-4 text-sm text-pink-dark outline-none placeholder:text-ink-soft focus:border-pink"
+          />
+        </form>
+
+        {/* Desni klaster */}
+        <div className="ml-auto flex items-center gap-1.5 lg:ml-0">
+          <ThemeToggle />
+          <Show when="signed-in">
+            <Link
+              href="/profil/omiljeno"
+              aria-label="Omiljeno"
+              className="hidden size-10 items-center justify-center rounded-full text-pink-dark transition-colors hover:bg-pink-light sm:flex"
+            >
+              <Icon name="heart" size={20} />
+            </Link>
+            <UserButton
+              appearance={{ elements: { avatarBox: "size-9" } }}
+              userProfileProps={{ appearance: { variables: { colorPrimary: "#C0637A" } } }}
+            />
+          </Show>
+          <Show when="signed-out">
+            <Link
+              href="/login"
+              className="hidden rounded-full bg-pink px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-pink-dark sm:inline-flex"
+            >
+              Prijava
+            </Link>
+          </Show>
+
+          {/* Hamburger — mobilni */}
+          <button
+            type="button"
+            onClick={() => setMobileOpen((v) => !v)}
+            aria-label={mobileOpen ? "Zatvori meni" : "Otvori meni"}
+            aria-expanded={mobileOpen}
+            className="flex size-10 items-center justify-center rounded-full text-pink-dark transition-colors hover:bg-pink-light lg:hidden"
+          >
+            <Icon name={mobileOpen ? "close" : "menu"} size={22} />
+          </button>
+        </div>
+      </div>
+
+      {/* Mobilni meni */}
+      {mobileOpen && (
+        <div className="border-t border-line-soft bg-surface px-4 py-4 lg:hidden">
+          <form onSubmit={submitSearch} className="relative mb-4">
+            <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-ink-soft">
+              <Icon name="search" size={16} />
+            </span>
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Pretraži…"
+              className="w-full rounded-full border border-line bg-cream py-2.5 pl-11 pr-4 text-sm text-pink-dark outline-none placeholder:text-ink-soft focus:border-pink"
+            />
+          </form>
+          <nav className="flex flex-col">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                className={cn(
+                  "rounded-xl px-3 py-3 text-sm font-semibold transition-colors hover:bg-pink-light",
+                  isActive(link.href) ? "text-pink-dark" : "text-ink",
+                )}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <div className="mt-2 flex gap-2 border-t border-line-soft pt-3">
+              <Show when="signed-in">
+                <Link
+                  href="/profil"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex flex-1 items-center justify-center gap-2 rounded-full bg-pink-light px-4 py-2.5 text-sm font-semibold text-pink-dark"
+                >
+                  <Icon name="user" size={18} /> Profil
+                </Link>
+                <Link
+                  href="/profil/omiljeno"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex flex-1 items-center justify-center gap-2 rounded-full bg-pink-light px-4 py-2.5 text-sm font-semibold text-pink-dark"
+                >
+                  <Icon name="heart" size={18} /> Omiljeno
+                </Link>
+              </Show>
+              <Show when="signed-out">
+                <Link
+                  href="/login"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex flex-1 items-center justify-center rounded-full bg-pink px-4 py-2.5 text-sm font-semibold text-primary-foreground"
+                >
+                  Prijava
+                </Link>
+                <Link
+                  href="/register"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex flex-1 items-center justify-center rounded-full bg-pink-light px-4 py-2.5 text-sm font-semibold text-pink-dark"
+                >
+                  Registracija
+                </Link>
+              </Show>
+            </div>
+          </nav>
+        </div>
+      )}
+    </header>
+  );
+}

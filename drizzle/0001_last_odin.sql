@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX "shops_owner_uq" ON "shops" USING btree ("owner_id");
