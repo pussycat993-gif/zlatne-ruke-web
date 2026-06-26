@@ -73,3 +73,23 @@ Clerk sign-in/up URL-ovi, `ADMIN_EMAIL`,
 - `npm run dev` — lokalni razvoj
 - `npm run db:generate` / `db:migrate` / `db:seed` — baza (Drizzle)
 - Deploy: `git push origin main` → Vercel automatski objavljuje
+
+## 5. Čišćenje seed (demo) podataka pre lansiranja
+Početne (izmišljene) radnje nemaju vlasnika (`owner_id` je prazan), pa se lako
+uklanjaju, dok prave radnje koje su prodavci napravili kroz nalog ostaju.
+
+1. **Probni prikaz** (ništa se ne briše, samo lista šta bi se obrisalo):
+   ```
+   npm run db:clean-seed
+   ```
+2. **Stvarno brisanje** (briše seed radnje + njihove proizvode, recenzije,
+   priče, pratnje i razgovore — kaskadno):
+   ```
+   npm run db:clean-seed -- --yes
+   ```
+
+Napomene:
+- Radi nad bazom iz `.env.local` (`DIRECT_URL`/`DATABASE_URL`) — to je ista
+  Supabase baza koju koristi i produkcija, pa promene odmah važe i uživo.
+- **Kategorije se NE brišu** (to je taksonomija koju koriste pravi proizvodi).
+- Ako kasnije opet pokreneš `npm run db:seed`, vraćaju se demo podaci.
