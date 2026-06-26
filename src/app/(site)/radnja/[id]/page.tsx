@@ -8,6 +8,7 @@ import { FollowButton } from "@/components/site/follow-button";
 import { ContactSellerButton } from "@/components/site/contact-seller-button";
 import { toneClass } from "@/lib/data";
 import { cloudinaryUrl } from "@/lib/cloudinary";
+import { SITE_URL } from "@/lib/site";
 import {
   getShopById,
   getShopProducts,
@@ -44,8 +45,38 @@ export default async function ShopPage({
     isFollowingShop(shop.id),
   ]);
 
+  // JSON-LD (Store) za Google rich results.
+  const storeSchema = {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    name: shop.name,
+    ...(shop.bio ? { description: shop.bio } : {}),
+    ...(shop.coverPublicId
+      ? { image: cloudinaryUrl(shop.coverPublicId, { width: 1200 }) }
+      : {}),
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: shop.city,
+      addressCountry: "RS",
+    },
+    url: `${SITE_URL}/radnja/${shop.id}`,
+    ...(shop.reviews > 0
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: shop.rating,
+            reviewCount: shop.reviews,
+          },
+        }
+      : {}),
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(storeSchema) }}
+      />
       {/* Hero pokrivač */}
       <div
         className={`relative h-48 w-full overflow-hidden md:h-64 ${shop.coverPublicId ? "" : toneClass[shop.tone]}`}

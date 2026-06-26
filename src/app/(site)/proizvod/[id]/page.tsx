@@ -10,6 +10,8 @@ import { ProductCard } from "@/components/site/product-card";
 import { ProductGallery } from "@/components/site/product-gallery";
 import { FavButton } from "@/components/site/fav-button";
 import { formatPrice, toneClass } from "@/lib/data";
+import { cloudinaryUrl } from "@/lib/cloudinary";
+import { SITE_URL } from "@/lib/site";
 import {
   getAllProducts,
   getProductById,
@@ -58,8 +60,49 @@ export default async function ProductPage({
     ? Math.round((1 - product.price / product.oldPrice) * 100)
     : 0;
 
+  const productImages = product.imagePublicIds?.length
+    ? product.imagePublicIds
+    : product.imagePublicId
+      ? [product.imagePublicId]
+      : [];
+
+  // JSON-LD (Product) za Google rich results.
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.desc,
+    ...(productImages.length
+      ? { image: productImages.map((id) => cloudinaryUrl(id, { width: 1200 })) }
+      : {}),
+    ...(shop ? { brand: { "@type": "Brand", name: shop.name } } : {}),
+    offers: {
+      "@type": "Offer",
+      price: product.price,
+      priceCurrency: "RSD",
+      availability:
+        product.inStock > 0
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+      url: `${SITE_URL}/proizvod/${product.id}`,
+    },
+    ...(product.reviewCount > 0
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: product.rating,
+            reviewCount: product.reviewCount,
+          },
+        }
+      : {}),
+  };
+
   return (
     <div className="mx-auto max-w-7xl px-4 pb-20 md:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
       <Crumbs
         items={[
           { label: "Početna", href: "/" },
@@ -69,16 +112,7 @@ export default async function ProductPage({
       />
 
       <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-        <ProductGallery
-          tone={product.tone}
-          images={
-            product.imagePublicIds?.length
-              ? product.imagePublicIds
-              : product.imagePublicId
-                ? [product.imagePublicId]
-                : []
-          }
-        />
+        <ProductGallery tone={product.tone} images={productImages} />
 
         <div>
           {/* Kartica radnje */}
