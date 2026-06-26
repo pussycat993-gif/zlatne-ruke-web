@@ -3,11 +3,13 @@ import type { Metadata } from "next";
 import { Crumbs } from "@/components/site/crumbs";
 import { ProductCard } from "@/components/site/product-card";
 import { SortSelect } from "@/components/site/sort-select";
+import { CatalogFilters } from "@/components/site/catalog-filters";
 import { Icon } from "@/components/icon";
 import {
   getCategories,
   searchProducts,
   getShopNameMap,
+  getShopCities,
 } from "@/lib/db/queries";
 import { getFavoriteProductIds } from "@/lib/user-data";
 
@@ -16,19 +18,33 @@ export const metadata: Metadata = {
   description: "Pretraži rukotvorine žena iz Srbije po kategorijama.",
 };
 
-type Search = { cat?: string; q?: string; sort?: string; page?: string };
+type Search = {
+  cat?: string;
+  q?: string;
+  sort?: string;
+  city?: string;
+  min?: string;
+  max?: string;
+  page?: string;
+};
 
 // Gradi URL čuvajući zadate parametre (prazne izostavlja).
 function buildHref(params: {
   cat?: string;
   q?: string;
   sort?: string;
+  city?: string;
+  min?: string;
+  max?: string;
   page?: number;
 }) {
   const sp = new URLSearchParams();
   if (params.cat) sp.set("cat", params.cat);
   if (params.q) sp.set("q", params.q);
   if (params.sort && params.sort !== "najnovije") sp.set("sort", params.sort);
+  if (params.city) sp.set("city", params.city);
+  if (params.min) sp.set("min", params.min);
+  if (params.max) sp.set("max", params.max);
   if (params.page && params.page > 1) sp.set("page", String(params.page));
   const qs = sp.toString();
   return qs ? `/katalog?${qs}` : "/katalog";
@@ -43,18 +59,25 @@ export default async function CatalogPage({
   const cat = sp.cat;
   const q = sp.q?.trim();
   const sort = sp.sort ?? "najnovije";
+  const city = sp.city;
+  const min = sp.min;
+  const max = sp.max;
   const pageNum = Math.max(1, Number(sp.page) || 1);
 
-  const [categories, shopNames, favIds] = await Promise.all([
+  const [categories, shopNames, favIds, cities] = await Promise.all([
     getCategories(),
     getShopNameMap(),
     getFavoriteProductIds(),
+    getShopCities(),
   ]);
   const activeCat = categories.find((c) => c.id === cat);
   const { items, total, page, totalPages } = await searchProducts({
     cat,
     q,
     sort,
+    city,
+    minPrice: min ? Number(min) : undefined,
+    maxPrice: max ? Number(max) : undefined,
     page: pageNum,
   });
 
@@ -86,14 +109,14 @@ export default async function CatalogPage({
       {/* Čipovi kategorija */}
       <div className="mb-6 flex flex-wrap gap-2">
         <CategoryChip
-          href={buildHref({ q, sort })}
+          href={buildHref({ q, sort, city, min, max })}
           active={!cat}
           label="Sve"
         />
         {categories.map((c) => (
           <CategoryChip
             key={c.id}
-            href={buildHref({ cat: c.id, q, sort })}
+            href={buildHref({ cat: c.id, q, sort, city, min, max })}
             active={cat === c.id}
             label={c.name}
             icon={c.icon}
@@ -101,12 +124,11 @@ export default async function CatalogPage({
         ))}
       </div>
 
-      {/* Sortiranje */}
-      {total > 0 && (
-        <div className="mb-8 flex justify-end">
-          <SortSelect value={sort} />
-        </div>
-      )}
+      {/* Filteri + sortiranje */}
+      <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
+        <CatalogFilters cities={cities} city={city} min={min} max={max} />
+        <SortSelect value={sort} />
+      </div>
 
       {items.length > 0 ? (
         <>
@@ -124,7 +146,7 @@ export default async function CatalogPage({
           {totalPages > 1 && (
             <nav className="mt-10 flex items-center justify-center gap-3">
               <PageLink
-                href={buildHref({ cat, q, sort, page: page - 1 })}
+                href={buildHref({ cat, q, sort, city, min, max, page: page - 1 })}
                 disabled={page <= 1}
               >
                 <Icon name="back" size={16} /> Prethodna
@@ -133,7 +155,7 @@ export default async function CatalogPage({
                 {page} / {totalPages}
               </span>
               <PageLink
-                href={buildHref({ cat, q, sort, page: page + 1 })}
+                href={buildHref({ cat, q, sort, city, min, max, page: page + 1 })}
                 disabled={page >= totalPages}
               >
                 Sledeća <Icon name="forward" size={16} />

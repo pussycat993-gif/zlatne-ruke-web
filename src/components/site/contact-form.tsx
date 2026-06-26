@@ -1,15 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState } from "react";
 import { Icon } from "@/components/icon";
 import { Button } from "@/components/ui/button";
+import { sendContactMessage, type ContactState } from "@/lib/contact-actions";
 
-// Kontakt forma — za sada bez slanja na server (povezivanje sa email/bazom
-// dolazi kasnije). Po slanju prikazuje lokalnu potvrdu.
+const initial: ContactState = { ok: false };
+
 export function ContactForm() {
-  const [sent, setSent] = useState(false);
+  const [state, action, pending] = useActionState(sendContactMessage, initial);
 
-  if (sent) {
+  if (state.ok) {
     return (
       <div className="rounded-3xl border border-line-soft bg-cream px-6 py-12 text-center">
         <span className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-surface text-pink">
@@ -32,10 +33,7 @@ export function ContactForm() {
 
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        setSent(true);
-      }}
+      action={action}
       className="rounded-3xl border border-line-soft bg-surface p-6 md:p-8"
     >
       <div className="grid gap-4 sm:grid-cols-2">
@@ -78,8 +76,20 @@ export function ContactForm() {
           className={`${inputClass} resize-y`}
         />
       </div>
-      <Button type="submit" size="lg" className="mt-6 h-11 rounded-full px-7 text-sm">
-        Pošalji poruku
+
+      {state.error && (
+        <p className="mt-3 text-sm font-medium text-destructive">
+          {state.error}
+        </p>
+      )}
+
+      <Button
+        type="submit"
+        size="lg"
+        disabled={pending}
+        className="mt-6 h-11 rounded-full px-7 text-sm"
+      >
+        {pending ? "Šaljem…" : "Pošalji poruku"}
       </Button>
     </form>
   );

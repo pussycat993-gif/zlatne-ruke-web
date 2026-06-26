@@ -1,4 +1,4 @@
-import { and, asc, desc, eq, ilike, or, sql } from "drizzle-orm";
+import { and, asc, desc, eq, gte, ilike, lte, or, sql } from "drizzle-orm";
 import { db } from "./index";
 import { products, shops, reviews, stories, categories } from "./schema";
 import type { Category, Product, Review, Shop, Story } from "@/lib/data";
@@ -102,6 +102,15 @@ export async function getAllShops(): Promise<Shop[]> {
   return rows.map(toShop);
 }
 
+// Spisak gradova (za filter u katalogu).
+export async function getShopCities(): Promise<string[]> {
+  const rows = await db
+    .selectDistinct({ city: shops.city })
+    .from(shops)
+    .orderBy(asc(shops.city));
+  return rows.map((r) => r.city).filter(Boolean);
+}
+
 // Mapa shopId → naziv radnje (za kartice proizvoda/priča, bez N+1 upita).
 export async function getShopNameMap(): Promise<Map<string, string>> {
   const rows = await db.select({ id: shops.id, name: shops.name }).from(shops);
@@ -166,6 +175,9 @@ export async function searchProducts(opts: {
   cat?: string;
   q?: string;
   sort?: string;
+  city?: string;
+  minPrice?: number;
+  maxPrice?: number;
   page?: number;
   perPage?: number;
 }): Promise<CatalogResult> {
@@ -173,6 +185,9 @@ export async function searchProducts(opts: {
 
   const conds = [];
   if (opts.cat) conds.push(eq(products.category, opts.cat));
+  if (opts.city) conds.push(eq(shops.city, opts.city));
+  if (opts.minPrice != null) conds.push(gte(products.price, opts.minPrice));
+  if (opts.maxPrice != null) conds.push(lte(products.price, opts.maxPrice));
   if (opts.q) {
     const like = `%${opts.q}%`;
     conds.push(

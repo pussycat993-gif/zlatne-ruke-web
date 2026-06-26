@@ -47,3 +47,39 @@ export async function sendNewMessageEmail(opts: {
     console.error("Slanje email obaveštenja nije uspelo:", e);
   }
 }
+
+// Šalje poruku sa kontakt forme administratoru (ADMIN_EMAIL).
+export async function sendContactEmail(opts: {
+  name: string;
+  email: string;
+  message: string;
+}): Promise<{ delivered: boolean }> {
+  const to = process.env.ADMIN_EMAIL;
+  if (!resend || !to) return { delivered: false };
+
+  const safe = (s: string) => s.replace(/[<>&]/g, "");
+  const html = `
+    <div style="font-family:system-ui,sans-serif;max-width:480px;margin:0 auto;color:#3a2c30">
+      <h2 style="color:#A0445A;margin:0 0 12px">Nova poruka sa kontakt forme</h2>
+      <p style="margin:0 0 4px"><strong>Ime:</strong> ${safe(opts.name)}</p>
+      <p style="margin:0 0 12px"><strong>Email:</strong> ${safe(opts.email)}</p>
+      <blockquote style="margin:0;padding:12px 16px;background:#FDF6F0;border-radius:12px;color:#7A6068">
+        ${safe(opts.message)}
+      </blockquote>
+    </div>
+  `;
+
+  try {
+    await resend.emails.send({
+      from,
+      to,
+      replyTo: opts.email,
+      subject: `Kontakt: ${safe(opts.name)} — Zlatne Ruke`,
+      html,
+    });
+    return { delivered: true };
+  } catch (e) {
+    console.error("Slanje kontakt poruke nije uspelo:", e);
+    return { delivered: false };
+  }
+}
