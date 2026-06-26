@@ -36,6 +36,13 @@
       "when": 1782407960549,
       "tag": "0004_abnormal_lord_hawal",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1782468512791,
+      "tag": "0005_condemned_archangel",
+      "breakpoints": true
     }
   ]
 }

@@ -8,38 +8,67 @@ import { cn } from "@/lib/utils";
 
 const VARIANTS: Tone[] = ["v2", "v3", "v4", "v5"];
 
-// Galerija proizvoda. Ako proizvod ima sliku (Cloudinary), prikazuje nju;
-// u suprotnom „blob" placeholder sa prebacivanjem tona.
+// Galerija proizvoda. Ako proizvod ima slike (Cloudinary), prikazuje ih sa
+// sličicama za prebacivanje; u suprotnom „blob" placeholder po tonu.
 export function ProductGallery({
   tone,
-  imagePublicId,
+  images = [],
 }: {
   tone: Tone;
-  imagePublicId?: string | null;
+  images?: string[];
 }) {
-  const [active, setActive] = useState<Tone>(tone);
+  const [activeImg, setActiveImg] = useState(0);
+  const [activeTone, setActiveTone] = useState<Tone>(tone);
 
-  if (imagePublicId) {
+  if (images.length > 0) {
+    const safeIndex = Math.min(activeImg, images.length - 1);
     return (
-      <div className="relative aspect-square w-full overflow-hidden rounded-3xl shadow-[var(--zr-shadow)]">
-        <Image
-          src={cloudinaryUrl(imagePublicId, { width: 1000 })}
-          alt="Slika proizvoda"
-          fill
-          priority
-          sizes="(max-width: 1024px) 100vw, 50vw"
-          className="object-cover"
-        />
+      <div>
+        <div className="relative aspect-square w-full overflow-hidden rounded-3xl shadow-[var(--zr-shadow)]">
+          <Image
+            src={cloudinaryUrl(images[safeIndex], { width: 1000 })}
+            alt="Slika proizvoda"
+            fill
+            priority
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover"
+          />
+        </div>
+        {images.length > 1 && (
+          <div className="mt-3 grid grid-cols-4 gap-3">
+            {images.map((id, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setActiveImg(i)}
+                aria-label={`Slika ${i + 1}`}
+                className={cn(
+                  "relative aspect-square overflow-hidden rounded-xl border-2 transition-colors",
+                  i === safeIndex ? "border-pink" : "border-transparent",
+                )}
+              >
+                <Image
+                  src={cloudinaryUrl(id, { width: 240 })}
+                  alt=""
+                  fill
+                  sizes="120px"
+                  className="object-cover"
+                />
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     );
   }
 
+  // Fallback: placeholder po tonu (kad proizvod nema slike).
   return (
     <div>
       <div
         className={cn(
           "aspect-square w-full rounded-3xl shadow-[var(--zr-shadow)]",
-          toneClass[active],
+          toneClass[activeTone],
         )}
       />
       <div className="mt-3 grid grid-cols-4 gap-3">
@@ -47,12 +76,12 @@ export function ProductGallery({
           <button
             key={v}
             type="button"
-            onClick={() => setActive(v)}
-            aria-label={`Prikaži sliku ${v}`}
+            onClick={() => setActiveTone(v)}
+            aria-label={`Prikaži ${v}`}
             className={cn(
               "aspect-square rounded-xl border-2 transition-colors",
               toneClass[v],
-              active === v ? "border-pink" : "border-transparent",
+              activeTone === v ? "border-pink" : "border-transparent",
             )}
           />
         ))}

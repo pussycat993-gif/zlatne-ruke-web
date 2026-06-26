@@ -98,11 +98,11 @@ export async function createProduct(
   if (!price || price <= 0) return { ok: false, error: "Unesi ispravnu cenu." };
   if (!category) return { ok: false, error: "Izaberi kategoriju." };
 
-  const imageFile = formData.get("image");
-  let imagePublicId: string | null = null;
+  const files = formData.getAll("images").filter(isUploadableFile).slice(0, 6);
+  const imagePublicIds: string[] = [];
   try {
-    if (isUploadableFile(imageFile)) {
-      imagePublicId = await uploadImage(imageFile, "zlatne-ruke/proizvodi");
+    for (const f of files) {
+      imagePublicIds.push(await uploadImage(f, "zlatne-ruke/proizvodi"));
     }
   } catch {
     return { ok: false, error: "Otpremanje slike nije uspelo." };
@@ -119,7 +119,8 @@ export async function createProduct(
     reviewCount: 0,
     inStock,
     description,
-    imagePublicId,
+    imagePublicId: imagePublicIds[0] ?? null,
+    imagePublicIds,
   });
 
   revalidatePath("/prodavac/proizvodi");
@@ -165,11 +166,14 @@ export async function updateProduct(
   if (!price || price <= 0) return { ok: false, error: "Unesi ispravnu cenu." };
   if (!category) return { ok: false, error: "Izaberi kategoriju." };
 
-  const imageFile = formData.get("image");
-  let newImage: string | undefined;
+  const files = formData.getAll("images").filter(isUploadableFile).slice(0, 6);
+  let newImages: string[] | undefined;
   try {
-    if (isUploadableFile(imageFile)) {
-      newImage = await uploadImage(imageFile, "zlatne-ruke/proizvodi");
+    if (files.length) {
+      newImages = [];
+      for (const f of files) {
+        newImages.push(await uploadImage(f, "zlatne-ruke/proizvodi"));
+      }
     }
   } catch {
     return { ok: false, error: "Otpremanje slike nije uspelo." };
@@ -184,7 +188,9 @@ export async function updateProduct(
       category,
       inStock,
       description,
-      ...(newImage ? { imagePublicId: newImage } : {}),
+      ...(newImages
+        ? { imagePublicId: newImages[0], imagePublicIds: newImages }
+        : {}),
     })
     .where(eq(products.id, id));
 

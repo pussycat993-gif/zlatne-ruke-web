@@ -36,7 +36,11 @@ export default async function EditProductPage({
         category: product.category,
         inStock: product.inStock,
         description: product.desc,
-        imagePublicId: product.imagePublicId,
+        imagePublicIds: product.imagePublicIds?.length
+          ? product.imagePublicIds
+          : product.imagePublicId
+            ? [product.imagePublicId]
+            : [],
       }}
     />
   );

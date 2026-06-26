@@ -69,7 +69,13 @@ export default async function ProductPage({
       <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
         <ProductGallery
           tone={product.tone}
-          imagePublicId={product.imagePublicId}
+          images={
+            product.imagePublicIds?.length
+              ? product.imagePublicIds
+              : product.imagePublicId
+                ? [product.imagePublicId]
+                : []
+          }
         />
 
         <div>

@@ -25,6 +25,7 @@ function toProduct(r: ProductRow): Product {
     inStock: r.inStock,
     desc: r.description,
     imagePublicId: r.imagePublicId,
+    imagePublicIds: r.imagePublicIds,
   };
 }
 

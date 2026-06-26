@@ -38,6 +38,7 @@ export type Product = {
   inStock: number;
   desc: string;
   imagePublicId?: string | null;
+  imagePublicIds?: string[];
 };
 
 export type Story = {

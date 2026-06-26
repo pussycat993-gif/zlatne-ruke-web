@@ -64,7 +64,8 @@ export const products = pgTable("products", {
   reviewCount: integer("review_count").notNull().default(0),
   inStock: integer("in_stock").notNull().default(0),
   description: text("description").notNull().default(""),
-  imagePublicId: text("image_public_id"), // Cloudinary public id glavne slike
+  imagePublicId: text("image_public_id"), // naslovna (prva) slika — za kartice
+  imagePublicIds: text("image_public_ids").array().notNull().default([]), // galerija
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
     .defaultNow(),

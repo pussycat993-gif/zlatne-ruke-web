@@ -19,7 +19,7 @@ type ProductInitial = {
   category?: string;
   inStock?: number;
   description?: string;
-  imagePublicId?: string | null;
+  imagePublicIds?: string[];
 };
 
 export function ProductForm({
@@ -40,12 +40,14 @@ export function ProductForm({
   const [price, setPrice] = useState(
     initial?.price != null ? String(initial.price) : "",
   );
-  const [imgPreview, setImgPreview] = useState<string | null>(null);
+  const [imgPreviews, setImgPreviews] = useState<string[]>([]);
 
-  const existingImage = initial?.imagePublicId
-    ? cloudinaryUrl(initial.imagePublicId, { width: 600 })
-    : null;
-  const previewSrc = imgPreview ?? existingImage;
+  const existingImages = (initial?.imagePublicIds ?? []).map((id) =>
+    cloudinaryUrl(id, { width: 600 }),
+  );
+  // Nove slike (ako su izabrane) zamenjuju postojeće; inače prikazujemo postojeće.
+  const shownImages = imgPreviews.length > 0 ? imgPreviews : existingImages;
+  const previewSrc = shownImages[0] ?? null;
 
   return (
     <div>
@@ -98,40 +100,55 @@ export function ProductForm({
 
           <section className="rounded-2xl border border-line-soft bg-surface p-6">
             <h2 className="mb-4 font-heading text-lg font-semibold text-foreground">
-              Slika proizvoda
+              Slike proizvoda
             </h2>
-            <label className="flex cursor-pointer items-center gap-4">
-              <span className="relative flex size-24 shrink-0 items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-line text-ink-soft">
-                {previewSrc ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={previewSrc}
-                    alt="Pregled"
-                    className="absolute inset-0 size-full object-cover"
-                  />
-                ) : (
-                  <Icon name="image" size={22} />
-                )}
-              </span>
-              <span>
-                <span className="inline-flex rounded-full bg-pink-light px-4 py-2 text-sm font-semibold text-pink-dark">
-                  {existingImage ? "Promeni sliku" : "Izaberi sliku"}
-                </span>
-                <span className="mt-1 block text-xs text-ink">
-                  JPG ili PNG, do ~8MB.
-                </span>
-              </span>
+            <label className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-pink-light px-4 py-2 text-sm font-semibold text-pink-dark">
+              <Icon name="image" size={16} />
+              {shownImages.length > 0 ? "Promeni slike" : "Izaberi slike"}
               <input
                 type="file"
-                name="image"
+                name="images"
                 accept="image/*"
+                multiple
                 className="sr-only"
                 onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  setImgPreview(file ? URL.createObjectURL(file) : null);
+                  const urls = Array.from(e.target.files ?? [])
+                    .slice(0, 6)
+                    .map((f) => URL.createObjectURL(f));
+                  setImgPreviews(urls);
                 }}
               />
             </label>
+            <p className="mt-2 text-xs text-ink">
+              Do 6 slika (JPG/PNG). Prva slika je naslovna.
+            </p>
+
+            {shownImages.length > 0 ? (
+              <div className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-4">
+                {shownImages.map((src, i) => (
+                  <div
+                    key={i}
+                    className="relative aspect-square overflow-hidden rounded-xl border border-line-soft"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={src}
+                      alt=""
+                      className="absolute inset-0 size-full object-cover"
+                    />
+                    {i === 0 && (
+                      <span className="absolute left-1.5 top-1.5 rounded-full bg-pink px-2 py-0.5 text-[0.6rem] font-bold text-primary-foreground">
+                        Naslovna
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="mt-4 flex aspect-[3/1] items-center justify-center rounded-xl border-2 border-dashed border-line text-ink-soft">
+                <Icon name="image" size={24} />
+              </div>
+            )}
           </section>
 
           <section className="space-y-4 rounded-2xl border border-line-soft bg-surface p-6">

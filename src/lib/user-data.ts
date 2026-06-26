@@ -60,5 +60,6 @@ export async function getFavoriteProducts(): Promise<Product[]> {
     inStock: p.inStock,
     desc: p.description,
     imagePublicId: p.imagePublicId,
+    imagePublicIds: p.imagePublicIds,
   }));
 }
