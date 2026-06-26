@@ -1,4 +1,4 @@
-import { and, asc, eq, ilike, or } from "drizzle-orm";
+import { and, asc, desc, eq, ilike, or, sql } from "drizzle-orm";
 import { db } from "./index";
 import { products, shops, reviews, stories, categories } from "./schema";
 import type { Category, Product, Review, Shop, Story } from "@/lib/data";
@@ -153,11 +153,24 @@ export async function getStoryById(id: string): Promise<Story | undefined> {
   return row ? toStory(row) : undefined;
 }
 
-// Katalog: filter po kategoriji (cat) i pretraga (q) po nazivu/opisu/radnji.
+export type CatalogResult = {
+  items: Product[];
+  total: number;
+  page: number;
+  perPage: number;
+  totalPages: number;
+};
+
+// Katalog: filter (cat), pretraga (q), sortiranje (sort) i paginacija (page).
 export async function searchProducts(opts: {
   cat?: string;
   q?: string;
-}): Promise<Product[]> {
+  sort?: string;
+  page?: number;
+  perPage?: number;
+}): Promise<CatalogResult> {
+  const perPage = opts.perPage ?? 12;
+
   const conds = [];
   if (opts.cat) conds.push(eq(products.category, opts.cat));
   if (opts.q) {
@@ -170,10 +183,34 @@ export async function searchProducts(opts: {
       ),
     );
   }
+  const where = conds.length ? and(...conds) : undefined;
+
+  const orderBy =
+    opts.sort === "cena-rastuce"
+      ? asc(products.price)
+      : opts.sort === "cena-opadajuce"
+        ? desc(products.price)
+        : opts.sort === "ocena"
+          ? desc(products.rating)
+          : desc(products.createdAt);
+
+  const [countRow] = await db
+    .select({ c: sql<number>`count(*)::int` })
+    .from(products)
+    .innerJoin(shops, eq(products.shopId, shops.id))
+    .where(where);
+  const total = Number(countRow?.c ?? 0);
+  const totalPages = Math.max(1, Math.ceil(total / perPage));
+  const page = Math.min(Math.max(1, opts.page ?? 1), totalPages);
+
   const rows = await db
     .select({ p: products })
     .from(products)
     .innerJoin(shops, eq(products.shopId, shops.id))
-    .where(conds.length ? and(...conds) : undefined);
-  return rows.map((r) => toProduct(r.p));
+    .where(where)
+    .orderBy(orderBy)
+    .limit(perPage)
+    .offset((page - 1) * perPage);
+
+  return { items: rows.map((r) => toProduct(r.p)), total, page, perPage, totalPages };
 }

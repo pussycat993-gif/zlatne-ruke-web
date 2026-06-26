@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Crumbs } from "@/components/site/crumbs";
 import { ProductCard } from "@/components/site/product-card";
+import { SortSelect } from "@/components/site/sort-select";
 import { Icon } from "@/components/icon";
 import {
   getCategories,
@@ -15,14 +16,21 @@ export const metadata: Metadata = {
   description: "Pretraži rukotvorine žena iz Srbije po kategorijama.",
 };
 
-type Search = { cat?: string; q?: string };
+type Search = { cat?: string; q?: string; sort?: string; page?: string };
 
-// Sastavlja href za čip kategorije, čuvajući aktivnu pretragu (q).
-function chipHref(catId: string | null, q?: string) {
-  const params = new URLSearchParams();
-  if (catId) params.set("cat", catId);
-  if (q) params.set("q", q);
-  const qs = params.toString();
+// Gradi URL čuvajući zadate parametre (prazne izostavlja).
+function buildHref(params: {
+  cat?: string;
+  q?: string;
+  sort?: string;
+  page?: number;
+}) {
+  const sp = new URLSearchParams();
+  if (params.cat) sp.set("cat", params.cat);
+  if (params.q) sp.set("q", params.q);
+  if (params.sort && params.sort !== "najnovije") sp.set("sort", params.sort);
+  if (params.page && params.page > 1) sp.set("page", String(params.page));
+  const qs = sp.toString();
   return qs ? `/katalog?${qs}` : "/katalog";
 }
 
@@ -31,14 +39,24 @@ export default async function CatalogPage({
 }: {
   searchParams: Promise<Search>;
 }) {
-  const { cat, q } = await searchParams;
+  const sp = await searchParams;
+  const cat = sp.cat;
+  const q = sp.q?.trim();
+  const sort = sp.sort ?? "najnovije";
+  const pageNum = Math.max(1, Number(sp.page) || 1);
+
   const [categories, shopNames, favIds] = await Promise.all([
     getCategories(),
     getShopNameMap(),
     getFavoriteProductIds(),
   ]);
   const activeCat = categories.find((c) => c.id === cat);
-  const filtered = await searchProducts({ cat, q: q?.trim() });
+  const { items, total, page, totalPages } = await searchProducts({
+    cat,
+    q,
+    sort,
+    page: pageNum,
+  });
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-20 md:px-8">
@@ -61,18 +79,21 @@ export default async function CatalogPage({
               <span className="font-semibold text-pink-dark">„{q}"</span> ·{" "}
             </>
           ) : null}
-          {filtered.length}{" "}
-          {filtered.length === 1 ? "proizvod" : "proizvoda"}
+          {total} {total === 1 ? "proizvod" : "proizvoda"}
         </p>
       </header>
 
       {/* Čipovi kategorija */}
-      <div className="mb-10 flex flex-wrap gap-2">
-        <CategoryChip href={chipHref(null, q)} active={!cat} label="Sve" />
+      <div className="mb-6 flex flex-wrap gap-2">
+        <CategoryChip
+          href={buildHref({ q, sort })}
+          active={!cat}
+          label="Sve"
+        />
         {categories.map((c) => (
           <CategoryChip
             key={c.id}
-            href={chipHref(c.id, q)}
+            href={buildHref({ cat: c.id, q, sort })}
             active={cat === c.id}
             label={c.name}
             icon={c.icon}
@@ -80,17 +101,46 @@ export default async function CatalogPage({
         ))}
       </div>
 
-      {filtered.length > 0 ? (
-        <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
-          {filtered.map((p) => (
-            <ProductCard
-              key={p.id}
-              product={p}
-              shopName={shopNames.get(p.shopId)}
-              favorited={favIds.has(p.id)}
-            />
-          ))}
+      {/* Sortiranje */}
+      {total > 0 && (
+        <div className="mb-8 flex justify-end">
+          <SortSelect value={sort} />
         </div>
+      )}
+
+      {items.length > 0 ? (
+        <>
+          <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
+            {items.map((p) => (
+              <ProductCard
+                key={p.id}
+                product={p}
+                shopName={shopNames.get(p.shopId)}
+                favorited={favIds.has(p.id)}
+              />
+            ))}
+          </div>
+
+          {totalPages > 1 && (
+            <nav className="mt-10 flex items-center justify-center gap-3">
+              <PageLink
+                href={buildHref({ cat, q, sort, page: page - 1 })}
+                disabled={page <= 1}
+              >
+                <Icon name="back" size={16} /> Prethodna
+              </PageLink>
+              <span className="font-mono text-sm text-ink">
+                {page} / {totalPages}
+              </span>
+              <PageLink
+                href={buildHref({ cat, q, sort, page: page + 1 })}
+                disabled={page >= totalPages}
+              >
+                Sledeća <Icon name="forward" size={16} />
+              </PageLink>
+            </nav>
+          )}
+        </>
       ) : (
         <div className="rounded-3xl border border-line-soft bg-cream px-6 py-20 text-center">
           <span className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-surface text-pink">
@@ -137,6 +187,34 @@ function CategoryChip({
     >
       {icon && <Icon name={icon} size={15} />}
       {label}
+    </Link>
+  );
+}
+
+function PageLink({
+  href,
+  disabled,
+  children,
+}: {
+  href: string;
+  disabled: boolean;
+  children: React.ReactNode;
+}) {
+  const cls =
+    "inline-flex items-center gap-1.5 rounded-full border border-line px-4 py-2 text-sm font-semibold";
+  if (disabled) {
+    return (
+      <span className={`${cls} cursor-not-allowed text-ink-soft opacity-50`}>
+        {children}
+      </span>
+    );
+  }
+  return (
+    <Link
+      href={href}
+      className={`${cls} text-pink-dark transition-colors hover:border-pink hover:bg-pink-light`}
+    >
+      {children}
     </Link>
   );
 }
