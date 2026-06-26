@@ -5,6 +5,7 @@ import { Show } from "@clerk/nextjs";
 import { Icon } from "@/components/icon";
 import { ContactSellerButton } from "@/components/site/contact-seller-button";
 import { ReviewForm } from "@/components/site/review-form";
+import { ShareButton } from "@/components/site/share-button";
 import { Crumbs } from "@/components/site/crumbs";
 import { ProductCard } from "@/components/site/product-card";
 import { ProductGallery } from "@/components/site/product-gallery";
@@ -192,6 +193,11 @@ export default async function ProductPage({
                 className="shadow-none"
               />
             </div>
+            <ShareButton
+              iconOnly
+              title={product.name}
+              className="flex size-12 items-center justify-center rounded-full border border-line text-pink-dark transition-colors hover:bg-pink-light"
+            />
           </div>
           <p className="mt-3 text-center text-xs text-ink-soft">
             Plaćanje i dostavu dogovaraš direktno sa majstoricom.

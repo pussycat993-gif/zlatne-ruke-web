@@ -6,6 +6,7 @@ import { Crumbs } from "@/components/site/crumbs";
 import { ProductCard } from "@/components/site/product-card";
 import { FollowButton } from "@/components/site/follow-button";
 import { ContactSellerButton } from "@/components/site/contact-seller-button";
+import { ShareButton } from "@/components/site/share-button";
 import { toneClass } from "@/lib/data";
 import { cloudinaryUrl } from "@/lib/cloudinary";
 import { SITE_URL } from "@/lib/site";
@@ -138,6 +139,10 @@ export default async function ShopPage({
               >
                 Poruka
               </ContactSellerButton>
+              <ShareButton
+                title={shop.name}
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-line bg-surface px-6 py-2.5 text-sm font-semibold text-pink-dark transition-colors hover:bg-pink-light md:flex-none"
+              />
             </div>
           </div>
         </div>
