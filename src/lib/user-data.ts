@@ -2,8 +2,8 @@ import "server-only";
 import { and, eq } from "drizzle-orm";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "./db";
-import { favorites, follows, products } from "./db/schema";
-import type { Product } from "./data";
+import { favorites, follows, products, shops } from "./db/schema";
+import type { Product, Shop } from "./data";
 
 // Set id-eva proizvoda koje je trenutni korisnik dodao u omiljeno.
 export async function getFavoriteProductIds(): Promise<Set<string>> {
@@ -36,6 +36,30 @@ export async function isFollowingShop(shopId: string): Promise<boolean> {
     .where(and(eq(follows.userId, userId), eq(follows.shopId, shopId)))
     .limit(1);
   return Boolean(row);
+}
+
+// Radnje koje trenutni korisnik prati (za /profil/pracene).
+export async function getFollowedShops(): Promise<Shop[]> {
+  const { userId } = await auth();
+  if (!userId) return [];
+  const rows = await db
+    .select({ s: shops })
+    .from(follows)
+    .innerJoin(shops, eq(follows.shopId, shops.id))
+    .where(eq(follows.userId, userId));
+  return rows.map(({ s }) => ({
+    id: s.id,
+    name: s.name,
+    owner: s.owner,
+    city: s.city,
+    rating: s.rating,
+    reviews: s.reviews,
+    followers: s.followers,
+    category: s.category,
+    tone: s.tone,
+    bio: s.bio,
+    coverPublicId: s.coverPublicId,
+  }));
 }
 
 // Omiljeni proizvodi trenutnog korisnika (za /profil/omiljeno).

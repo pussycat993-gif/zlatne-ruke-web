@@ -61,6 +61,13 @@ export default async function ProfilePage() {
           badge={unread}
         />
 
+        <ProfileCard
+          href="/profil/pracene"
+          icon="flower"
+          title="Praćene radnje"
+          desc="Radnje koje pratiš."
+        />
+
         {(role === "prodavac" || role === "admin") && (
           <ProfileCard
             href="/prodavac"
