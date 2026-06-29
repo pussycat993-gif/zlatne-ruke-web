@@ -11,7 +11,12 @@ if (!connectionString) {
 }
 
 // `prepare: false` je preporuka za Supabase pooler (PgBouncer, transaction mode).
-const client = postgres(connectionString, { prepare: false });
+// `idle_timeout` zatvara uspavane konekcije (sprečava „zastarele" konekcije
+// posle migracija/pauza), pa se otvara sveža po potrebi.
+const client = postgres(connectionString, {
+  prepare: false,
+  idle_timeout: 20,
+});
 
 export const db = drizzle(client, { schema });
 export { schema };
