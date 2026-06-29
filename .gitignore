@@ -45,3 +45,6 @@ next-env.d.ts
 .claude/
 .claude-flow/
 .mcp.json
+
+# dizajn referenca (ostaje lokalno, ne treba u repo/produkciji)
+design-reference/
