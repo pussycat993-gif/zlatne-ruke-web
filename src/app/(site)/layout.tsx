@@ -1,5 +1,5 @@
 import { SiteNav } from "@/components/site/site-nav";
-import { SiteFooter } from "@/components/site/site-footer";
+import Footer from "@/components/Footer";
 import { getCategories } from "@/lib/db/queries";
 import { getUnreadNotificationCount } from "@/lib/notifications";
 
@@ -22,7 +22,7 @@ export default async function SiteLayout({
         notifCount={notifCount}
       />
       <main className="flex-1">{children}</main>
-      <SiteFooter />
+      <Footer />
     </>
   );
 }
