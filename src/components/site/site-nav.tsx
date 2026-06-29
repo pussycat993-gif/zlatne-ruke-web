@@ -9,20 +9,22 @@ import { Logo } from "@/components/site/logo";
 import { ThemeToggle } from "@/components/site/theme-toggle";
 import { cn } from "@/lib/utils";
 
-// Glavni linkovi (v1 opseg — bez korpe/plaćanja).
+// Glavni linkovi (Kategorije su poseban padajući meni; v1 bez korpe/plaćanja).
 const NAV_LINKS = [
-  { href: "/katalog", label: "Kategorije" },
   { href: "/magazin", label: "Priče" },
   { href: "/saveti", label: "Saveti" },
   { href: "/postani-prodavac", label: "Postani prodavac" },
   { href: "/o-nama", label: "O nama" },
 ] as const;
 
-export function SiteNav() {
+type Category = { id: string; name: string };
+
+export function SiteNav({ categories = [] }: { categories?: Category[] }) {
   const pathname = usePathname();
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [catOpen, setCatOpen] = useState(false);
 
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(href + "/");
@@ -41,6 +43,47 @@ export function SiteNav() {
 
         {/* Linkovi — desktop */}
         <nav className="hidden flex-1 items-center gap-7 lg:flex">
+          {/* Kategorije — padajući meni */}
+          <div
+            className="relative"
+            onMouseEnter={() => setCatOpen(true)}
+            onMouseLeave={() => setCatOpen(false)}
+          >
+            <Link
+              href="/katalog"
+              className={cn(
+                "flex items-center gap-1 text-sm font-semibold transition-colors hover:text-pink-dark",
+                isActive("/katalog") ? "text-pink-dark" : "text-ink",
+              )}
+            >
+              Kategorije
+              <Icon name="chevronDown" size={14} />
+            </Link>
+            {catOpen && categories.length > 0 && (
+              <div className="absolute left-0 top-full z-50 pt-3">
+                <div className="w-56 rounded-2xl border border-line-soft bg-surface p-2 shadow-[var(--zr-shadow-lg)]">
+                  {categories.map((c) => (
+                    <Link
+                      key={c.id}
+                      href={`/katalog?cat=${c.id}`}
+                      onClick={() => setCatOpen(false)}
+                      className="block rounded-xl px-3 py-2 text-sm font-medium text-ink transition-colors hover:bg-pink-light hover:text-pink-dark"
+                    >
+                      {c.name}
+                    </Link>
+                  ))}
+                  <Link
+                    href="/katalog"
+                    onClick={() => setCatOpen(false)}
+                    className="mt-1 block rounded-xl border-t border-line-soft px-3 py-2 text-sm font-semibold text-pink hover:text-pink-dark"
+                  >
+                    Sve kategorije →
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -124,6 +167,25 @@ export function SiteNav() {
             />
           </form>
           <nav className="flex flex-col">
+            {/* Kategorije */}
+            {categories.length > 0 && (
+              <div className="mb-2 border-b border-line-soft pb-2">
+                <div className="px-3 pb-1 pt-1 font-mono text-xs font-semibold uppercase tracking-wider text-ink-soft">
+                  Kategorije
+                </div>
+                {categories.map((c) => (
+                  <Link
+                    key={c.id}
+                    href={`/katalog?cat=${c.id}`}
+                    onClick={() => setMobileOpen(false)}
+                    className="block rounded-xl px-3 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-pink-light hover:text-pink-dark"
+                  >
+                    {c.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
