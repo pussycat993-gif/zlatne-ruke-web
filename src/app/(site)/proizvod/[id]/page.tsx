@@ -20,6 +20,7 @@ import {
   getShopById,
   getProductReviews,
   getShopNameMap,
+  getFavoriteCount,
 } from "@/lib/db/queries";
 import { getFavoriteProductIds } from "@/lib/user-data";
 import { incrementProductViews } from "@/lib/views";
@@ -48,13 +49,14 @@ export default async function ProductPage({
   const product = await getProductById(id);
   if (!product) notFound();
 
-  const [shop, productReviews, allProducts, shopNames, favIds] =
+  const [shop, productReviews, allProducts, shopNames, favIds, favCount] =
     await Promise.all([
       getShopById(product.shopId),
       getProductReviews(product.id),
       getAllProducts(),
       getShopNameMap(),
       getFavoriteProductIds(),
+      getFavoriteCount(product.id),
     ]);
   // Pregled (ne broji se ako gleda vlasnica radnje).
   const { userId } = await auth();
@@ -160,6 +162,15 @@ export default async function ProductPage({
                 ? `Još samo ${product.inStock} na stanju`
                 : `Na stanju: ${product.inStock}`}
             </span>
+            {favCount > 0 && (
+              <>
+                <span className="text-ink-soft">·</span>
+                <span className="flex items-center gap-1">
+                  <Icon name="heart" size={14} filled className="text-pink" />
+                  {favCount} sačuvalo
+                </span>
+              </>
+            )}
           </div>
 
           <div className="mt-6 flex flex-wrap items-baseline gap-3">

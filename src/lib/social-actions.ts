@@ -33,6 +33,7 @@ export async function toggleFavorite(productId: string): Promise<ToggleResult> {
   }
 
   revalidatePath("/profil/omiljeno");
+  revalidatePath(`/proizvod/${productId}`);
   return { ok: true, active };
 }
 

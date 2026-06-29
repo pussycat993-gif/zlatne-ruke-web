@@ -1,6 +1,13 @@
 import { and, asc, desc, eq, gte, ilike, lte, or, sql } from "drizzle-orm";
 import { db } from "./index";
-import { products, shops, reviews, stories, categories } from "./schema";
+import {
+  products,
+  shops,
+  reviews,
+  stories,
+  categories,
+  favorites,
+} from "./schema";
 import type { Category, Product, Review, Shop, Story } from "@/lib/data";
 
 // Mapiranje DB redova → tipovi koje komponente već koriste (data.ts),
@@ -135,6 +142,15 @@ export async function getShopProducts(shopId: string): Promise<Product[]> {
 export async function getAllReviews(): Promise<Review[]> {
   const rows = await db.select().from(reviews).orderBy(asc(reviews.id));
   return rows.map(toReview);
+}
+
+// Koliko korisnika je dodalo proizvod u omiljeno.
+export async function getFavoriteCount(productId: string): Promise<number> {
+  const [r] = await db
+    .select({ c: sql<number>`count(*)::int` })
+    .from(favorites)
+    .where(eq(favorites.productId, productId));
+  return Number(r?.c ?? 0);
 }
 
 export async function getProductReviews(productId: string): Promise<Review[]> {
