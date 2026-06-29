@@ -127,10 +127,9 @@ export default async function HomePage() {
                 href={`/katalog?cat=${c.id}`}
                 className="flex flex-col items-center rounded-2xl border border-transparent bg-cream p-5 text-center transition-all hover:-translate-y-1 hover:border-pink"
               >
-                <span className="mb-3 flex size-14 items-center justify-center rounded-full bg-surface text-pink-dark shadow-[var(--zr-shadow-sm)]">
-                  <Icon name={c.icon} size={26} />
+                <span className="font-heading text-lg font-semibold text-pink-dark">
+                  {c.name}
                 </span>
-                <span className="text-sm font-bold text-pink-dark">{c.name}</span>
                 <span className="mt-1 text-xs text-ink">{c.desc}</span>
               </Link>
             ))}

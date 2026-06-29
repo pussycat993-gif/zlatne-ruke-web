@@ -119,7 +119,6 @@ export default async function CatalogPage({
             href={buildHref({ cat: c.id, q, sort, city, min, max })}
             active={cat === c.id}
             label={c.name}
-            icon={c.icon}
           />
         ))}
       </div>
@@ -190,24 +189,21 @@ function CategoryChip({
   href,
   active,
   label,
-  icon,
 }: {
   href: string;
   active: boolean;
   label: string;
-  icon?: React.ComponentProps<typeof Icon>["name"];
 }) {
   return (
     <Link
       href={href}
       className={[
-        "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition-colors",
+        "inline-flex items-center rounded-full border px-4 py-2 text-sm font-semibold transition-colors",
         active
           ? "border-pink bg-pink text-primary-foreground"
           : "border-line bg-surface text-ink hover:border-pink hover:text-pink-dark",
       ].join(" ")}
     >
-      {icon && <Icon name={icon} size={15} />}
       {label}
     </Link>
   );
