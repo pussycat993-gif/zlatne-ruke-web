@@ -1,7 +1,6 @@
 /* Footer.module.css
    Boje iz design-reference/DESIGN-TOKENS.css:
-   bordo (dark pink) #A0445A, primary pink #C0637A, cream #FDF6F0, warm dark #3B2329.
-   Ako imaš imenovane CSS varijable u tokens fajlu, slobodno zameni hex vrednosti. */
+   bordo (dark pink) #A0445A, primary pink #C0637A, cream #FDF6F0, warm dark #3B2329. */
 
 .footer {
   background: #fdf6f0;
@@ -9,11 +8,21 @@
   font-family: var(--font-dm-sans, "DM Sans"), system-ui, sans-serif;
 }
 
+/* Centriran kontejner — drži sve redove poravnate i ograničava širinu na velikim ekranima. */
+.inner {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
 .script {
   font-family: var(--font-caveat, "Caveat"), cursive;
 }
 
 /* --- Newsletter traka --- */
+.subWrap {
+  border-bottom: 1px solid rgba(160, 68, 90, 0.14);
+}
 .sub {
   display: flex;
   flex-wrap: wrap;
@@ -21,7 +30,6 @@
   align-items: center;
   justify-content: space-between;
   padding: 22px 28px;
-  border-bottom: 1px solid rgba(160, 68, 90, 0.14);
 }
 .subTitle { margin: 0; font-size: 18px; font-weight: 700; color: #8a3a4d; }
 .subText { margin: 3px 0 0; font-size: 12.5px; color: #9a6b76; }
@@ -54,15 +62,16 @@
 }
 .btn:hover { background: #8a3a4d; }
 
-/* --- Glavni red: brend | Otkrij | Pomoć | mapa --- */
+/* --- Glavni red: brend | kolone | mapa, raspoređeno po širini --- */
 .main {
   display: flex;
   flex-wrap: wrap;
-  gap: 22px;
-  padding: 28px;
+  gap: 32px;
+  padding: 32px 28px;
   align-items: flex-start;
+  justify-content: space-between;
 }
-.brand { flex: 1 1 185px; max-width: 230px; }
+.brand { flex: 0 1 230px; }
 .name { font-size: 30px; line-height: 1; color: #8a3a4d; }
 .slogan { font-size: 17px; color: #c0637a; margin: 4px 0 0; }
 .desc { font-size: 12.5px; line-height: 1.55; color: #8a6a72; margin: 12px 0 14px; }
@@ -100,6 +109,8 @@
 .soc a:hover .tip,
 .soc a:focus-visible .tip { opacity: 1; }
 
+/* Grupa kolona linkova (stoji u sredini reda) */
+.cols { display: flex; gap: 56px; flex-wrap: wrap; }
 .col { min-width: 88px; }
 .colTitle { margin: 0 0 12px; font-size: 14px; font-weight: 700; color: #8a3a4d; }
 .col ul { margin: 0; padding: 0; list-style: none; }
@@ -113,7 +124,7 @@
 }
 .col a:hover { color: #a0445a; }
 
-/* --- Mapa --- */
+/* --- Mapa (desni kraj reda) --- */
 .map {
   flex: 0 0 165px;
   display: flex;
@@ -124,8 +135,7 @@
 
 /* --- Poruka zahvalnosti --- */
 .ribbon {
-  margin: 4px 28px 22px;
-  padding: 6px;
+  padding: 6px 28px 26px;
   text-align: center;
   font-size: 23px;
   color: #8a3a4d;
@@ -135,9 +145,9 @@
   gap: 8px;
 }
 
-/* --- Tamna pravna traka --- */
+/* --- Tamna pravna traka (pozadina puna širina, sadržaj centriran) --- */
+.bottomWrap { background: #3b2329; }
 .bottom {
-  background: #3b2329;
   color: rgba(253, 246, 240, 0.72);
   display: flex;
   flex-wrap: wrap;
@@ -197,16 +207,17 @@
   100% { transform: scale(2); opacity: 0; }
 }
 
-/* --- Poštovanje korisnika koji ne žele animacije --- */
+/* --- Korisnici koji ne žele animacije --- */
 @media (prefers-reduced-motion: reduce) {
   .city { transition: none; }
   .cityShown, .capitalShown { animation: none; transform: scale(1); }
   .ring, .ringShown { display: none; animation: none; }
 }
 
-/* --- Mobilni: kolone i mapa se prelamaju ispod brenda --- */
-@media (max-width: 640px) {
-  .main { gap: 26px; }
-  .brand { max-width: none; flex-basis: 100%; }
+/* --- Mobilni: sve se uredno prelama jedno ispod drugog --- */
+@media (max-width: 720px) {
+  .main { justify-content: flex-start; gap: 28px; }
+  .brand { flex-basis: 100%; }
+  .cols { gap: 40px; }
   .map { flex-basis: 100%; justify-content: flex-start; }
 }

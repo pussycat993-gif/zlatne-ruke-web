@@ -84,7 +84,6 @@ export default function Footer() {
   function handleSubscribe(e: React.FormEvent) {
     e.preventDefault();
     // TODO: poveži sa newsletter servisom / API rutom.
-    // Za sada samo demonstracija — ovde ide poziv ka backendu.
     console.log("Newsletter prijava:", email);
     setEmail("");
   }
@@ -92,31 +91,33 @@ export default function Footer() {
   return (
     <footer ref={footerRef} className={styles.footer}>
       {/* Newsletter traka */}
-      <div className={styles.sub}>
-        <div>
-          <p className={styles.subTitle}>Ostanite u toku</p>
-          <p className={styles.subText}>
-            Novi radovi, priče i saveti — jednom mesečno, bez spama.
-          </p>
+      <div className={styles.subWrap}>
+        <div className={`${styles.inner} ${styles.sub}`}>
+          <div>
+            <p className={styles.subTitle}>Ostanite u toku</p>
+            <p className={styles.subText}>
+              Novi radovi, priče i saveti — jednom mesečno, bez spama.
+            </p>
+          </div>
+          <form className={styles.form} onSubmit={handleSubscribe}>
+            <input
+              className={styles.input}
+              type="email"
+              required
+              placeholder="vaš@email.com"
+              aria-label="Email adresa"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <button className={styles.btn} type="submit">
+              <Send size={15} aria-hidden="true" /> Prijavi se
+            </button>
+          </form>
         </div>
-        <form className={styles.form} onSubmit={handleSubscribe}>
-          <input
-            className={styles.input}
-            type="email"
-            required
-            placeholder="vaš@email.com"
-            aria-label="Email adresa"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button className={styles.btn} type="submit">
-            <Send size={15} aria-hidden="true" /> Prijavi se
-          </button>
-        </form>
       </div>
 
       {/* Glavni red */}
-      <div className={styles.main}>
+      <div className={`${styles.inner} ${styles.main}`}>
         {/* Brend + kontakt */}
         <div className={styles.brand}>
           <div className={`${styles.name} ${styles.script}`}>Zlatne Ruke</div>
@@ -159,19 +160,21 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Kolone linkova */}
-        {NAV.map((col) => (
-          <div key={col.title} className={styles.col}>
-            <p className={styles.colTitle}>{col.title}</p>
-            <ul>
-              {col.links.map((link) => (
-                <li key={link.label}>
-                  <Link href={link.href}>{link.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        {/* Kolone linkova (grupisane u sredini) */}
+        <div className={styles.cols}>
+          {NAV.map((col) => (
+            <div key={col.title} className={styles.col}>
+              <p className={styles.colTitle}>{col.title}</p>
+              <ul>
+                {col.links.map((link) => (
+                  <li key={link.label}>
+                    <Link href={link.href}>{link.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
 
         {/* Mapa Srbije sa gradovima koji svetlucaju */}
         <div className={styles.map}>
@@ -240,24 +243,26 @@ export default function Footer() {
       </div>
 
       {/* Poruka zahvalnosti */}
-      <div className={`${styles.ribbon} ${styles.script}`}>
+      <div className={`${styles.inner} ${styles.ribbon} ${styles.script}`}>
         <Heart size={18} aria-hidden="true" style={{ color: "#C0637A" }} />
         Hvala što čuvate i delite ručni rad žena iz Srbije.
       </div>
 
       {/* Tamna pravna traka */}
-      <div className={styles.bottom}>
-        <div className={styles.legal}>
-          {LEGAL.map((link) => (
-            <Link key={link.label} href={link.href}>
-              {link.label}
-            </Link>
-          ))}
+      <div className={styles.bottomWrap}>
+        <div className={`${styles.inner} ${styles.bottom}`}>
+          <div className={styles.legal}>
+            {LEGAL.map((link) => (
+              <Link key={link.label} href={link.href}>
+                {link.label}
+              </Link>
+            ))}
+          </div>
+          <span>
+            © {new Date().getFullYear()} Zlatne Ruke · Srbija · Prodavci
+            dogovaraju plaćanje i dostavu direktno sa kupcima
+          </span>
         </div>
-        <span>
-          © {new Date().getFullYear()} Zlatne Ruke · Srbija · Prodavci dogovaraju
-          plaćanje i dostavu direktno sa kupcima
-        </span>
       </div>
     </footer>
   );
