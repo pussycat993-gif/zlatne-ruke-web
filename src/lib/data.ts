@@ -13,6 +13,7 @@ export type Category = {
 
 export type Shop = {
   id: string;
+  ownerId?: string | null;
   name: string;
   owner: string;
   city: string;
@@ -39,6 +40,7 @@ export type Product = {
   desc: string;
   imagePublicId?: string | null;
   imagePublicIds?: string[];
+  views?: number;
 };
 
 export type Story = {

@@ -37,6 +37,7 @@ export const shops = pgTable(
       .references(() => categories.id),
     tone: toneEnum("tone").notNull().default("v2"),
     bio: text("bio").notNull().default(""),
+    views: integer("views").notNull().default(0), // pregledi profila radnje
     coverPublicId: text("cover_public_id"), // Cloudinary public id naslovne slike
     createdAt: timestamp("created_at", { withTimezone: true })
       .notNull()
@@ -65,6 +66,7 @@ export const products = pgTable("products", {
   reviewCount: integer("review_count").notNull().default(0),
   inStock: integer("in_stock").notNull().default(0),
   description: text("description").notNull().default(""),
+  views: integer("views").notNull().default(0), // pregledi stranice proizvoda
   imagePublicId: text("image_public_id"), // naslovna (prva) slika — za kartice
   imagePublicIds: text("image_public_ids").array().notNull().default([]), // galerija
   createdAt: timestamp("created_at", { withTimezone: true })

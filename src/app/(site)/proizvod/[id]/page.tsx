@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Show } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { Icon } from "@/components/icon";
 import { ContactSellerButton } from "@/components/site/contact-seller-button";
 import { ReviewForm } from "@/components/site/review-form";
@@ -21,6 +22,7 @@ import {
   getShopNameMap,
 } from "@/lib/db/queries";
 import { getFavoriteProductIds } from "@/lib/user-data";
+import { incrementProductViews } from "@/lib/views";
 
 export async function generateMetadata({
   params,
@@ -54,6 +56,12 @@ export default async function ProductPage({
       getShopNameMap(),
       getFavoriteProductIds(),
     ]);
+  // Pregled (ne broji se ako gleda vlasnica radnje).
+  const { userId } = await auth();
+  if (!shop || shop.ownerId !== userId) {
+    await incrementProductViews(product.id);
+  }
+
   const related = allProducts
     .filter((p) => p.category === product.category && p.id !== product.id)
     .slice(0, 4);

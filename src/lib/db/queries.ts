@@ -26,12 +26,14 @@ function toProduct(r: ProductRow): Product {
     desc: r.description,
     imagePublicId: r.imagePublicId,
     imagePublicIds: r.imagePublicIds,
+    views: r.views,
   };
 }
 
 function toShop(r: ShopRow): Shop {
   return {
     id: r.id,
+    ownerId: r.ownerId,
     name: r.name,
     owner: r.owner,
     city: r.city,

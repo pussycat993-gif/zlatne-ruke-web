@@ -17,6 +17,7 @@ export default async function AdminOverviewPage() {
   const topProducts = [...products]
     .sort((a, b) => b.rating - a.rating || b.reviewCount - a.reviewCount)
     .slice(0, 5);
+  const totalViews = products.reduce((s, p) => s + (p.views ?? 0), 0);
 
   return (
     <div>
@@ -29,10 +30,11 @@ export default async function AdminOverviewPage() {
         </h1>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Kpi label="Aktivnih radnji" value={String(shops.length)} />
         <Kpi label="Proizvoda" value={String(products.length)} />
         <Kpi label="Recenzija" value={String(reviews.length)} />
+        <Kpi label="Pregledi proizvoda" value={String(totalViews)} />
       </div>
 
       <div className="mt-6 grid gap-5 lg:grid-cols-2">

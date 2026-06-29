@@ -19,6 +19,7 @@ export default async function SellerStatsPage() {
   const topProducts = [...products]
     .sort((a, b) => b.rating - a.rating || b.reviewCount - a.reviewCount)
     .slice(0, 5);
+  const productViews = products.reduce((s, p) => s + (p.views ?? 0), 0);
 
   return (
     <div>
@@ -27,9 +28,9 @@ export default async function SellerStatsPage() {
       </h1>
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <Kpi label="Proizvoda" value={String(products.length)} />
+        <Kpi label="Pregledi radnje" value={String(myShop.views)} />
+        <Kpi label="Pregledi proizvoda" value={String(productViews)} />
         <Kpi label="Pratilaca" value={String(myShop.followers)} />
-        <Kpi label="Prosečna ocena" value={`★ ${myShop.rating}`} />
         <Kpi label="Recenzija" value={String(myShop.reviews)} />
       </div>
 
@@ -79,8 +80,8 @@ export default async function SellerStatsPage() {
       </div>
 
       <p className="mt-6 text-xs text-ink-soft">
-        Detaljnija analitika (pregledi, posete) stiže kada uvedemo praćenje
-        saobraćaja.
+        Pregledi se broje za svaku posetu stranice (osim tvojih). Tvoji pregledi
+        se ne računaju.
       </p>
     </div>
   );

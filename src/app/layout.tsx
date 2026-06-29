@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans, Caveat, JetBrains_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
 import "./globals.css";
 
@@ -56,7 +57,10 @@ export default function RootLayout({
         <head>
           <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         </head>
-        <body className="min-h-full flex flex-col">{children}</body>
+        <body className="min-h-full flex flex-col">
+          {children}
+          <Analytics />
+        </body>
       </html>
     </ClerkProvider>
   );

@@ -16,6 +16,8 @@ import {
   getShopReviews,
 } from "@/lib/db/queries";
 import { getFavoriteProductIds, isFollowingShop } from "@/lib/user-data";
+import { incrementShopViews } from "@/lib/views";
+import { auth } from "@clerk/nextjs/server";
 
 export async function generateMetadata({
   params,
@@ -45,6 +47,12 @@ export default async function ShopPage({
     getFavoriteProductIds(),
     isFollowingShop(shop.id),
   ]);
+
+  // Pregled profila radnje (ne broji se ako gleda vlasnica).
+  const { userId } = await auth();
+  if (shop.ownerId !== userId) {
+    await incrementShopViews(shop.id);
+  }
 
   // JSON-LD (Store) za Google rich results.
   const storeSchema = {
