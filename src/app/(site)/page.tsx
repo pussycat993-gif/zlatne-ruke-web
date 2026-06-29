@@ -14,10 +14,13 @@ import {
   getAllStories,
   getShopNameMap,
 } from "@/lib/db/queries";
-import { getFavoriteProductIds } from "@/lib/user-data";
+import {
+  getFavoriteProductIds,
+  getFollowedShopProducts,
+} from "@/lib/user-data";
 
 export default async function HomePage() {
-  const [categories, products, shops, stories, shopNames, favIds] =
+  const [categories, products, shops, stories, shopNames, favIds, followedNew] =
     await Promise.all([
       getCategories(),
       getAllProducts(),
@@ -25,6 +28,7 @@ export default async function HomePage() {
       getAllStories(),
       getShopNameMap(),
       getFavoriteProductIds(),
+      getFollowedShopProducts(4),
     ]);
   const featuredShop = shops[0];
 
@@ -136,6 +140,29 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── Novo od radnji koje pratiš (samo za ulogovane sa praćenjima) ── */}
+      {followedNew.length > 0 && (
+        <section className="py-16 md:py-20">
+          <div className="mx-auto max-w-7xl px-4 md:px-8">
+            <SectionHeader
+              eyebrow="Za tebe"
+              title="Novo od radnji koje pratiš"
+              action={{ href: "/profil/feed", label: "Vidi sve" }}
+            />
+            <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
+              {followedNew.map((p) => (
+                <ProductCard
+                  key={p.id}
+                  product={p}
+                  shopName={shopNames.get(p.shopId)}
+                  favorited={favIds.has(p.id)}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── Istaknuti proizvodi ── */}
       <section className="py-16 md:py-20">

@@ -66,6 +66,13 @@ export default async function ProfilePage() {
         />
 
         <ProfileCard
+          href="/profil/feed"
+          icon="sparkle"
+          title="Novo od praćenih"
+          desc="Najnoviji proizvodi radnji koje pratiš."
+        />
+
+        <ProfileCard
           href="/profil/pracene"
           icon="flower"
           title="Praćene radnje"

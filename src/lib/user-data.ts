@@ -1,5 +1,5 @@
 import "server-only";
-import { and, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "./db";
 import { favorites, follows, products, shops } from "./db/schema";
@@ -59,6 +59,34 @@ export async function getFollowedShops(): Promise<Shop[]> {
     tone: s.tone,
     bio: s.bio,
     coverPublicId: s.coverPublicId,
+  }));
+}
+
+// Najnoviji proizvodi iz radnji koje korisnik prati (feed).
+export async function getFollowedShopProducts(limit = 12): Promise<Product[]> {
+  const { userId } = await auth();
+  if (!userId) return [];
+  const rows = await db
+    .select({ p: products })
+    .from(products)
+    .innerJoin(follows, eq(products.shopId, follows.shopId))
+    .where(eq(follows.userId, userId))
+    .orderBy(desc(products.createdAt))
+    .limit(limit);
+  return rows.map(({ p }) => ({
+    id: p.id,
+    shopId: p.shopId,
+    name: p.name,
+    price: p.price,
+    oldPrice: p.oldPrice ?? undefined,
+    category: p.category,
+    tone: p.tone,
+    rating: p.rating,
+    reviewCount: p.reviewCount,
+    inStock: p.inStock,
+    desc: p.description,
+    imagePublicId: p.imagePublicId,
+    imagePublicIds: p.imagePublicIds,
   }));
 }
 
