@@ -8,6 +8,7 @@ import { db } from "./db";
 import { conversations, messages, shops } from "./db/schema";
 import { getOrCreateConversation } from "./messages";
 import { sendNewMessageEmail } from "./email";
+import { createNotification } from "./notifications";
 
 // „Pošalji upit majstorici" — kupac otvara (ili nastavlja) razgovor sa radnjom.
 export async function startConversation(formData: FormData) {
@@ -58,9 +59,19 @@ export async function sendMessage(
     })
     .where(eq(conversations.id, conversationId));
 
-  // Email obaveštenje primaocu (ne prekida tok ako padne).
+  // Obaveštenje primaocu (in-app + email).
   const recipientId = isOwner ? c.buyerId : c.ownerId;
+  const recipientThread = isOwner
+    ? `/profil/poruke/${conversationId}`
+    : `/prodavac/poruke/${conversationId}`;
   if (recipientId && recipientId !== userId) {
+    await createNotification({
+      userId: recipientId,
+      type: "message",
+      title: "Nova poruka",
+      body: body.slice(0, 80),
+      href: recipientThread,
+    });
     try {
       const client = await clerkClient();
       const recipient = await client.users.getUser(recipientId);

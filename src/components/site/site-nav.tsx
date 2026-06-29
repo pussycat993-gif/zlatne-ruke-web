@@ -19,7 +19,13 @@ const NAV_LINKS = [
 
 type Category = { id: string; name: string };
 
-export function SiteNav({ categories = [] }: { categories?: Category[] }) {
+export function SiteNav({
+  categories = [],
+  notifCount = 0,
+}: {
+  categories?: Category[];
+  notifCount?: number;
+}) {
   const pathname = usePathname();
   const router = useRouter();
   const [query, setQuery] = useState("");
@@ -119,6 +125,18 @@ export function SiteNav({ categories = [] }: { categories?: Category[] }) {
           <ThemeToggle />
           <Show when="signed-in">
             <Link
+              href="/profil/obavestenja"
+              aria-label="Obaveštenja"
+              className="relative hidden size-10 items-center justify-center rounded-full text-pink-dark transition-colors hover:bg-pink-light sm:flex"
+            >
+              <Icon name="bell" size={20} />
+              {notifCount > 0 && (
+                <span className="absolute -right-0.5 -top-0.5 inline-flex min-w-4 items-center justify-center rounded-full bg-pink px-1 text-[0.6rem] font-bold text-primary-foreground">
+                  {notifCount}
+                </span>
+              )}
+            </Link>
+            <Link
               href="/profil/omiljeno"
               aria-label="Omiljeno"
               className="hidden size-10 items-center justify-center rounded-full text-pink-dark transition-colors hover:bg-pink-light sm:flex"
@@ -199,7 +217,7 @@ export function SiteNav({ categories = [] }: { categories?: Category[] }) {
                 {link.label}
               </Link>
             ))}
-            <div className="mt-2 flex gap-2 border-t border-line-soft pt-3">
+            <div className="mt-2 flex flex-wrap gap-2 border-t border-line-soft pt-3">
               <Show when="signed-in">
                 <Link
                   href="/profil"
@@ -207,6 +225,18 @@ export function SiteNav({ categories = [] }: { categories?: Category[] }) {
                   className="flex flex-1 items-center justify-center gap-2 rounded-full bg-pink-light px-4 py-2.5 text-sm font-semibold text-pink-dark"
                 >
                   <Icon name="user" size={18} /> Profil
+                </Link>
+                <Link
+                  href="/profil/obavestenja"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex flex-1 items-center justify-center gap-2 rounded-full bg-pink-light px-4 py-2.5 text-sm font-semibold text-pink-dark"
+                >
+                  <Icon name="bell" size={18} /> Obaveštenja
+                  {notifCount > 0 && (
+                    <span className="inline-flex min-w-5 items-center justify-center rounded-full bg-pink px-1.5 text-[0.65rem] font-bold text-primary-foreground">
+                      {notifCount}
+                    </span>
+                  )}
                 </Link>
                 <Link
                   href="/profil/omiljeno"

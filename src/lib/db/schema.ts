@@ -4,6 +4,7 @@ import {
   text,
   integer,
   real,
+  boolean,
   timestamp,
   uniqueIndex,
 } from "drizzle-orm/pg-core";
@@ -155,6 +156,22 @@ export const conversations = pgTable(
   },
   (t) => [uniqueIndex("conversations_buyer_shop_uq").on(t.buyerId, t.shopId)],
 );
+
+// Obaveštenja po korisniku (pratilac, recenzija, poruka…).
+export const notifications = pgTable("notifications", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text("user_id").notNull(), // primalac (Clerk userId)
+  type: text("type").notNull(), // "follow" | "review" | "message"
+  title: text("title").notNull(),
+  body: text("body").notNull().default(""),
+  href: text("href").notNull().default(""),
+  read: boolean("read").notNull().default(false),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
 
 export const messages = pgTable("messages", {
   id: text("id")

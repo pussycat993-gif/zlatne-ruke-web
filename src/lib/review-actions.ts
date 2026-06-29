@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { db } from "./db";
 import { products, reviews, shops } from "./db/schema";
+import { createNotification } from "./notifications";
 
 export type ReviewState = { ok: boolean; error?: string };
 
@@ -89,6 +90,23 @@ export async function createReview(
     });
 
   await recompute(productId, prod.shopId);
+
+  // Obavesti vlasnicu radnje o novoj recenziji.
+  const [info] = await db
+    .select({ ownerId: shops.ownerId, productName: products.name })
+    .from(products)
+    .innerJoin(shops, eq(products.shopId, shops.id))
+    .where(eq(products.id, productId))
+    .limit(1);
+  if (info?.ownerId && info.ownerId !== userId) {
+    await createNotification({
+      userId: info.ownerId,
+      type: "review",
+      title: `Nova recenzija (${rating}★)`,
+      body: `${author}: ${info.productName}`,
+      href: `/proizvod/${productId}`,
+    });
+  }
 
   revalidatePath(`/proizvod/${productId}`);
   revalidatePath(`/radnja/${prod.shopId}`);

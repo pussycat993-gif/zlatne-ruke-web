@@ -7,6 +7,7 @@ import { Crumbs } from "@/components/site/crumbs";
 import { BecomeSellerButton } from "@/components/site/become-seller-button";
 import { getCurrentRole } from "@/lib/auth";
 import { getBuyerUnreadCount } from "@/lib/messages";
+import { getUnreadNotificationCount } from "@/lib/notifications";
 
 export const metadata: Metadata = {
   title: "Moj profil — Zlatne Ruke",
@@ -23,7 +24,10 @@ export default async function ProfilePage() {
   const user = await currentUser();
   const role = (await getCurrentRole()) ?? "kupac";
   const name = user?.firstName || user?.username || "draga";
-  const unread = await getBuyerUnreadCount();
+  const [unread, notifUnread] = await Promise.all([
+    getBuyerUnreadCount(),
+    getUnreadNotificationCount(),
+  ]);
 
   return (
     <div className="mx-auto max-w-4xl px-4 pb-20 md:px-8">
@@ -66,6 +70,14 @@ export default async function ProfilePage() {
           icon="flower"
           title="Praćene radnje"
           desc="Radnje koje pratiš."
+        />
+
+        <ProfileCard
+          href="/profil/obavestenja"
+          icon="bell"
+          title="Obaveštenja"
+          desc="Praćenja, recenzije, poruke."
+          badge={notifUnread}
         />
 
         {(role === "prodavac" || role === "admin") && (

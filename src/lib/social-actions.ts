@@ -2,9 +2,10 @@
 
 import { and, eq, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { db } from "./db";
 import { favorites, follows, shops } from "./db/schema";
+import { createNotification } from "./notifications";
 
 export type ToggleResult = { ok: boolean; active: boolean; needsAuth?: boolean };
 
@@ -61,6 +62,26 @@ export async function toggleFollow(shopId: string): Promise<ToggleResult> {
       .set({ followers: sql`${shops.followers} + 1` })
       .where(eq(shops.id, shopId));
     active = true;
+
+    // Obavesti vlasnicu radnje o novom pratiocu.
+    const [shop] = await db
+      .select({ ownerId: shops.ownerId })
+      .from(shops)
+      .where(eq(shops.id, shopId))
+      .limit(1);
+    if (shop?.ownerId && shop.ownerId !== userId) {
+      const u = await currentUser();
+      const who =
+        [u?.firstName, u?.lastName].filter(Boolean).join(" ") ||
+        u?.username ||
+        "Neko";
+      await createNotification({
+        userId: shop.ownerId,
+        type: "follow",
+        title: `${who} prati tvoju radnju`,
+        href: "/prodavac",
+      });
+    }
   }
 
   revalidatePath(`/radnja/${shopId}`);
