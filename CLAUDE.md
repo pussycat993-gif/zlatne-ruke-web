@@ -119,16 +119,15 @@ Dancing Script — to je **staro**, ne koristi se.)
 
 ## 4. UI pravila (obavezno)
 
-- **Ikonice: SAMO custom SVG iz `src/components/icon.tsx`.** Koristi
-  `<Icon name="..." />`. **NIKAD emoji u UI.** (Reference/prototip su puni
-  emoji-ja — 🌸 ⭐ 🧶 itd. — to NE prenosimo; zameni `Icon`-om ili tekstom.)
-  Dostupna imena: home, search, bag, bell, user, heart, star, chat, plus,
-  minus, back, forward, close, check, filter, grid, list, edit, trash,
-  location, phone, share, camera, image, send, eye, chevron, chevronDown,
-  sparkle, flower, package, truck, tag, paint, shield, chart, info, quote,
-  refresh. (Treba li novo ime — dodaj u `PATHS`.)
-  > Napomena: shadcn `components.json` ima `iconLibrary: "lucide"` i
-  > `lucide-react` je instaliran, ali **konvencija projekta je naš `Icon`**.
+- **Ikonice: uvek preko `<Icon name="..." />` (`src/components/icon.tsx`).**
+  **NIKAD emoji u UI.** Od 2026-06-29 `Icon` interno koristi **lucide-react**
+  (jedinstven stil), ali API ostaje isti (`name`, `size`, `filled`,
+  `strokeWidth`). Imena su ključevi `MAP`-a u `icon.tsx` (home, search, bag,
+  bell, user, heart, star, chat, plus, minus, back, forward, close, check,
+  filter, grid, list, edit, trash, location, phone, share, camera, image,
+  send, eye, chevron, chevronDown, sparkle, flower, package, truck, tag,
+  paint, shield, chart, info, quote, refresh, sun, moon, menu, clock,
+  calendar). Treba novo ime → dodaj lucide ikonicu u `MAP`.
 - **Dugmad: pill-shaped** (jako zaobljena / `rounded-full` gde je akcenat).
 - **Foto placeholderi: „organic blob" / zaobljeni**, topli gradijenti preko
   `toneClass` (v2–v5) iz `data.ts` — bez hardkodovanih boja, bez pravih slika
