@@ -21,7 +21,7 @@ const NAV = [
     links: [
       { label: "Katalog", href: "/katalog" },
       { label: "Radnje", href: "/radnje" },
-      { label: "Priče", href: "/price" },
+      { label: "Priče", href: "/magazin" },
       { label: "Saveti", href: "/saveti" },
     ],
   },
@@ -30,15 +30,14 @@ const NAV = [
     links: [
       { label: "O nama", href: "/o-nama" },
       { label: "Za prodavce", href: "/postani-prodavac" },
-      { label: "Česta pitanja", href: "/cesta-pitanja" },
+      { label: "Česta pitanja", href: "/pomoc" },
     ],
   },
 ];
 
 const LEGAL = [
   { label: "Privatnost", href: "/privatnost" },
-  { label: "Uslovi korišćenja", href: "/uslovi-koriscenja" },
-  { label: "Mapa sajta", href: "/mapa-sajta" },
+  { label: "Uslovi korišćenja", href: "/uslovi" },
 ];
 
 // Kontakt podaci — zameni pravim vrednostima.
