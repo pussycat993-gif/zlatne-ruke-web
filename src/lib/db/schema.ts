@@ -189,6 +189,30 @@ export const messages = pgTable("messages", {
     .defaultNow(),
 });
 
+// Korisnički predloženi tagovi koji čekaju moderaciju admina.
+// status: pending (čeka) → approved (odobren) | rejected (odbijen).
+export const tagStatusEnum = pgEnum("tag_status", [
+  "pending",
+  "approved",
+  "rejected",
+]);
+
+export const tags = pgTable("tags", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  name: text("name").notNull(),
+  groupLabel: text("group_label").notNull().default(""), // npr. "Stil", "Tradicija"
+  proposedByShopId: text("proposed_by_shop_id").references(() => shops.id, {
+    onDelete: "set null",
+  }),
+  proposedByName: text("proposed_by_name").notNull().default(""), // snapshot imena predlagača
+  status: tagStatusEnum("status").notNull().default("pending"),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
 // Praćene radnje po korisniku.
 export const follows = pgTable(
   "follows",

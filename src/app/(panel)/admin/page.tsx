@@ -1,89 +1,112 @@
 import type { Metadata } from "next";
-import { Icon } from "@/components/icon";
+import Link from "next/link";
 import { Kpi } from "@/components/panel/kpi";
-import { getAllShops, getAllProducts, getAllReviews } from "@/lib/db/queries";
+import { PageHead } from "@/components/admin/page-head";
+import { BarChart } from "@/components/admin/bar-chart";
+import { Blob } from "@/components/admin/blob";
+import { getAdminOverview } from "@/lib/db/admin";
 
 export const metadata: Metadata = { title: "Pregled — Admin" };
 
 export default async function AdminOverviewPage() {
-  const [shops, products, reviews] = await Promise.all([
-    getAllShops(),
-    getAllProducts(),
-    getAllReviews(),
-  ]);
-  const topShops = [...shops]
-    .sort((a, b) => b.followers - a.followers)
-    .slice(0, 5);
-  const topProducts = [...products]
-    .sort((a, b) => b.rating - a.rating || b.reviewCount - a.reviewCount)
-    .slice(0, 5);
-  const totalViews = products.reduce((s, p) => s + (p.views ?? 0), 0);
+  const o = await getAdminOverview();
 
   return (
-    <div>
-      <div className="mb-7">
-        <div className="font-mono text-xs uppercase tracking-wider text-ink">
-          Admin
-        </div>
-        <h1 className="mt-1 font-heading text-3xl font-semibold text-foreground">
-          Platforma — pregled
-        </h1>
-      </div>
+    <>
+      <PageHead eyebrow="Pregled platforme" title="Platforma —" accent="pregled" />
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <Kpi label="Aktivnih radnji" value={String(shops.length)} />
-        <Kpi label="Proizvoda" value={String(products.length)} />
-        <Kpi label="Recenzija" value={String(reviews.length)} />
-        <Kpi label="Pregledi proizvoda" value={String(totalViews)} />
+        <Kpi label="Aktivnih radnji" value={String(o.shopCount)} />
+        <Kpi label="Proizvoda" value={String(o.productCount)} />
+        <Kpi
+          label="Pregledi proizvoda"
+          value={o.totalViews.toLocaleString("sr-RS")}
+          featured
+        />
+        <Kpi label="Recenzija" value={String(o.reviewCount)} />
       </div>
 
-      <div className="mt-6 grid gap-5 lg:grid-cols-2">
-        <div className="rounded-2xl border border-line-soft bg-surface p-6">
-          <h2 className="mb-4 font-heading text-lg font-semibold text-foreground">
-            Najpraćenije radnje
-          </h2>
-          <div className="divide-y divide-line-soft">
-            {topShops.map((s, i) => (
-              <div key={s.id} className="flex items-center gap-3 py-3 first:pt-0">
-                <span className="flex size-7 items-center justify-center rounded-full bg-pink-light text-xs font-bold text-pink-dark">
-                  {i + 1}
-                </span>
+      <div className="mt-6 grid gap-5 lg:grid-cols-[1.4fr_1fr]">
+        <section className="rounded-2xl border border-line-soft bg-surface p-6">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="font-heading text-lg font-semibold text-foreground">
+              Novi proizvodi po danu
+            </h2>
+            <span className="font-mono text-[0.65rem] uppercase tracking-wide text-ink">
+              poslednje 2 nedelje
+            </span>
+          </div>
+          <BarChart data={o.newProductsByDay} />
+        </section>
+
+        <section className="rounded-2xl border border-line-soft bg-surface p-6">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="font-heading text-lg font-semibold text-foreground">
+              Najnoviji proizvodi
+            </h2>
+            <Link
+              href="/admin/proizvodi"
+              className="text-xs font-semibold text-pink hover:text-pink-dark"
+            >
+              Svi →
+            </Link>
+          </div>
+          <ul className="divide-y divide-line-soft">
+            {o.recentProducts.map((p) => (
+              <li key={p.id} className="flex items-center gap-3 py-3 first:pt-0">
+                <Blob size={38} seed={p.name.length} initial={p.name[0]} />
                 <div className="min-w-0 flex-1">
                   <div className="truncate text-sm font-semibold text-pink-dark">
-                    {s.name}
+                    {p.name}
                   </div>
-                  <div className="text-xs text-ink">{s.city}</div>
+                  <div className="text-xs text-ink">
+                    {p.shopName} · {p.when}
+                  </div>
                 </div>
-                <span className="text-sm font-bold text-pink">
-                  {s.followers}
-                </span>
-              </div>
+              </li>
             ))}
-          </div>
-        </div>
-
-        <div className="rounded-2xl border border-line-soft bg-surface p-6">
-          <h2 className="mb-4 font-heading text-lg font-semibold text-foreground">
-            Najbolje ocenjeni proizvodi
-          </h2>
-          <div className="divide-y divide-line-soft">
-            {topProducts.map((p) => (
-              <div
-                key={p.id}
-                className="flex items-center justify-between gap-3 py-3 first:pt-0"
-              >
-                <span className="truncate text-sm font-semibold text-pink-dark">
-                  {p.name}
-                </span>
-                <span className="flex shrink-0 items-center gap-1 text-sm text-ink">
-                  <Icon name="star" size={14} filled className="text-pink" />
-                  {p.rating} ({p.reviewCount})
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
+            {o.recentProducts.length === 0 && (
+              <li className="py-3 text-sm text-ink">Još nema proizvoda.</li>
+            )}
+          </ul>
+        </section>
       </div>
-    </div>
+
+      <section className="mt-6 rounded-2xl border border-line-soft bg-surface p-6">
+        <h2 className="mb-4 font-heading text-lg font-semibold text-foreground">
+          Top 5 radnji (po pratiocima)
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-line-soft font-mono text-xs uppercase tracking-wide text-ink">
+                <th className="py-2 text-left font-semibold">#</th>
+                <th className="py-2 text-left font-semibold">Radnja</th>
+                <th className="py-2 text-left font-semibold">Grad</th>
+                <th className="py-2 text-right font-semibold">Proizvodi</th>
+                <th className="py-2 text-right font-semibold">Pratioci</th>
+              </tr>
+            </thead>
+            <tbody>
+              {o.topShops.map((s, i) => (
+                <tr key={s.id} className="border-b border-line-soft last:border-0">
+                  <td className="py-3">
+                    <span className="inline-flex size-6 items-center justify-center rounded-full bg-pink-light text-xs font-bold text-pink-dark">
+                      {i + 1}
+                    </span>
+                  </td>
+                  <td className="py-3 font-semibold text-pink-dark">{s.name}</td>
+                  <td className="py-3 text-ink">{s.city}</td>
+                  <td className="py-3 text-right text-ink">{s.products}</td>
+                  <td className="py-3 text-right font-bold text-pink">
+                    {s.followers}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </>
   );
 }

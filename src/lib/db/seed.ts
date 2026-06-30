@@ -99,6 +99,21 @@ async function main() {
     )
     .onConflictDoNothing();
 
+  console.log("Ubacujem demo tagove (na čekanju)…");
+  const s0 = seedShops[0];
+  const s1 = seedShops[1] ?? seedShops[0];
+  const s2 = seedShops[2] ?? seedShops[0];
+  const s3 = seedShops[3] ?? seedShops[0];
+  await db
+    .insert(schema.tags)
+    .values([
+      { id: "tag-macrame", name: "macrame", groupLabel: "Stil", proposedByShopId: s0.id, proposedByName: s0.name, status: "pending" },
+      { id: "tag-eko-pakovanje", name: "eko-pakovanje", groupLabel: "Posebno", proposedByShopId: s1.id, proposedByName: s1.name, status: "pending" },
+      { id: "tag-pirot-cilim", name: "pirot ćilim", groupLabel: "Tradicija", proposedByShopId: s2.id, proposedByName: s2.name, status: "pending" },
+      { id: "tag-za-njega", name: "za-njega", groupLabel: "Prilika", proposedByShopId: s3.id, proposedByName: s3.name, status: "pending" },
+    ])
+    .onConflictDoNothing();
+
   console.log("✓ Seed gotov.");
   process.exit(0);
 }

@@ -22,8 +22,13 @@ export function PanelNav({
   tone?: "light" | "dark";
 }) {
   const pathname = usePathname();
-  const isActive = (href: string) =>
-    pathname === href || pathname.startsWith(href + "/");
+  // Najduže poklapanje pobeđuje, da se ne istaknu dve stavke odjednom
+  // (npr. "/admin" i "/admin/radnje" kad smo na /admin/radnje).
+  const best = items
+    .map((i) => i.href)
+    .filter((h) => pathname === h || pathname.startsWith(h + "/"))
+    .sort((a, b) => b.length - a.length)[0];
+  const isActive = (href: string) => href === best;
 
   return (
     <nav className="flex gap-1 overflow-x-auto lg:flex-col lg:overflow-visible">
