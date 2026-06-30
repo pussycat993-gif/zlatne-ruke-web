@@ -22,9 +22,11 @@ type Category = { id: string; name: string };
 export function SiteNav({
   categories = [],
   notifCount = 0,
+  isAdmin = false,
 }: {
   categories?: Category[];
   notifCount?: number;
+  isAdmin?: boolean;
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -146,7 +148,22 @@ export function SiteNav({
             <UserButton
               appearance={{ elements: { avatarBox: "size-9" } }}
               userProfileProps={{ appearance: { variables: { colorPrimary: "#C0637A" } } }}
-            />
+            >
+              <UserButton.MenuItems>
+                <UserButton.Link
+                  label="Moj profil"
+                  labelIcon={<Icon name="user" size={15} />}
+                  href="/profil"
+                />
+                {isAdmin && (
+                  <UserButton.Link
+                    label="Admin panel"
+                    labelIcon={<Icon name="shield" size={15} />}
+                    href="/admin"
+                  />
+                )}
+              </UserButton.MenuItems>
+            </UserButton>
           </Show>
           <Show when="signed-out">
             <Link
@@ -245,6 +262,15 @@ export function SiteNav({
                 >
                   <Icon name="heart" size={18} /> Omiljeno
                 </Link>
+                {isAdmin && (
+                  <Link
+                    href="/admin"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex flex-1 items-center justify-center gap-2 rounded-full bg-pink px-4 py-2.5 text-sm font-semibold text-primary-foreground"
+                  >
+                    <Icon name="shield" size={18} /> Admin
+                  </Link>
+                )}
               </Show>
               <Show when="signed-out">
                 <Link
