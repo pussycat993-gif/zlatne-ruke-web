@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, Send, Heart } from "lucide-react";
+import { Mail, Heart } from "lucide-react";
 import { SiInstagram, SiFacebook } from "@icons-pack/react-simple-icons";
 import { useEffect, useRef, useState } from "react";
 import styles from "./Footer.module.css";
@@ -52,7 +52,6 @@ const SOCIAL = {
 export default function Footer() {
   const footerRef = useRef<HTMLElement | null>(null);
   const [revealed, setRevealed] = useState(false);
-  const [email, setEmail] = useState("");
 
   useEffect(() => {
     const el = footerRef.current;
@@ -81,41 +80,8 @@ export default function Footer() {
     return () => io.disconnect();
   }, []);
 
-  function handleSubscribe(e: React.FormEvent) {
-    e.preventDefault();
-    // TODO: poveži sa newsletter servisom / API rutom.
-    console.log("Newsletter prijava:", email);
-    setEmail("");
-  }
-
   return (
     <footer ref={footerRef} className={styles.footer}>
-      {/* Newsletter traka */}
-      <div className={styles.subWrap}>
-        <div className={`${styles.inner} ${styles.sub}`}>
-          <div>
-            <p className={styles.subTitle}>Ostanite u toku</p>
-            <p className={styles.subText}>
-              Novi radovi, priče i saveti — jednom mesečno, bez spama.
-            </p>
-          </div>
-          <form className={styles.form} onSubmit={handleSubscribe}>
-            <input
-              className={styles.input}
-              type="email"
-              required
-              placeholder="vaš@email.com"
-              aria-label="Email adresa"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <button className={styles.btn} type="submit">
-              <Send size={15} aria-hidden="true" /> Prijavi se
-            </button>
-          </form>
-        </div>
-      </div>
-
       {/* Glavni red */}
       <div className={`${styles.inner} ${styles.main}`}>
         {/* Brend + kontakt */}
