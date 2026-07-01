@@ -87,9 +87,10 @@
   --zr-text-muted: #8a6a72;
   --zr-ring: #c0637a;
 
-  /* Postojeći utility tokeni (bg-cream, text-pink, text-ink, border-line…) — zadržani */
-  --zr-pink: #c0637a;
-  --zr-pink-dark: #a0445a;
+  /* Postojeći utility tokeni (bg-cream, text-pink, text-ink, border-line…) — zadržani nazivi,
+     rose usklađen sa akcija-ružom (bg-pink CTA sada = --zr-primary) */
+  --zr-pink: #a0445a;
+  --zr-pink-dark: #8a3a4d;
   --zr-pink-light: #f5ecee;
   --zr-pink-tint: #fbe7ec;
   --zr-cream: #fdf6f0;
