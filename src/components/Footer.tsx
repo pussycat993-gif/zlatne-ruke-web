@@ -14,7 +14,7 @@ function seeded(i: number): number {
   return x - Math.floor(x);
 }
 
-// Linkovi — promeni href-ove ako se neka stranica drugačije zove.
+// Linkovi - promeni href-ove ako se neka stranica drugačije zove.
 const NAV = [
   {
     title: "Otkrij",
@@ -40,7 +40,7 @@ const LEGAL = [
   { label: "Uslovi korišćenja", href: "/uslovi" },
 ];
 
-// Kontakt podaci — zameni pravim vrednostima.
+// Kontakt podaci - zameni pravim vrednostima.
 const SOCIAL = {
   instagram: "https://instagram.com/zlatne.ruke",
   instagramLabel: "@zlatne.ruke",

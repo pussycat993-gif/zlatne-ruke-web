@@ -51,8 +51,8 @@ export default async function HomePage() {
             </h1>
             <p className="mt-7 max-w-lg text-pretty text-base leading-relaxed text-ink md:text-lg">
               U ateljeu u Novom Sadu, Mila Petrović plete od 5 ujutru, dok grad
-              još spava. Iza svakog komada — sat, tri, ponekad tri dana rada. Iza
-              svakog komada — žena.
+              još spava. Iza svakog komada - sat, tri, ponekad tri dana rada. Iza
+              svakog komada - žena.
             </p>
             <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <Button asChild size="cta">
@@ -61,7 +61,7 @@ export default async function HomePage() {
               <Button asChild size="cta" variant="outline">
                 <Link href="/magazin">Pročitaj priču</Link>
               </Button>
-              {/* „Otvori radnju" — isti pill kao primarno dugme + animacija
+              {/* „Otvori radnju" - isti pill kao primarno dugme + animacija
                   (shine sweep + hover lift + strelica). Animacije su gašene uz
                   prefers-reduced-motion (motion-safe: i @media guard u globals). */}
               <Button
@@ -108,7 +108,7 @@ export default async function HomePage() {
               className="absolute inset-x-4 bottom-4 rounded-2xl bg-surface/95 p-4 shadow-[var(--zr-shadow-sm)] backdrop-blur"
             >
               <div className="font-mono text-[0.65rem] font-semibold uppercase tracking-wider text-ink">
-                U fokusu — radnja
+                U fokusu - radnja
               </div>
               <div className="mt-2 flex items-center gap-3">
                 <div
@@ -264,7 +264,7 @@ export default async function HomePage() {
               </span>
             </h2>
             <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-ink">
-              Ne pravimo ih mi, prave ih one — Mila iz Novog Sada, Ana iz
+              Ne pravimo ih mi, prave ih one - Mila iz Novog Sada, Ana iz
               Beograda, Jelena iz Niša. Sofija, Tijana, Vesna. Mi samo otvaramo
               vrata između njihovih ruku i tvog doma.
             </p>

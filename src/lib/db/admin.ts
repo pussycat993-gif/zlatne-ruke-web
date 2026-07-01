@@ -75,7 +75,7 @@ export async function getAdminOverview(): Promise<AdminOverview> {
     productCounts.set(p.shopId, (productCounts.get(p.shopId) ?? 0) + 1);
   }
 
-  // Novi proizvodi po danu — poslednjih 14 dana.
+  // Novi proizvodi po danu - poslednjih 14 dana.
   const days = 14;
   const buckets: { label: string; count: number }[] = [];
   const dayMs = 24 * 60 * 60 * 1000;
@@ -93,7 +93,7 @@ export async function getAdminOverview(): Promise<AdminOverview> {
   const recentProducts = prodRows.slice(0, 5).map((p) => ({
     id: p.id,
     name: p.name,
-    shopName: shopName.get(p.shopId) ?? "—",
+    shopName: shopName.get(p.shopId) ?? "-",
     city: shopCity.get(p.shopId) ?? "",
     when: relativeTime(p.createdAt),
     tone: p.tone,
@@ -232,7 +232,7 @@ export async function getAdminReviews(): Promise<AdminReview[]> {
   }));
 }
 
-// ─── Kupci (izvedeno iz aktivnosti — nema zasebne tabele kupaca) ───
+// ─── Kupci (izvedeno iz aktivnosti - nema zasebne tabele kupaca) ───
 export type AdminBuyers = {
   reviewers: number;
   followers: number;
@@ -336,7 +336,7 @@ export async function getPendingTagCount(): Promise<number> {
   return Number(row?.c ?? 0);
 }
 
-// Broj recenzija "za moderaciju" (niska ocena ≤ 2) — za badge.
+// Broj recenzija "za moderaciju" (niska ocena ≤ 2) - za badge.
 export async function getFlaggedReviewCount(): Promise<number> {
   const [row] = await db
     .select({ c: sql<number>`count(*)::int` })

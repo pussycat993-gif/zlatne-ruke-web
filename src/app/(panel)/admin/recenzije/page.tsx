@@ -8,7 +8,7 @@ import { adminDeleteReview } from "@/lib/admin-actions";
 import { getAdminReviews } from "@/lib/db/admin";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = { title: "Recenzije — Admin" };
+export const metadata: Metadata = { title: "Recenzije - Admin" };
 
 export default async function AdminReviewsPage() {
   const reviews = await getAdminReviews();

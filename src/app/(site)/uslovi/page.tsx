@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { LegalPage, type LegalSection } from "@/components/site/legal-page";
 
 export const metadata: Metadata = {
-  title: "Uslovi korišćenja — Zlatne Ruke",
+  title: "Uslovi korišćenja - Zlatne Ruke",
   description: "Uslovi korišćenja platforme Zlatne Ruke.",
 };
 

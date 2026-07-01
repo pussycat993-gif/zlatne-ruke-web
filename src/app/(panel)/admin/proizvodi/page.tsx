@@ -7,7 +7,7 @@ import { ActionButton } from "@/components/admin/action-button";
 import { adminDeleteProduct } from "@/lib/admin-actions";
 import { getAdminProducts } from "@/lib/db/admin";
 
-export const metadata: Metadata = { title: "Proizvodi — Admin" };
+export const metadata: Metadata = { title: "Proizvodi - Admin" };
 
 export default async function AdminProductsPage() {
   const products = await getAdminProducts();

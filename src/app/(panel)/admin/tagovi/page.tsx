@@ -7,14 +7,14 @@ import { ActionButton } from "@/components/admin/action-button";
 import { approveTag, rejectTag } from "@/lib/admin-actions";
 import { getPendingTags, getTagStats } from "@/lib/db/admin";
 
-export const metadata: Metadata = { title: "Tagovi — Admin" };
+export const metadata: Metadata = { title: "Tagovi - Admin" };
 
 export default async function AdminTagsPage() {
   const [pending, stats] = await Promise.all([getPendingTags(), getTagStats()]);
 
   return (
     <>
-      <PageHead eyebrow="Moderacija" title="Tagovi —" accent="na čekanju" />
+      <PageHead eyebrow="Moderacija" title="Tagovi -" accent="na čekanju" />
 
       <div className="grid grid-cols-3 gap-4">
         <Kpi label="Na čekanju" value={String(stats.pending)} featured />
@@ -41,8 +41,8 @@ export default async function AdminTagsPage() {
               </span>
               <div className="min-w-0 flex-1">
                 <div className="text-sm text-ink">
-                  Grupa: <strong className="text-foreground">{t.groupLabel || "—"}</strong> ·
-                  Predložila: <strong className="text-foreground">{t.proposedByName || "—"}</strong>
+                  Grupa: <strong className="text-foreground">{t.groupLabel || "-"}</strong> ·
+                  Predložila: <strong className="text-foreground">{t.proposedByName || "-"}</strong>
                 </div>
                 <div className="font-mono text-[0.62rem] uppercase tracking-wide text-ink">
                   {t.when}

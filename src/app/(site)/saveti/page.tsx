@@ -16,7 +16,7 @@ import { getAllSaveti } from "@/lib/saveti";
 import { cloudinaryUrl } from "@/lib/cloudinary";
 
 export const metadata: Metadata = {
-  title: "Saveti — Zlatne Ruke",
+  title: "Saveti - Zlatne Ruke",
   description:
     "Saveti, ideje i priče o rukotvorinama: kako da izaberete, poklonite i čuvate ručno rađene predmete domaćih majstorica.",
 };
@@ -43,7 +43,7 @@ export default function SavetiPage() {
           <span className="font-script font-normal text-pink">& ideje</span>
         </h1>
         <p className="mt-3 text-sm text-ink md:text-base">
-          Vodiči, ideje i priče o rukotvorinama — kako da izaberete pravi
+          Vodiči, ideje i priče o rukotvorinama - kako da izaberete pravi
           predmet, poklonite ga i sačuvate. Iza svakog saveta stoji iskustvo
           domaćih majstorica.
         </p>

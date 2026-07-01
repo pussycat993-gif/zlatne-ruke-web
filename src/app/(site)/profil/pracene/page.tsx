@@ -9,7 +9,7 @@ import { cloudinaryUrl } from "@/lib/cloudinary";
 import { getFollowedShops } from "@/lib/user-data";
 
 export const metadata: Metadata = {
-  title: "Praćene radnje — Zlatne Ruke",
+  title: "Praćene radnje - Zlatne Ruke",
   robots: { index: false, follow: false },
 };
 

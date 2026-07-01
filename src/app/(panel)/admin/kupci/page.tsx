@@ -5,7 +5,7 @@ import { PageHead } from "@/components/admin/page-head";
 import { Blob } from "@/components/admin/blob";
 import { getAdminBuyers } from "@/lib/db/admin";
 
-export const metadata: Metadata = { title: "Kupci — Admin" };
+export const metadata: Metadata = { title: "Kupci - Admin" };
 
 export default async function AdminBuyersPage() {
   let registered = 0;
@@ -70,7 +70,7 @@ export default async function AdminBuyersPage() {
 
       <p className="mt-5 rounded-2xl border border-line-soft bg-surface px-5 py-4 text-sm text-ink">
         Broj naloga dolazi iz Clerk-a. Ostale metrike su izvedene iz aktivnosti
-        na platformi (recenzije, praćenja, omiljeno) — bez podataka o kupovini,
+        na platformi (recenzije, praćenja, omiljeno) - bez podataka o kupovini,
         jer se prodaja dogovara van platforme.
       </p>
     </>

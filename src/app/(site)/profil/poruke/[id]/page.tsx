@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ConversationView } from "@/components/site/conversation-view";
 
-export const metadata: Metadata = { title: "Razgovor — Zlatne Ruke" };
+export const metadata: Metadata = { title: "Razgovor - Zlatne Ruke" };
 
 export default async function BuyerThreadPage({
   params,

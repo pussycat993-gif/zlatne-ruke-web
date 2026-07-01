@@ -4,7 +4,7 @@ import { getOrCreateSellerShop } from "@/lib/seller";
 import { createProduct } from "@/lib/seller-actions";
 import { ProductForm } from "@/components/panel/product-form";
 
-export const metadata: Metadata = { title: "Novi proizvod — Panel prodavca" };
+export const metadata: Metadata = { title: "Novi proizvod - Panel prodavca" };
 
 export default async function AddProductPage() {
   // Osiguraj da prodavac ima radnju pre dodavanja proizvoda.

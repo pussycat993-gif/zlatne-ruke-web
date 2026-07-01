@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/icon";
 
-// „Podeli" — nativni share (mobilni) sa fallback-om na kopiranje linka.
+// „Podeli" - nativni share (mobilni) sa fallback-om na kopiranje linka.
 export function ShareButton({
   title,
   iconOnly = false,
@@ -31,7 +31,7 @@ export function ShareButton({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // clipboard nedostupan — ništa
+      // clipboard nedostupan - ništa
     }
   }
 

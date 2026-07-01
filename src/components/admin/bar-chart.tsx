@@ -11,7 +11,7 @@ export function BarChart({
         {data.map((d, i) => (
           <div
             key={i}
-            title={`${d.label} — ${d.count}`}
+            title={`${d.label} - ${d.count}`}
             className="flex-1 rounded-t-md transition-[height] duration-300"
             style={{
               height: `${Math.max(4, (d.count / max) * 100)}%`,

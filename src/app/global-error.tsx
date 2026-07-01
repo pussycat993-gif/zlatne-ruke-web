@@ -1,7 +1,7 @@
 "use client";
 
 // Hvata greške u samom root layout-u. Mora da renderuje <html>/<body> i ne
-// oslanja se na globalni CSS (možda nije učitan) — koristi inline stilove.
+// oslanja se na globalni CSS (možda nije učitan) - koristi inline stilove.
 export default function GlobalError({
   reset,
 }: {

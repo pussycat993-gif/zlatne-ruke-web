@@ -1,7 +1,7 @@
 import { isNull } from "drizzle-orm";
 import { loadEnvLocal } from "../load-env";
 
-// Briše SAMO seed radnje (one bez vlasnika — owner_id IS NULL) i, kaskadno,
+// Briše SAMO seed radnje (one bez vlasnika - owner_id IS NULL) i, kaskadno,
 // njihove proizvode, recenzije, priče, pratnje i razgovore. Prave radnje
 // (koje su prodavci napravili kroz nalog) imaju owner_id i NE diraju se.
 // Kategorije ostaju (to je taksonomija, ne seed sadržaj).
@@ -23,7 +23,7 @@ async function main() {
     process.exit(0);
   }
 
-  console.log(`Seed radnje bez vlasnika — ${seedShops.length}:`);
+  console.log(`Seed radnje bez vlasnika - ${seedShops.length}:`);
   for (const s of seedShops) console.log("  - " + s.name);
 
   if (!confirmed) {

@@ -183,7 +183,7 @@ export function ProductForm({
               />
             </div>
             <p className="rounded-xl bg-cream px-4 py-3 text-xs leading-relaxed text-ink">
-              Plaćanje i dostavu dogovaraš direktno sa kupcem. Provizija: 0 RSD —
+              Plaćanje i dostavu dogovaraš direktno sa kupcem. Provizija: 0 RSD -
               trenutno besplatno.
             </p>
           </section>
@@ -219,7 +219,7 @@ export function ProductForm({
                 {name || "Naziv proizvoda"}
               </div>
               <div className="mt-1.5 text-base font-bold text-pink-dark">
-                {price ? formatPrice(Number(price)) : "— RSD"}
+                {price ? formatPrice(Number(price)) : "- RSD"}
               </div>
             </div>
           </div>

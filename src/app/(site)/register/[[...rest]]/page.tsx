@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SignUp } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
-  title: "Registracija — Zlatne Ruke",
+  title: "Registracija - Zlatne Ruke",
   robots: { index: false, follow: false },
 };
 

@@ -7,7 +7,7 @@ import { toneClass } from "@/lib/data";
 import { getShopProducts } from "@/lib/db/queries";
 import { getOrCreateSellerShop } from "@/lib/seller";
 
-export const metadata: Metadata = { title: "Pregled — Panel prodavca" };
+export const metadata: Metadata = { title: "Pregled - Panel prodavca" };
 
 export default async function SellerOverviewPage() {
   const myShop = await getOrCreateSellerShop();

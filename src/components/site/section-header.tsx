@@ -3,7 +3,7 @@ import Link from "next/link";
 type SectionHeaderProps = {
   eyebrow?: string;
   title: string;
-  /** Rukopisni (Caveat) nastavak naslova — prelama se u novi red. */
+  /** Rukopisni (Caveat) nastavak naslova - prelama se u novi red. */
   script?: string;
   sub?: string;
   action?: { href: string; label: string };

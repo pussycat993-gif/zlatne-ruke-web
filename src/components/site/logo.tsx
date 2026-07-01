@@ -2,12 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-// Logo — zvanični „Zlatne Ruke" znak (zlatni, prozirna pozadina). Vodi na naslovnu.
+// Logo - zvanični „Zlatne Ruke" znak (zlatni, prozirna pozadina). Vodi na naslovnu.
 export function Logo({ className }: { className?: string }) {
   return (
     <Link
       href="/"
-      aria-label="Zlatne Ruke — početna"
+      aria-label="Zlatne Ruke - početna"
       className={cn("inline-flex items-center", className)}
     >
       <Image

@@ -2,7 +2,7 @@ import { Logo } from "@/components/site/logo";
 import { NotFoundContent } from "@/components/site/not-found-content";
 
 // Globalni 404 (za adrese koje ne pripadaju nijednoj ruti). Bez pune
-// navigacije — samo logo na vrhu i poruka.
+// navigacije - samo logo na vrhu i poruka.
 export default function NotFound() {
   return (
     <div className="flex min-h-screen flex-col">

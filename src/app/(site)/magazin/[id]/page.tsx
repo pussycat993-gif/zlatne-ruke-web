@@ -19,7 +19,7 @@ export async function generateMetadata({
   const { id } = await params;
   const story = await getStoryById(id);
   return {
-    title: story ? `${story.title} — Magazin` : "Priča — Zlatne Ruke",
+    title: story ? `${story.title} - Magazin` : "Priča - Zlatne Ruke",
     description: story?.excerpt,
   };
 }
@@ -68,7 +68,7 @@ export default async function StoryPage({
         <p>
           Sve je počelo u maloj radionici, sa idejom da se rukama napravi nešto
           što traje. Iza svakog komada stoji sat, tri, ponekad i nekoliko dana
-          pažljivog rada — i priča koja zaslužuje da se ispriča.
+          pažljivog rada - i priča koja zaslužuje da se ispriča.
         </p>
         <p>
           Na Zlatnim Rukama svaka majstorica ima svoje mesto: ime, grad i

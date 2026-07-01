@@ -10,7 +10,7 @@ import { getOrCreateConversation } from "./messages";
 import { sendNewMessageEmail } from "./email";
 import { createNotification } from "./notifications";
 
-// „Pošalji upit majstorici" — kupac otvara (ili nastavlja) razgovor sa radnjom.
+// „Pošalji upit majstorici" - kupac otvara (ili nastavlja) razgovor sa radnjom.
 export async function startConversation(formData: FormData) {
   const { userId } = await auth();
   const shopId = String(formData.get("shopId") ?? "").trim();

@@ -15,7 +15,7 @@ import {
 import { getFavoriteProductIds } from "@/lib/user-data";
 
 export const metadata: Metadata = {
-  title: "Katalog — Zlatne Ruke",
+  title: "Katalog - Zlatne Ruke",
   description: "Pretraži rukotvorine žena iz Srbije po kategorijama.",
 };
 

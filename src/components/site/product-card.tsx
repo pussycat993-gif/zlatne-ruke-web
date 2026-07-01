@@ -6,8 +6,8 @@ import { type Product, formatPrice, toneClass } from "@/lib/data";
 import { cloudinaryUrl } from "@/lib/cloudinary";
 import { cn } from "@/lib/utils";
 
-// Kartica proizvoda — placeholder „blob" slika (gradijent po tonu), naziv
-// radnje, naziv, cena i ocena. Bez korpe (v1) — vodi na stranicu proizvoda.
+// Kartica proizvoda - placeholder „blob" slika (gradijent po tonu), naziv
+// radnje, naziv, cena i ocena. Bez korpe (v1) - vodi na stranicu proizvoda.
 // `shopName` se prosleđuje iz strane (izbegava DB upit po kartici).
 export function ProductCard({
   product,

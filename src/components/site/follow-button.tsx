@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/icon";
 import { toggleFollow } from "@/lib/social-actions";
 
-// Praćenje radnje — upisuje u bazu za ulogovanog korisnika.
+// Praćenje radnje - upisuje u bazu za ulogovanog korisnika.
 export function FollowButton({
   shopId,
   initialFollowing = false,

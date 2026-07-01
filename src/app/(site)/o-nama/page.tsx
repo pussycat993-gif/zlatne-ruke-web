@@ -6,7 +6,7 @@ import { Crumbs } from "@/components/site/crumbs";
 import { toneClass } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "O nama — Zlatne Ruke",
+  title: "O nama - Zlatne Ruke",
   description:
     "Zlatne Ruke povezuju žene zanatlije iz Srbije sa kupcima. Svaki predmet ima ime, mesto i priču.",
 };
@@ -35,7 +35,7 @@ export default function AboutPage() {
         </h1>
         <p className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-ink md:text-lg">
           Zlatne Ruke su katalog i magazin koji povezuju žene zanatlije iz cele
-          Srbije sa kupcima. Ne pravimo predmete mi — prave ih one. Mi samo
+          Srbije sa kupcima. Ne pravimo predmete mi - prave ih one. Mi samo
           otvaramo vrata između njihovih ruku i tvog doma.
         </p>
       </header>
@@ -57,7 +57,7 @@ export default function AboutPage() {
           </p>
           <p className="mt-4 text-pretty leading-relaxed text-ink">
             Zato gradimo prostor gde svaka majstorica ima svoju radnju, svoju
-            priču i direktnu vezu sa kupcima — bez posrednika i bez pritiska
+            priču i direktnu vezu sa kupcima - bez posrednika i bez pritiska
             velikih platformi.
           </p>
         </div>

@@ -5,7 +5,7 @@ import { Icon } from "@/components/icon";
 import { Crumbs } from "@/components/site/crumbs";
 import { getBuyerConversations } from "@/lib/messages";
 
-export const metadata: Metadata = { title: "Poruke — Zlatne Ruke" };
+export const metadata: Metadata = { title: "Poruke - Zlatne Ruke" };
 
 function formatDate(d: Date): string {
   return new Intl.DateTimeFormat("sr-RS", {

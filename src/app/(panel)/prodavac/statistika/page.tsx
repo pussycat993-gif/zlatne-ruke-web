@@ -5,7 +5,7 @@ import { getShopProducts } from "@/lib/db/queries";
 import { getOrCreateSellerShop } from "@/lib/seller";
 import { getSellerConversations } from "@/lib/messages";
 
-export const metadata: Metadata = { title: "Statistika — Panel prodavca" };
+export const metadata: Metadata = { title: "Statistika - Panel prodavca" };
 
 export default async function SellerStatsPage() {
   const myShop = await getOrCreateSellerShop();

@@ -9,7 +9,7 @@ import {
 } from "@/lib/notifications";
 
 export const metadata: Metadata = {
-  title: "Obaveštenja — Zlatne Ruke",
+  title: "Obaveštenja - Zlatne Ruke",
   robots: { index: false, follow: false },
 };
 

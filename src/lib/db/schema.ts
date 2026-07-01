@@ -44,7 +44,7 @@ export const shops = pgTable(
       .defaultNow(),
   },
   // Jedan nalog = jedna radnja. (NULL owner_id za seed radnje je dozvoljen
-  // više puta — Postgres tretira NULL-ove kao različite u unique indeksu.)
+  // više puta - Postgres tretira NULL-ove kao različite u unique indeksu.)
   (t) => [uniqueIndex("shops_owner_uq").on(t.ownerId)],
 );
 
@@ -67,7 +67,7 @@ export const products = pgTable("products", {
   inStock: integer("in_stock").notNull().default(0),
   description: text("description").notNull().default(""),
   views: integer("views").notNull().default(0), // pregledi stranice proizvoda
-  imagePublicId: text("image_public_id"), // naslovna (prva) slika — za kartice
+  imagePublicId: text("image_public_id"), // naslovna (prva) slika - za kartice
   imagePublicIds: text("image_public_ids").array().notNull().default([]), // galerija
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()

@@ -8,7 +8,7 @@ import { cloudinaryUrl } from "@/lib/cloudinary";
 import { getAllShops, getAllProducts } from "@/lib/db/queries";
 
 export const metadata: Metadata = {
-  title: "Radnje — Zlatne Ruke",
+  title: "Radnje - Zlatne Ruke",
   description: "Upoznaj majstorice iz cele Srbije i njihove radnje.",
 };
 

@@ -7,7 +7,7 @@ import { ProductCard } from "@/components/site/product-card";
 import { getShopNameMap } from "@/lib/db/queries";
 import { getFavoriteProducts } from "@/lib/user-data";
 
-export const metadata: Metadata = { title: "Omiljeno — Zlatne Ruke" };
+export const metadata: Metadata = { title: "Omiljeno - Zlatne Ruke" };
 
 export default async function FavoritesPage() {
   const [products, shopNames] = await Promise.all([

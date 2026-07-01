@@ -3,7 +3,7 @@ import { getCategories } from "@/lib/db/queries";
 import { getOrCreateSellerShop } from "@/lib/seller";
 import { ShopProfileForm } from "./shop-profile-form";
 
-export const metadata: Metadata = { title: "Profil radnje — Panel prodavca" };
+export const metadata: Metadata = { title: "Profil radnje - Panel prodavca" };
 
 export default async function ShopProfilePage() {
   const [shop, categories] = await Promise.all([

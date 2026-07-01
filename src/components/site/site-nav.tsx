@@ -50,9 +50,9 @@ export function SiteNav({
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 md:gap-8 md:px-8 md:py-4">
         <Logo />
 
-        {/* Linkovi — desktop */}
+        {/* Linkovi - desktop */}
         <nav className="hidden flex-1 items-center gap-7 lg:flex">
-          {/* Kategorije — padajući meni */}
+          {/* Kategorije - padajući meni */}
           <div
             className="relative"
             onMouseEnter={() => setCatOpen(true)}
@@ -107,7 +107,7 @@ export function SiteNav({
           ))}
         </nav>
 
-        {/* Pretraga — desktop */}
+        {/* Pretraga - desktop */}
         <form
           onSubmit={submitSearch}
           className="relative hidden flex-1 lg:block lg:max-w-xs"
@@ -172,7 +172,7 @@ export function SiteNav({
             </Button>
           </Show>
 
-          {/* Hamburger — mobilni */}
+          {/* Hamburger - mobilni */}
           <button
             type="button"
             onClick={() => setMobileOpen((v) => !v)}

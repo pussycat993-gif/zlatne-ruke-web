@@ -40,7 +40,7 @@ export async function sendNewMessageEmail(opts: {
     await resend.emails.send({
       from,
       to: opts.to,
-      subject: `Nova poruka od ${opts.senderName} — Zlatne Ruke`,
+      subject: `Nova poruka od ${opts.senderName} - Zlatne Ruke`,
       html,
     });
   } catch (e) {
@@ -74,7 +74,7 @@ export async function sendContactEmail(opts: {
       from,
       to,
       replyTo: opts.email,
-      subject: `Kontakt: ${safe(opts.name)} — Zlatne Ruke`,
+      subject: `Kontakt: ${safe(opts.name)} - Zlatne Ruke`,
       html,
     });
     return { delivered: true };

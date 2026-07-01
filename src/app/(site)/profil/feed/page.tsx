@@ -12,7 +12,7 @@ import {
 } from "@/lib/user-data";
 
 export const metadata: Metadata = {
-  title: "Novo od radnji koje pratiš — Zlatne Ruke",
+  title: "Novo od radnji koje pratiš - Zlatne Ruke",
   robots: { index: false, follow: false },
 };
 

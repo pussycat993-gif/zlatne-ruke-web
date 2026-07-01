@@ -34,8 +34,8 @@ export async function generateMetadata({
   const product = await getProductById(id);
   return {
     title: product
-      ? `${product.name} — Zlatne Ruke`
-      : "Proizvod — Zlatne Ruke",
+      ? `${product.name} - Zlatne Ruke`
+      : "Proizvod - Zlatne Ruke",
     description: product?.desc,
   };
 }
@@ -193,7 +193,7 @@ export default async function ProductPage({
             {product.desc}
           </p>
 
-          {/* Akcije — v1: kontakt sa prodavcem, bez korpe */}
+          {/* Akcije - v1: kontakt sa prodavcem, bez korpe */}
           <div className="mt-8 flex items-stretch gap-3">
             {shop ? (
               <ContactSellerButton shopId={shop.id} className="h-12 flex-1">
@@ -240,7 +240,7 @@ export default async function ProductPage({
           </div>
           <dl className="space-y-0">
             <DetailRow l="Kategorija" v={product.category} />
-            <DetailRow l="Radnja" v={shop?.name ?? "—"} />
+            <DetailRow l="Radnja" v={shop?.name ?? "-"} />
             <DetailRow l="Poreklo" v={shop?.city ?? "Srbija"} />
             <DetailRow l="Na stanju" v={`${product.inStock} kom`} />
           </dl>

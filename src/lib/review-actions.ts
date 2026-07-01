@@ -57,7 +57,7 @@ export async function createReview(
 
   if (!productId) return { ok: false, error: "Nedostaje proizvod." };
   if (!(rating >= 1 && rating <= 5))
-    return { ok: false, error: "Izaberi ocenu (1–5 zvezdica)." };
+    return { ok: false, error: "Izaberi ocenu (1-5 zvezdica)." };
   if (!text) return { ok: false, error: "Napiši par reči o proizvodu." };
 
   const [prod] = await db

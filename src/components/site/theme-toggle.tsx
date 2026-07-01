@@ -23,7 +23,7 @@ export function ThemeToggle({ className }: { className?: string }) {
     try {
       localStorage.setItem("zr-theme", next ? "dark" : "light");
     } catch {
-      // localStorage nedostupan (npr. privatni režim) — ignoriši
+      // localStorage nedostupan (npr. privatni režim) - ignoriši
     }
   }
 

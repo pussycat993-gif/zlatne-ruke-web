@@ -16,6 +16,6 @@ export function loadEnvLocal(path = ".env.local") {
       if (val !== "") process.env[key] = val;
     }
   } catch {
-    // .env.local ne postoji — oslanjamo se na postojeći process.env
+    // .env.local ne postoji - oslanjamo se na postojeći process.env
   }
 }

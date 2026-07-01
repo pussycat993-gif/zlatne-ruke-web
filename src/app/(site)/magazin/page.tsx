@@ -4,7 +4,7 @@ import { StoryCard } from "@/components/site/story-card";
 import { getAllStories, getShopNameMap } from "@/lib/db/queries";
 
 export const metadata: Metadata = {
-  title: "Magazin — Zlatne Ruke",
+  title: "Magazin - Zlatne Ruke",
   description:
     "Priče iza ruku: posete radionicama, intervjui i recepti majstorica iz Srbije.",
 };

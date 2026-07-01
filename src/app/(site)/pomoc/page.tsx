@@ -3,7 +3,7 @@ import { Icon } from "@/components/icon";
 import { Crumbs } from "@/components/site/crumbs";
 
 export const metadata: Metadata = {
-  title: "Česta pitanja — Zlatne Ruke",
+  title: "Česta pitanja - Zlatne Ruke",
   description: "Odgovori na česta pitanja kupaca i prodavaca.",
 };
 
@@ -14,7 +14,7 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "Da li platforma naplaćuje proviziju?",
-    a: "Prodavcima prve godine ne naplaćujemo proviziju — zadržavaju 100% od svake prodaje. Kupcima je korišćenje kataloga uvek besplatno.",
+    a: "Prodavcima prve godine ne naplaćujemo proviziju - zadržavaju 100% od svake prodaje. Kupcima je korišćenje kataloga uvek besplatno.",
   },
   {
     q: "Kako se dogovara dostava?",

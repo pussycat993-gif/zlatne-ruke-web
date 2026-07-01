@@ -14,7 +14,7 @@ export async function getOrCreateSellerShop(): Promise<ShopRow | null> {
 
   const user = await currentUser();
   const firstName = user?.firstName ?? "";
-  const name = firstName ? `${firstName} — radnja` : "Moja radnja";
+  const name = firstName ? `${firstName} - radnja` : "Moja radnja";
   const owner =
     [user?.firstName, user?.lastName].filter(Boolean).join(" ") || "Vlasnica";
 

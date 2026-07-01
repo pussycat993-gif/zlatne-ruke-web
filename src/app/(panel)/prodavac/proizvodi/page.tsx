@@ -7,7 +7,7 @@ import { formatPrice, toneClass } from "@/lib/data";
 import { getShopProducts } from "@/lib/db/queries";
 import { getOrCreateSellerShop } from "@/lib/seller";
 
-export const metadata: Metadata = { title: "Proizvodi — Panel prodavca" };
+export const metadata: Metadata = { title: "Proizvodi - Panel prodavca" };
 
 export default async function SellerProductsPage() {
   const myShop = await getOrCreateSellerShop();
@@ -28,7 +28,7 @@ export default async function SellerProductsPage() {
       </div>
 
       <div className="overflow-hidden rounded-2xl border border-line-soft bg-surface">
-        {/* Zaglavlje tabele — samo na većim ekranima */}
+        {/* Zaglavlje tabele - samo na većim ekranima */}
         <div className="hidden grid-cols-[1fr_auto_auto_auto] gap-4 border-b border-line-soft bg-cream px-5 py-3 font-mono text-xs font-semibold uppercase tracking-wide text-ink md:grid">
           <span>Proizvod</span>
           <span className="w-24 text-right">Cena</span>

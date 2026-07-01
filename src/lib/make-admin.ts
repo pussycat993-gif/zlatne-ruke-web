@@ -22,7 +22,7 @@ async function main() {
   console.log(`\nRegistrovani nalozi (${all.totalCount}):`);
   for (const u of all.data) {
     const email = u.primaryEmailAddress?.emailAddress ?? "(bez mejla)";
-    const role = (u.publicMetadata?.role as string) ?? "—";
+    const role = (u.publicMetadata?.role as string) ?? "-";
     console.log(`  • ${email}   role=${role}   id=${u.id}`);
   }
 

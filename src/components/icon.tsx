@@ -47,7 +47,7 @@ import {
   type LucideProps,
 } from "lucide-react";
 
-// Zlatne Ruke — ikonice preko lucide-react (jedinstven stil na celom sajtu).
+// Zlatne Ruke - ikonice preko lucide-react (jedinstven stil na celom sajtu).
 // Isti API kao ranije: <Icon name="..." size={..} filled />.
 const MAP = {
   home: Home,

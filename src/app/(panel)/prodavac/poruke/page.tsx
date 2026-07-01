@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Icon } from "@/components/icon";
 import { getSellerConversations } from "@/lib/messages";
 
-export const metadata: Metadata = { title: "Poruke — Panel prodavca" };
+export const metadata: Metadata = { title: "Poruke - Panel prodavca" };
 
 function formatDate(d: Date): string {
   return new Intl.DateTimeFormat("sr-RS", {

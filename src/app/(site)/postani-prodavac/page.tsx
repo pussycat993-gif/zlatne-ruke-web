@@ -7,7 +7,7 @@ import { BecomeSellerButton } from "@/components/site/become-seller-button";
 import { formatPrice, toneClass } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Postani prodavac — Zlatne Ruke",
+  title: "Postani prodavac - Zlatne Ruke",
   description:
     "Otvori radnju za nekoliko minuta. Bez provizije prve godine. Prodaj rukotvorine na celu Srbiju.",
 };
@@ -34,7 +34,7 @@ const STEPS: { n: string; icon: IconName; t: string; d: string }[] = [
 ];
 
 const BENEFITS = [
-  "Bez provizije — zadržavaš 100% od svake prodaje",
+  "Bez provizije - zadržavaš 100% od svake prodaje",
   "Bez startnih troškova i bez mesečne pretplate",
   "Sama dogovaraš plaćanje i dostavu sa kupcem",
   "Tehnička podrška na srpskom",
@@ -42,7 +42,7 @@ const BENEFITS = [
 ];
 
 const TESTIMONIALS = [
-  { n: "Mila Petrović", s: "Mila & Konac · Novi Sad", q: "Pre Zlatnih Ruku pletila sam samo za bakine prijateljice. Sad mi šalovi stižu do Beča — i sve to dok mi deca spavaju." },
+  { n: "Mila Petrović", s: "Mila & Konac · Novi Sad", q: "Pre Zlatnih Ruku pletila sam samo za bakine prijateljice. Sad mi šalovi stižu do Beča - i sve to dok mi deca spavaju." },
   { n: "Jelena Đorđević", s: "Zrno Srebra · Niš", q: "Najbolje je što ne moram da brinem ni o čemu osim o radu. Samo kujem srebro i pišem kupcima kad pitaju." },
   { n: "Sofija Marković", s: "Bosiljkov Vrt · Subotica", q: "Imala sam 4 prodaje mesečno preko Instagrama. Ovde ljudi tačno znaju šta traže." },
 ];
@@ -64,7 +64,7 @@ export default function BecomeSellerPage() {
             </h1>
             <p className="mt-6 max-w-md text-pretty text-base leading-relaxed text-ink md:text-lg">
               Otvori radnju za nekoliko minuta. Prodaj na celu Srbiju. Mi se
-              brinemo o sajtu i vidljivosti — ti pleti, mesi, kuj. Bez provizije,
+              brinemo o sajtu i vidljivosti - ti pleti, mesi, kuj. Bez provizije,
               bez mesečne pretplate.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -124,7 +124,7 @@ export default function BecomeSellerPage() {
               <span className="font-script font-normal text-pink">besplatno.</span>
             </h2>
             <p className="mt-4 max-w-lg text-pretty leading-relaxed text-ink">
-              Dok gradimo zajednicu, ne naplaćujemo proviziju — ni startne
+              Dok gradimo zajednicu, ne naplaćujemo proviziju - ni startne
               troškove, ni pretplatu. Kad uvedemo cenovnik, javljamo se mesec dana
               unapred, a prvih 100 prodavaca dobija trajni popust.
             </p>
@@ -205,7 +205,7 @@ export default function BecomeSellerPage() {
             </span>
           </h2>
           <BecomeSellerButton className="mt-8 bg-surface text-pink-dark hover:bg-surface/90">
-            Krenimo — besplatno je
+            Krenimo - besplatno je
           </BecomeSellerButton>
         </div>
       </section>

@@ -6,14 +6,14 @@ import { BarChart } from "@/components/admin/bar-chart";
 import { Blob } from "@/components/admin/blob";
 import { getAdminOverview } from "@/lib/db/admin";
 
-export const metadata: Metadata = { title: "Pregled — Admin" };
+export const metadata: Metadata = { title: "Pregled - Admin" };
 
 export default async function AdminOverviewPage() {
   const o = await getAdminOverview();
 
   return (
     <>
-      <PageHead eyebrow="Pregled platforme" title="Platforma —" accent="pregled" />
+      <PageHead eyebrow="Pregled platforme" title="Platforma -" accent="pregled" />
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Kpi label="Aktivnih radnji" value={String(o.shopCount)} />

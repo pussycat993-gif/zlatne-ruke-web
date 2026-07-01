@@ -6,7 +6,7 @@ import { Icon } from "@/components/icon";
 import { toggleFavorite } from "@/lib/social-actions";
 import { cn } from "@/lib/utils";
 
-// Dugme „omiljeno" (srce) — upisuje u bazu za ulogovanog korisnika.
+// Dugme „omiljeno" (srce) - upisuje u bazu za ulogovanog korisnika.
 // Neulogovani se preusmeravaju na prijavu.
 export function FavButton({
   productId,

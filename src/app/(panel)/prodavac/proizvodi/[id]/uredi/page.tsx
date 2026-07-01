@@ -5,7 +5,7 @@ import { getOrCreateSellerShop } from "@/lib/seller";
 import { updateProduct } from "@/lib/seller-actions";
 import { ProductForm } from "@/components/panel/product-form";
 
-export const metadata: Metadata = { title: "Izmena proizvoda — Panel prodavca" };
+export const metadata: Metadata = { title: "Izmena proizvoda - Panel prodavca" };
 
 export default async function EditProductPage({
   params,

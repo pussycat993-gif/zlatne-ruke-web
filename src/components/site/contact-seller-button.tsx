@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/icon";
 import { startConversation } from "@/lib/message-actions";
 
-// „Pošalji upit majstorici" — otvara (ili nastavlja) razgovor sa radnjom.
+// „Pošalji upit majstorici" - otvara (ili nastavlja) razgovor sa radnjom.
 // Neulogovani se preusmere na prijavu (kroz server akciju).
 export function ContactSellerButton({
   shopId,

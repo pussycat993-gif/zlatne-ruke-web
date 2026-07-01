@@ -4,13 +4,13 @@ import { Crumbs } from "@/components/site/crumbs";
 import { ContactForm } from "@/components/site/contact-form";
 
 export const metadata: Metadata = {
-  title: "Kontakt — Zlatne Ruke",
-  description: "Javi nam se — pitanja, predlozi i podrška za kupce i prodavce.",
+  title: "Kontakt - Zlatne Ruke",
+  description: "Javi nam se - pitanja, predlozi i podrška za kupce i prodavce.",
 };
 
 const CHANNELS: { icon: IconName; t: string; d: string }[] = [
   { icon: "chat", t: "Email", d: "podrska@zlatneruke.rs" },
-  { icon: "phone", t: "Telefon", d: "Radnim danima 9–17h" },
+  { icon: "phone", t: "Telefon", d: "Radnim danima 9-17h" },
   { icon: "location", t: "Sedište", d: "Beograd, Srbija" },
 ];
 
@@ -24,7 +24,7 @@ export default function ContactPage() {
           Javi nam se.
         </h1>
         <p className="mt-3 max-w-xl text-sm text-ink md:text-base">
-          Pitanja, predlozi ili pomoć oko radnje — tu smo. Za pitanje o
+          Pitanja, predlozi ili pomoć oko radnje - tu smo. Za pitanje o
           konkretnom proizvodu, najbrže je da pišeš direktno majstorici sa
           stranice proizvoda.
         </p>

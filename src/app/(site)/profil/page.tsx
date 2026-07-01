@@ -10,7 +10,7 @@ import { getBuyerUnreadCount } from "@/lib/messages";
 import { getUnreadNotificationCount } from "@/lib/notifications";
 
 export const metadata: Metadata = {
-  title: "Moj profil — Zlatne Ruke",
+  title: "Moj profil - Zlatne Ruke",
   robots: { index: false, follow: false },
 };
 

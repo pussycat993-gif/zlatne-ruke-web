@@ -27,7 +27,7 @@ export async function generateMetadata({
   const { id } = await params;
   const shop = await getShopById(id);
   return {
-    title: shop ? `${shop.name} — Zlatne Ruke` : "Radnja — Zlatne Ruke",
+    title: shop ? `${shop.name} - Zlatne Ruke` : "Radnja - Zlatne Ruke",
     description: shop?.bio,
   };
 }
@@ -93,7 +93,7 @@ export default async function ShopPage({
         {shop.coverPublicId && (
           <Image
             src={cloudinaryUrl(shop.coverPublicId, { width: 1600 })}
-            alt={`Naslovna slika — ${shop.name}`}
+            alt={`Naslovna slika - ${shop.name}`}
             fill
             priority
             sizes="100vw"
@@ -193,7 +193,7 @@ export default async function ShopPage({
               </h2>
               <p className="mt-4 text-pretty leading-relaxed text-ink">
                 {shop.bio} Radim u gradu {shop.city}, gde sam i odrasla. Svaki
-                predmet je rezultat sati pažnje — biraš ga znajući da iza njega
+                predmet je rezultat sati pažnje - biraš ga znajući da iza njega
                 stoji ime, a ne fabrika.
               </p>
             </div>
