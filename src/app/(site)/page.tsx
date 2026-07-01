@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Icon, type IconName } from "@/components/icon";
 import { SectionHeader } from "@/components/site/section-header";
@@ -53,7 +54,7 @@ export default async function HomePage() {
               još spava. Iza svakog komada — sat, tri, ponekad tri dana rada. Iza
               svakog komada — žena.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Button asChild size="lg" className="h-11 rounded-full px-7 text-sm">
                 <Link href="/katalog">Istraži rukotvorine</Link>
               </Button>
@@ -64,6 +65,27 @@ export default async function HomePage() {
                 className="h-11 rounded-full border-line px-7 text-sm text-pink-dark"
               >
                 <Link href="/magazin">Pročitaj priču</Link>
+              </Button>
+              {/* „Otvori radnju" — isti zlatni pill kao primarno dugme + animacija
+                  (shine sweep + hover lift + strelica). Animacije su gašene uz
+                  prefers-reduced-motion (motion-safe: i @media guard u globals). */}
+              <Button
+                asChild
+                size="lg"
+                className="relative h-11 overflow-hidden rounded-full px-7 text-sm duration-[250ms] ease-out motion-safe:hover:-translate-y-[3px] motion-safe:hover:shadow-[0_12px_26px_-10px_var(--zr-gold)]"
+              >
+                <Link href="/postani-prodavac">
+                  <span
+                    aria-hidden="true"
+                    className="zr-shine-sweep pointer-events-none absolute inset-y-0 left-0 w-1/3 -translate-x-[160%] skew-x-12 bg-gradient-to-r from-transparent via-white/35 to-transparent"
+                  />
+                  Otvori radnju
+                  <ArrowRight
+                    aria-hidden="true"
+                    strokeWidth={1.5}
+                    className="size-4 motion-safe:transition-transform motion-safe:duration-[250ms] motion-safe:group-hover/button:translate-x-1"
+                  />
+                </Link>
               </Button>
             </div>
             <div className="mt-12 flex gap-8 border-t border-line-soft pt-7">
@@ -303,42 +325,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* ── Postani prodavac (CTA) ── */}
-      <section className="relative overflow-hidden bg-hero py-20 text-hero-foreground">
-        <div className="pointer-events-none absolute -right-20 -top-20 size-80 rounded-full bg-white/5" />
-        <div className="pointer-events-none absolute -bottom-28 -left-28 size-96 rounded-full bg-white/[0.04]" />
-        <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 md:px-8 lg:grid-cols-[1.4fr_1fr]">
-          <div>
-            <div className="mb-4 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-current/70">
-              Postani prodavac
-            </div>
-            <h2 className="text-balance font-heading text-4xl font-semibold leading-tight md:text-5xl">
-              Ti praviš.{" "}
-              <span className="font-script font-normal text-pink">
-                Mi se brinemo za ostalo.
-              </span>
-            </h2>
-            <p className="mt-6 max-w-lg text-pretty text-base leading-relaxed text-current/80">
-              Otvori radnju za 5 minuta. Bez provizije prve godine. Snimaj video
-              predstavljanja, povezuj se sa kupcima, prodaj direktno — bez
-              posrednika.
-            </p>
-            <Button
-              asChild
-              size="lg"
-              className="mt-8 h-11 rounded-full bg-surface px-7 text-sm text-pink-dark hover:bg-surface/90"
-            >
-              <Link href="/postani-prodavac">Otvori radnju</Link>
-            </Button>
-          </div>
-          <div className="flex flex-col gap-4">
-            <SellerStat n="0%" l="provizije prve godine" />
-            <SellerStat n="∞" l="video predstavljanja" />
-            <SellerStat n="48h" l="prosečan odgovor podrške" />
-          </div>
-        </div>
-      </section>
     </>
   );
 }
@@ -364,15 +350,6 @@ function ManifestPoint({ icon, t, d }: { icon: IconName; t: string; d: string })
         <div className="text-sm font-bold text-pink-dark">{t}</div>
         <div className="mt-0.5 text-xs text-ink">{d}</div>
       </div>
-    </div>
-  );
-}
-
-function SellerStat({ n, l }: { n: string; l: string }) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.08] px-6 py-5 backdrop-blur">
-      <div className="text-4xl font-bold leading-none">{n}</div>
-      <div className="mt-1.5 text-sm text-current/70">{l}</div>
     </div>
   );
 }

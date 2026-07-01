@@ -246,3 +246,20 @@
     letter-spacing: 0.01em;
   }
 }
+
+/* ── Hero CTA „Otvori radnju" — zlatni „shine" prelaz (svetla traka klizne s leva na desno) ──
+   Radi samo bez prefers-reduced-motion; inače traka ostaje van ekrana (nevidljiva). */
+@keyframes zr-shine {
+  0% {
+    transform: translateX(-160%) skewX(-12deg);
+  }
+  55%,
+  100% {
+    transform: translateX(280%) skewX(-12deg);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .zr-shine-sweep {
+    animation: zr-shine 3.2s ease-in-out infinite;
+  }
+}
