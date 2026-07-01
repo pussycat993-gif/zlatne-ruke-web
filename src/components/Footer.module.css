@@ -102,10 +102,13 @@
   gap: 8px;
 }
 
-/* --- Tamna pravna traka (pozadina puna širina, sadržaj centriran) --- */
-.bottomWrap { background: #3b2329; }
+/* --- Donja pravna traka (pozadina puna širina, sadržaj centriran) --- */
+.bottomWrap {
+  background: #f3e3dc;
+  border-top: 1px solid rgba(160, 68, 90, 0.18);
+}
 .bottom {
-  color: rgba(253, 246, 240, 0.72);
+  color: #9a6b76;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -115,8 +118,8 @@
   font-size: 12px;
 }
 .legal { display: flex; gap: 18px; flex-wrap: wrap; }
-.bottom a { color: rgba(253, 246, 240, 0.82); text-decoration: none; }
-.bottom a:hover { color: #fdf6f0; }
+.bottom a { color: #8a6a72; text-decoration: none; }
+.bottom a:hover { color: #a0445a; }
 
 /* --- Animacija gradova --- */
 .city {
@@ -178,3 +181,47 @@
   .cols { gap: 40px; }
   .map { flex-basis: 100%; justify-content: flex-start; }
 }
+
+/* --- Tamna tema (.dark na <html>): topli brown–burgundy–zlato, nikad čisto crno --- */
+:global(.dark) .footer {
+  background: #2b1a20;
+  color: #dcc4c9;
+}
+:global(.dark) .footer .name { color: #ecc98f; }
+:global(.dark) .footer .slogan { color: #e0899f; }
+:global(.dark) .footer .desc { color: #c2a3ab; }
+:global(.dark) .footer .socLabel,
+:global(.dark) .footer .colTitle { color: #f0dccb; }
+:global(.dark) .footer .col a { color: #c9aab2; }
+:global(.dark) .footer .col a:hover { color: #f7e6d6; }
+
+:global(.dark) .footer .soc a {
+  background: #c0637a;
+  color: #fdf6f0;
+}
+
+/* Mapa: tačkice gradova, glavni grad i puls prsten */
+:global(.dark) .footer .city,
+:global(.dark) .footer .cityShown { fill: #e19aad; }
+:global(.dark) .footer .capital,
+:global(.dark) .footer .capitalShown { fill: #e19aad; }
+:global(.dark) .footer .ring { stroke: #e19aad; }
+:global(.dark) .footer .cityShown {
+  filter: drop-shadow(0 0 1.5px #e19aad);
+}
+:global(.dark) .footer .capitalShown {
+  filter: drop-shadow(0 0 3px #e19aad);
+}
+
+/* Poruka zahvalnosti + srce (srce ima inline boju, zato !important) */
+:global(.dark) .footer .ribbon { color: #eab8c4; }
+:global(.dark) .footer .ribbon svg { color: #e0899f !important; }
+
+/* Donja pravna traka */
+:global(.dark) .footer .bottomWrap {
+  background: #1e1116;
+  border-top: 1px solid rgba(240, 220, 203, 0.1);
+}
+:global(.dark) .footer .bottom { color: rgba(220, 196, 201, 0.78); }
+:global(.dark) .footer .bottom a { color: rgba(240, 220, 203, 0.85); }
+:global(.dark) .footer .bottom a:hover { color: #f7e6d6; }
