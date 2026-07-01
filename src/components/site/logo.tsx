@@ -1,18 +1,23 @@
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-// Logo — ZR monogram (rukopisni Caveat) + naziv. Vodi na naslovnu.
+// Logo — zvanični „Zlatne Ruke" znak (zlatni, prozirna pozadina). Vodi na naslovnu.
 export function Logo({ className }: { className?: string }) {
   return (
     <Link
       href="/"
       aria-label="Zlatne Ruke — početna"
-      className={cn("inline-flex items-center gap-2.5", className)}
+      className={cn("inline-flex items-center", className)}
     >
-      <span className="font-script text-3xl leading-none text-pink">ZR</span>
-      <span className="hidden font-sans text-[0.7rem] font-semibold uppercase tracking-[0.35em] text-pink-dark sm:inline">
-        Zlatne · Ruke
-      </span>
+      <Image
+        src="/zlatne-ruke-logo-crop.png"
+        alt="Zlatne Ruke"
+        width={800}
+        height={320}
+        priority
+        className="h-9 w-auto md:h-10"
+      />
     </Link>
   );
 }
