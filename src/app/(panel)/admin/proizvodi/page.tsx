@@ -55,7 +55,7 @@ export default async function AdminProductsPage() {
                     Vidi
                   </Link>
                   <ActionButton
-                    action={() => adminDeleteProduct(p.id)}
+                    action={adminDeleteProduct.bind(null, p.id)}
                     confirm={`Obrisati proizvod „${p.name}"?`}
                     icon="trash"
                     variant="outline"

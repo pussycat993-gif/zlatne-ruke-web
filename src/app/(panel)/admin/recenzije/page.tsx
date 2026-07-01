@@ -58,7 +58,7 @@ export default async function AdminReviewsPage() {
               </div>
               <div className="flex shrink-0 items-start">
                 <ActionButton
-                  action={() => adminDeleteReview(r.id)}
+                  action={adminDeleteReview.bind(null, r.id)}
                   confirm="Obrisati ovu recenziju?"
                   icon="trash"
                   variant="outline"

@@ -50,7 +50,7 @@ export default async function AdminTagsPage() {
               </div>
               <div className="flex gap-2">
                 <ActionButton
-                  action={() => approveTag(t.id)}
+                  action={approveTag.bind(null, t.id)}
                   icon="check"
                   variant="primary"
                   success="Tag odobren."
@@ -58,7 +58,7 @@ export default async function AdminTagsPage() {
                   Odobri
                 </ActionButton>
                 <ActionButton
-                  action={() => rejectTag(t.id)}
+                  action={rejectTag.bind(null, t.id)}
                   icon="close"
                   variant="outline"
                   success="Tag odbijen."
