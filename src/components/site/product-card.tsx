@@ -57,8 +57,10 @@ export function ProductCard({
           )}
         </div>
         <div className="mt-3">
-          <div className="text-xs font-semibold text-ink">{shopName}</div>
-          <h3 className="mt-1 line-clamp-2 text-sm font-semibold leading-snug text-pink-dark">
+          <div className="truncate text-2xl font-semibold leading-tight text-ink">
+            {shopName}
+          </div>
+          <h3 className="mt-1 line-clamp-2 text-3xl font-semibold leading-tight text-pink-dark">
             {product.name}
           </h3>
           <div className="mt-2 flex items-baseline gap-2">
