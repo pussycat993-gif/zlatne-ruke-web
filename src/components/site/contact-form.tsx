@@ -83,12 +83,7 @@ export function ContactForm() {
         </p>
       )}
 
-      <Button
-        type="submit"
-        size="lg"
-        disabled={pending}
-        className="mt-6 h-11 rounded-full px-7 text-sm"
-      >
+      <Button type="submit" size="cta" disabled={pending} className="mt-6">
         {pending ? "Šaljem…" : "Pošalji poruku"}
       </Button>
     </form>

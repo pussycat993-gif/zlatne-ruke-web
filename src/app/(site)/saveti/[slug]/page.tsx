@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -199,12 +200,9 @@ export default async function SavetPage({
           Pogledajte rukotvorine domaćih majstorica i pošaljite upit direktno
           autorki.
         </p>
-        <Link
-          href="/katalog"
-          className="mt-6 inline-flex rounded-full bg-pink px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-pink-dark"
-        >
-          Pogledajte katalog
-        </Link>
+        <Button asChild size="default" className="mt-6">
+          <Link href="/katalog">Pogledajte katalog</Link>
+        </Button>
       </div>
     </article>
   );

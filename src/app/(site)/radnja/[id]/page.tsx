@@ -143,14 +143,11 @@ export default async function ShopPage({
               <ContactSellerButton
                 shopId={shop.id}
                 variant="outline"
-                className="flex-1 rounded-full border-line text-sm text-pink-dark md:flex-none"
+                className="flex-1 md:flex-none"
               >
                 Poruka
               </ContactSellerButton>
-              <ShareButton
-                title={shop.name}
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-line bg-surface px-6 py-2.5 text-sm font-semibold text-pink-dark transition-colors hover:bg-pink-light md:flex-none"
-              />
+              <ShareButton title={shop.name} className="flex-1 md:flex-none" />
             </div>
           </div>
         </div>

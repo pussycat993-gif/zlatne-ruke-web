@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export function CatalogFilters({
   cities,
@@ -66,20 +67,13 @@ export function CatalogFilters({
         placeholder="do"
         className={`${ctrl} w-24`}
       />
-      <button
-        type="submit"
-        className="rounded-full bg-pink px-5 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-pink-dark"
-      >
+      <Button type="submit" size="compact">
         Primeni
-      </button>
+      </Button>
       {hasFilters && (
-        <button
-          type="button"
-          onClick={reset}
-          className="rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-pink-light"
-        >
+        <Button type="button" variant="outline" size="compact" onClick={reset}>
           Poništi
-        </button>
+        </Button>
       )}
     </form>
   );

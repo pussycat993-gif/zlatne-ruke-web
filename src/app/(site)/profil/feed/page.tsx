@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
 import { Icon } from "@/components/icon";
 import { Crumbs } from "@/components/site/crumbs";
@@ -64,12 +65,9 @@ export default async function FeedPage() {
               ? "Zaprati radnje da ovde vidiš njihove nove proizvode."
               : "Radnje koje pratiš još nisu dodale nove proizvode. Navrati kasnije."}
           </p>
-          <Link
-            href="/radnje"
-            className="mt-6 inline-flex rounded-full bg-pink px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-pink-dark"
-          >
-            Pogledaj radnje
-          </Link>
+          <Button asChild size="default" className="mt-6">
+            <Link href="/radnje">Pogledaj radnje</Link>
+          </Button>
         </div>
       )}
     </div>

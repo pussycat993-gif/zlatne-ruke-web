@@ -67,11 +67,7 @@ export function ReviewForm({ productId }: { productId: string }) {
         </p>
       )}
 
-      <Button
-        type="submit"
-        disabled={pending}
-        className="mt-4 h-10 rounded-full px-6 text-sm"
-      >
+      <Button type="submit" size="default" disabled={pending} className="mt-4">
         {pending ? "Objavljujem…" : "Objavi recenziju"}
       </Button>
     </form>

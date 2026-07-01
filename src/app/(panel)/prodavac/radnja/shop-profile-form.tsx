@@ -100,12 +100,7 @@ export function ShopProfileForm({
           <p className="text-sm font-medium text-destructive">{state.error}</p>
         )}
 
-        <Button
-          type="submit"
-          size="lg"
-          disabled={pending}
-          className="h-11 rounded-full px-7 text-sm"
-        >
+        <Button type="submit" size="cta" disabled={pending}>
           {pending ? "Čuvam…" : "Sačuvaj izmene"}
         </Button>
       </form>

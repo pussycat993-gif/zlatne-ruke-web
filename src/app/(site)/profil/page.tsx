@@ -117,7 +117,7 @@ export default async function ProfilePage() {
               Otvori svoju radnju i prodaj rukotvorine na celu Srbiju.
             </p>
             <div className="mt-4">
-              <BecomeSellerButton className="h-10 rounded-full px-5 text-sm">
+              <BecomeSellerButton size="compact">
                 Otvori radnju
               </BecomeSellerButton>
             </div>

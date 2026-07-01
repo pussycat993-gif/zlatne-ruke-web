@@ -18,7 +18,7 @@ export function ContactSellerButton({
   return (
     <form action={startConversation} className="contents">
       <input type="hidden" name="shopId" value={shopId} />
-      <Button type="submit" size="lg" variant={variant} className={className}>
+      <Button type="submit" size="cta" variant={variant} className={className}>
         <Icon name="chat" size={18} /> {children}
       </Button>
     </form>

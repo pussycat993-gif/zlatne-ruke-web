@@ -37,11 +37,7 @@ export function ReplyForm({ conversationId }: { conversationId: string }) {
         ) : (
           <span />
         )}
-        <Button
-          type="submit"
-          disabled={pending}
-          className="h-9 rounded-full px-5 text-sm"
-        >
+        <Button type="submit" size="compact" disabled={pending}>
           <Icon name="send" size={16} /> {pending ? "Šaljem…" : "Pošalji"}
         </Button>
       </div>

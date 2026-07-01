@@ -20,15 +20,10 @@ export function NotFoundContent() {
         istražuješ.
       </p>
       <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-        <Button asChild size="lg" className="h-11 rounded-full px-7 text-sm">
+        <Button asChild size="cta">
           <Link href="/">Na početnu</Link>
         </Button>
-        <Button
-          asChild
-          size="lg"
-          variant="outline"
-          className="h-11 rounded-full border-line px-7 text-sm text-pink-dark"
-        >
+        <Button asChild size="cta" variant="outline">
           <Link href="/katalog">Istraži katalog</Link>
         </Button>
       </div>

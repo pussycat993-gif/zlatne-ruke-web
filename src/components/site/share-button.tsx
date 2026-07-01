@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/icon";
-import { cn } from "@/lib/utils";
 
 // „Podeli" — nativni share (mobilni) sa fallback-om na kopiranje linka.
 export function ShareButton({
@@ -36,20 +36,17 @@ export function ShareButton({
   }
 
   return (
-    <button
+    <Button
       type="button"
+      variant="outline"
+      size={iconOnly ? "icon" : "default"}
       onClick={onClick}
       aria-label="Podeli"
       title="Podeli"
-      className={cn(
-        "transition-colors",
-        !className &&
-          "inline-flex items-center gap-2 rounded-full border border-line px-6 py-2.5 text-sm font-semibold text-pink-dark hover:bg-pink-light",
-        className,
-      )}
+      className={className}
     >
       <Icon name={copied ? "check" : "share"} size={iconOnly ? 18 : 16} />
       {!iconOnly && (copied ? "Kopirano" : "Podeli")}
-    </button>
+    </Button>
   );
 }

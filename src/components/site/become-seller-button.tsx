@@ -7,21 +7,23 @@ import { becomeSeller } from "@/lib/seller-actions";
 // Neulogovan => ide na registraciju.
 export function BecomeSellerButton({
   className,
+  size = "cta",
   children = "Otvori radnju",
 }: {
   className?: string;
+  size?: React.ComponentProps<typeof Button>["size"];
   children?: React.ReactNode;
 }) {
   return (
     <>
       <Show when="signed-out">
-        <Button asChild size="lg" className={className}>
+        <Button asChild size={size} className={className}>
           <Link href="/register">{children}</Link>
         </Button>
       </Show>
       <Show when="signed-in">
         <form action={becomeSeller}>
-          <Button type="submit" size="lg" className={className}>
+          <Button type="submit" size={size} className={className}>
             {children}
           </Button>
         </form>

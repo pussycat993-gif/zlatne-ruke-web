@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
 import { Icon } from "@/components/icon";
 import { Kpi } from "@/components/panel/kpi";
@@ -77,12 +78,9 @@ export default async function SellerOverviewPage() {
             Radnje sa video sadržajem privuku znatno više posetilaca. Dodaj
             kratak snimak procesa rada.
           </p>
-          <Link
-            href="/prodavac/radnja"
-            className="mt-4 inline-flex rounded-full bg-pink px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-pink-dark"
-          >
-            Uredi radnju
-          </Link>
+          <Button asChild size="default" className="mt-4">
+            <Link href="/prodavac/radnja">Uredi radnju</Link>
+          </Button>
         </div>
       </div>
     </div>

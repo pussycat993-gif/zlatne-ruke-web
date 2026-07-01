@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
 import { Icon } from "@/components/icon";
 import { Crumbs } from "@/components/site/crumbs";
@@ -55,12 +56,9 @@ export default async function FavoritesPage() {
           <p className="mx-auto mt-2 max-w-sm text-sm text-ink">
             Klikni na srce na proizvodu da ga sačuvaš ovde.
           </p>
-          <Link
-            href="/katalog"
-            className="mt-6 inline-flex rounded-full bg-pink px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-pink-dark"
-          >
-            Istraži katalog
-          </Link>
+          <Button asChild size="default" className="mt-6">
+            <Link href="/katalog">Istraži katalog</Link>
+          </Button>
         </div>
       )}
     </div>

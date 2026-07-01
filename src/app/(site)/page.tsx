@@ -55,24 +55,19 @@ export default async function HomePage() {
               svakog komada — žena.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Button asChild size="lg" className="h-11 rounded-full px-7 text-sm">
+              <Button asChild size="cta">
                 <Link href="/katalog">Istraži rukotvorine</Link>
               </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="h-11 rounded-full border-line px-7 text-sm text-pink-dark"
-              >
+              <Button asChild size="cta" variant="outline">
                 <Link href="/magazin">Pročitaj priču</Link>
               </Button>
-              {/* „Otvori radnju" — isti zlatni pill kao primarno dugme + animacija
+              {/* „Otvori radnju" — isti pill kao primarno dugme + animacija
                   (shine sweep + hover lift + strelica). Animacije su gašene uz
                   prefers-reduced-motion (motion-safe: i @media guard u globals). */}
               <Button
                 asChild
-                size="lg"
-                className="relative h-11 overflow-hidden rounded-full px-7 text-sm duration-[250ms] ease-out motion-safe:hover:-translate-y-[3px] motion-safe:hover:shadow-[0_12px_26px_-10px_var(--zr-gold)]"
+                size="cta"
+                className="relative overflow-hidden duration-[250ms] ease-out motion-safe:hover:-translate-y-[3px] motion-safe:hover:shadow-[0_12px_26px_-10px_var(--zr-gold)]"
               >
                 <Link href="/postani-prodavac">
                   <span

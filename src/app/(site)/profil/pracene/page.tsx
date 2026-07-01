@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { Icon } from "@/components/icon";
@@ -81,12 +82,9 @@ export default async function FollowedShopsPage() {
           <p className="mx-auto mt-2 max-w-sm text-sm text-ink">
             Na stranici radnje klikni „Prati radnju" da je sačuvaš ovde.
           </p>
-          <Link
-            href="/radnje"
-            className="mt-6 inline-flex rounded-full bg-pink px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-pink-dark"
-          >
-            Pogledaj radnje
-          </Link>
+          <Button asChild size="default" className="mt-6">
+            <Link href="/radnje">Pogledaj radnje</Link>
+          </Button>
         </div>
       )}
     </div>

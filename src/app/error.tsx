@@ -34,20 +34,10 @@ export default function Error({
           Došlo je do greške. Pokušaj ponovo ili se vrati na početnu.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Button
-            type="button"
-            size="lg"
-            onClick={() => reset()}
-            className="h-11 rounded-full px-7 text-sm"
-          >
+          <Button type="button" size="cta" onClick={() => reset()}>
             Pokušaj ponovo
           </Button>
-          <Button
-            asChild
-            size="lg"
-            variant="outline"
-            className="h-11 rounded-full border-line px-7 text-sm text-pink-dark"
-          >
+          <Button asChild size="cta" variant="outline">
             <Link href="/">Na početnu</Link>
           </Button>
         </div>

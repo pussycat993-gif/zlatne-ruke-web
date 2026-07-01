@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/icon";
 import { DeleteProductButton } from "@/components/panel/delete-product-button";
 import { formatPrice, toneClass } from "@/lib/data";
@@ -19,12 +20,11 @@ export default async function SellerProductsPage() {
         <h1 className="font-heading text-2xl font-semibold text-foreground md:text-3xl">
           Proizvodi
         </h1>
-        <Link
-          href="/prodavac/dodaj"
-          className="inline-flex items-center gap-2 rounded-full bg-pink px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-pink-dark"
-        >
-          <Icon name="plus" size={16} /> Novi proizvod
-        </Link>
+        <Button asChild size="default">
+          <Link href="/prodavac/dodaj">
+            <Icon name="plus" size={16} /> Novi proizvod
+          </Link>
+        </Button>
       </div>
 
       <div className="overflow-hidden rounded-2xl border border-line-soft bg-surface">

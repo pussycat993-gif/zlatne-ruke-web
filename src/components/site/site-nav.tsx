@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Show, UserButton } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/icon";
 import { Logo } from "@/components/site/logo";
 import { ThemeToggle } from "@/components/site/theme-toggle";
@@ -166,12 +167,9 @@ export function SiteNav({
             </UserButton>
           </Show>
           <Show when="signed-out">
-            <Link
-              href="/login"
-              className="hidden rounded-full bg-pink px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-pink-dark sm:inline-flex"
-            >
-              Prijava
-            </Link>
+            <Button asChild size="compact" className="hidden sm:inline-flex">
+              <Link href="/login">Prijava</Link>
+            </Button>
           </Show>
 
           {/* Hamburger — mobilni */}
@@ -236,57 +234,69 @@ export function SiteNav({
             ))}
             <div className="mt-2 flex flex-wrap gap-2 border-t border-line-soft pt-3">
               <Show when="signed-in">
-                <Link
-                  href="/profil"
+                <Button
+                  asChild
+                  variant="secondary"
+                  className="flex-1"
                   onClick={() => setMobileOpen(false)}
-                  className="flex flex-1 items-center justify-center gap-2 rounded-full bg-pink-light px-4 py-2.5 text-sm font-semibold text-pink-dark"
                 >
-                  <Icon name="user" size={18} /> Profil
-                </Link>
-                <Link
-                  href="/profil/obavestenja"
-                  onClick={() => setMobileOpen(false)}
-                  className="flex flex-1 items-center justify-center gap-2 rounded-full bg-pink-light px-4 py-2.5 text-sm font-semibold text-pink-dark"
-                >
-                  <Icon name="bell" size={18} /> Obaveštenja
-                  {notifCount > 0 && (
-                    <span className="inline-flex min-w-5 items-center justify-center rounded-full bg-pink px-1.5 text-[0.65rem] font-bold text-primary-foreground">
-                      {notifCount}
-                    </span>
-                  )}
-                </Link>
-                <Link
-                  href="/profil/omiljeno"
-                  onClick={() => setMobileOpen(false)}
-                  className="flex flex-1 items-center justify-center gap-2 rounded-full bg-pink-light px-4 py-2.5 text-sm font-semibold text-pink-dark"
-                >
-                  <Icon name="heart" size={18} /> Omiljeno
-                </Link>
-                {isAdmin && (
-                  <Link
-                    href="/admin"
-                    onClick={() => setMobileOpen(false)}
-                    className="flex flex-1 items-center justify-center gap-2 rounded-full bg-pink px-4 py-2.5 text-sm font-semibold text-primary-foreground"
-                  >
-                    <Icon name="shield" size={18} /> Admin
+                  <Link href="/profil">
+                    <Icon name="user" size={18} /> Profil
                   </Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="secondary"
+                  className="flex-1"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  <Link href="/profil/obavestenja">
+                    <Icon name="bell" size={18} /> Obaveštenja
+                    {notifCount > 0 && (
+                      <span className="inline-flex min-w-5 items-center justify-center rounded-full bg-pink px-1.5 text-[0.65rem] font-bold text-primary-foreground">
+                        {notifCount}
+                      </span>
+                    )}
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="secondary"
+                  className="flex-1"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  <Link href="/profil/omiljeno">
+                    <Icon name="heart" size={18} /> Omiljeno
+                  </Link>
+                </Button>
+                {isAdmin && (
+                  <Button
+                    asChild
+                    className="flex-1"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    <Link href="/admin">
+                      <Icon name="shield" size={18} /> Admin
+                    </Link>
+                  </Button>
                 )}
               </Show>
               <Show when="signed-out">
-                <Link
-                  href="/login"
+                <Button
+                  asChild
+                  className="flex-1"
                   onClick={() => setMobileOpen(false)}
-                  className="flex flex-1 items-center justify-center rounded-full bg-pink px-4 py-2.5 text-sm font-semibold text-primary-foreground"
                 >
-                  Prijava
-                </Link>
-                <Link
-                  href="/register"
+                  <Link href="/login">Prijava</Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="secondary"
+                  className="flex-1"
                   onClick={() => setMobileOpen(false)}
-                  className="flex flex-1 items-center justify-center rounded-full bg-pink-light px-4 py-2.5 text-sm font-semibold text-pink-dark"
                 >
-                  Registracija
-                </Link>
+                  <Link href="/register">Registracija</Link>
+                </Button>
               </Show>
             </div>
           </nav>

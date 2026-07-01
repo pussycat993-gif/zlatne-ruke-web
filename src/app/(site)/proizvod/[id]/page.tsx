@@ -196,10 +196,7 @@ export default async function ProductPage({
           {/* Akcije — v1: kontakt sa prodavcem, bez korpe */}
           <div className="mt-8 flex items-stretch gap-3">
             {shop ? (
-              <ContactSellerButton
-                shopId={shop.id}
-                className="h-12 flex-1 rounded-full text-sm"
-              >
+              <ContactSellerButton shopId={shop.id} className="h-12 flex-1">
                 Pošalji upit majstorici
               </ContactSellerButton>
             ) : (
@@ -212,11 +209,7 @@ export default async function ProductPage({
                 className="shadow-none"
               />
             </div>
-            <ShareButton
-              iconOnly
-              title={product.name}
-              className="flex size-12 items-center justify-center rounded-full border border-line text-pink-dark transition-colors hover:bg-pink-light"
-            />
+            <ShareButton iconOnly title={product.name} className="size-12" />
           </div>
           <p className="mt-3 text-center text-xs text-ink-soft">
             Plaćanje i dostavu dogovaraš direktno sa majstoricom.

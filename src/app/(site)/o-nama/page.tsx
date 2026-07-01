@@ -86,8 +86,8 @@ export default function AboutPage() {
         </p>
         <Button
           asChild
-          size="lg"
-          className="mt-7 h-11 rounded-full bg-surface px-7 text-sm text-pink-dark hover:bg-surface/90"
+          size="cta"
+          className="mt-7 bg-surface text-pink-dark hover:bg-surface/90"
         >
           <Link href="/postani-prodavac">Postani prodavac</Link>
         </Button>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
 import { Crumbs } from "@/components/site/crumbs";
 import { ProductCard } from "@/components/site/product-card";
@@ -173,12 +174,9 @@ export default async function CatalogPage({
           <p className="mx-auto mt-2 max-w-sm text-sm text-ink">
             Probaj drugu kategoriju ili pojam pretrage.
           </p>
-          <Link
-            href="/katalog"
-            className="mt-6 inline-flex rounded-full bg-pink px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-pink-dark"
-          >
-            Prikaži sve proizvode
-          </Link>
+          <Button asChild size="default" className="mt-6">
+            <Link href="/katalog">Prikaži sve proizvode</Link>
+          </Button>
         </div>
       )}
     </div>

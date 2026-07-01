@@ -68,15 +68,8 @@ export default function BecomeSellerPage() {
               bez mesečne pretplate.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <BecomeSellerButton className="h-11 rounded-full px-7 text-sm">
-                Otvori radnju
-              </BecomeSellerButton>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="h-11 rounded-full border-line px-7 text-sm text-pink-dark"
-              >
+              <BecomeSellerButton>Otvori radnju</BecomeSellerButton>
+              <Button asChild size="cta" variant="outline">
                 <Link href="/magazin">Pročitaj priče prodavačica</Link>
               </Button>
             </div>
@@ -211,7 +204,7 @@ export default function BecomeSellerPage() {
               svoju radnju?
             </span>
           </h2>
-          <BecomeSellerButton className="mt-8 h-11 rounded-full bg-surface px-7 text-sm text-pink-dark hover:bg-surface/90">
+          <BecomeSellerButton className="mt-8 bg-surface text-pink-dark hover:bg-surface/90">
             Krenimo — besplatno je
           </BecomeSellerButton>
         </div>
