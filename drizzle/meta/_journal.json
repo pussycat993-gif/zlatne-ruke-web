@@ -71,6 +71,13 @@
       "when": 1782809631153,
       "tag": "0009_majestic_drax",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1782932560349,
+      "tag": "0010_enable_rls",
+      "breakpoints": true
     }
   ]
 }
