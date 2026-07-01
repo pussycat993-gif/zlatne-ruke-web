@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, Caveat, JetBrains_Mono } from "next/font/google";
+import { DM_Sans, Caveat, JetBrains_Mono, Cormorant_Garamond } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
@@ -26,6 +26,14 @@ const jetBrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+// Cormorant Garamond — display naslovi (--font-cormorant → --zr-font-heading)
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin", "latin-ext"],
+  weight: ["500", "600"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "Zlatne Ruke — rukotvorine žena iz Srbije",
@@ -48,11 +56,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider appearance={{ variables: { colorPrimary: "#C0637A" } }}>
+    <ClerkProvider appearance={{ variables: { colorPrimary: "#A0445A" } }}>
       <html
         lang="sr"
         suppressHydrationWarning
-        className={`${dmSans.variable} ${caveat.variable} ${jetBrainsMono.variable} h-full antialiased`}
+        className={`${dmSans.variable} ${caveat.variable} ${jetBrainsMono.variable} ${cormorant.variable} h-full antialiased`}
       >
         <head>
           <script dangerouslySetInnerHTML={{ __html: themeInit }} />

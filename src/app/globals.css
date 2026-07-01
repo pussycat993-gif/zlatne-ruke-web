@@ -13,7 +13,7 @@
   --font-sans: var(--zr-font);
   --font-mono: var(--zr-font-mono);
   --font-script: var(--zr-font-script);
-  --font-heading: var(--zr-font-display);
+  --font-heading: var(--zr-font-heading);
 
   /* Zlatne Ruke brand palette → utilities (bg-cream, text-pink-dark, …) */
   --color-pink: var(--zr-pink);
@@ -68,7 +68,26 @@
 }
 
 :root {
-  /* ── Zlatne Ruke brand tokens — light (source of truth) ── */
+  /* ── Zlatne Ruke — „Zlato + ruža" (light, izvor istine) ── */
+  /* Rose — action */
+  --zr-primary: #a0445a;
+  --zr-primary-hover: #8a3a4d;
+  --zr-primary-soft: #c0637a;
+
+  /* Gold — accent (iz logotipa) */
+  --zr-gold: #c2a15a;
+  --zr-gold-deep: #a8863c;
+  --zr-gold-soft: #ecdcb4;
+
+  /* Surfaces + tekst (novi nazivi) */
+  --zr-bg: #fdf6f0;
+  --zr-surface-alt: #fbefe8;
+  --zr-heading: #8a3a4d;
+  --zr-text: #3b2329;
+  --zr-text-muted: #8a6a72;
+  --zr-ring: #c0637a;
+
+  /* Postojeći utility tokeni (bg-cream, text-pink, text-ink, border-line…) — zadržani */
   --zr-pink: #c0637a;
   --zr-pink-dark: #a0445a;
   --zr-pink-light: #f5ecee;
@@ -76,9 +95,9 @@
   --zr-cream: #fdf6f0;
   --zr-cream-deep: #f8ebdd;
   --zr-surface: #ffffff;
-  --zr-gray: #7a6068;
+  --zr-gray: #8a6a72;
   --zr-gray-soft: #b69ba1;
-  --zr-border: #e8c8d0;
+  --zr-border: rgba(160, 68, 90, 0.16);
   --zr-border-soft: #f1dce2;
   --zr-hero-bg: #a0445a;
   --zr-hero-text: #ffffff;
@@ -86,31 +105,38 @@
   --zr-shadow-sm: 0 2px 8px -2px rgba(160, 68, 90, 0.12);
   --zr-shadow-lg: 0 14px 32px -10px rgba(160, 68, 90, 0.22);
 
+  /* Shape */
+  --zr-radius-pill: 999px;
+  --zr-radius-card: 16px;
+  --zr-radius-md: 12px;
+
   /* Fonts — aliased onto the next/font CSS vars exposed in layout.tsx */
   --zr-font: var(--font-dm-sans), -apple-system, system-ui, sans-serif;
+  --zr-font-body: var(--font-dm-sans), -apple-system, system-ui, sans-serif;
   --zr-font-display: var(--font-dm-sans), -apple-system, system-ui, sans-serif;
+  --zr-font-heading: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --zr-font-script: var(--font-caveat), "Segoe Script", cursive;
   --zr-font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 
   /* ── shadcn semantic tokens, mapped onto the ZR palette ── */
-  --background: var(--zr-cream);
-  --foreground: #3a2c30;
+  --background: var(--zr-bg);
+  --foreground: var(--zr-text);
   --card: var(--zr-surface);
-  --card-foreground: #3a2c30;
+  --card-foreground: var(--zr-text);
   --popover: var(--zr-surface);
-  --popover-foreground: #3a2c30;
-  --primary: var(--zr-pink);
+  --popover-foreground: var(--zr-text);
+  --primary: var(--zr-primary);
   --primary-foreground: #ffffff;
-  --secondary: var(--zr-pink-light);
-  --secondary-foreground: var(--zr-pink-dark);
+  --secondary: var(--zr-gold-soft);
+  --secondary-foreground: var(--zr-gold-deep);
   --muted: var(--zr-pink-light);
-  --muted-foreground: var(--zr-gray);
+  --muted-foreground: var(--zr-text-muted);
   --accent: var(--zr-pink-tint);
   --accent-foreground: var(--zr-pink-dark);
   --destructive: oklch(0.577 0.245 27.325);
   --border: var(--zr-border);
   --input: var(--zr-border);
-  --ring: var(--zr-pink);
+  --ring: var(--zr-ring);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -128,43 +154,62 @@
 }
 
 .dark {
-  /* ── Zlatne Ruke brand tokens — dark (pink-* carry the gold accent role) ── */
-  --zr-pink: #d4a155;
-  --zr-pink-dark: #e8bb6d;
-  --zr-pink-light: #2b2123;
-  --zr-pink-tint: #3a2c2e;
-  --zr-cream: #14100f;
-  --zr-cream-deep: #1b1614;
-  --zr-surface: #221b1c;
-  --zr-gray: #bbafa5;
-  --zr-gray-soft: #7e7269;
-  --zr-border: #3a2d2e;
-  --zr-border-soft: #2a2122;
-  --zr-hero-bg: #1a1411;
-  --zr-hero-text: #e8bb6d;
-  --zr-shadow: 0 6px 24px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(212, 161, 85, 0.04);
+  /* ── Zlatne Ruke — „Zlato + ruža" (dark): topli brown–burgundy, ruža=akcija, zlato=akcent ── */
+  /* Rose — action */
+  --zr-primary: #e0899f;
+  --zr-primary-hover: #eaa0b3;
+  --zr-primary-soft: #e0899f;
+
+  /* Gold — accent */
+  --zr-gold: #d9b978;
+  --zr-gold-deep: #e7cb93;
+  --zr-gold-soft: rgba(217, 185, 120, 0.16);
+
+  /* Surfaces + tekst (novi nazivi) */
+  --zr-bg: #2b1a20;
+  --zr-surface-alt: #43272f;
+  --zr-heading: #f0dccb;
+  --zr-text: #ecd9cb;
+  --zr-text-muted: #c2a3ab;
+  --zr-ring: #e0899f;
+
+  /* Postojeći utility tokeni — dark */
+  --zr-pink: #e0899f;
+  --zr-pink-dark: #eaa0b3;
+  --zr-pink-light: #43272f;
+  --zr-pink-tint: #43272f;
+  --zr-cream: #2b1a20;
+  --zr-cream-deep: #382229;
+  --zr-surface: #382229;
+  --zr-gray: #c2a3ab;
+  --zr-gray-soft: #8a7680;
+  --zr-border: rgba(240, 220, 203, 0.12);
+  --zr-border-soft: rgba(240, 220, 203, 0.07);
+  --zr-hero-bg: #2b1a20;
+  --zr-hero-text: #f0dccb;
+  --zr-shadow: 0 6px 24px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(217, 185, 120, 0.05);
   --zr-shadow-sm: 0 2px 10px -2px rgba(0, 0, 0, 0.5);
-  --zr-shadow-lg: 0 18px 40px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(212, 161, 85, 0.05);
+  --zr-shadow-lg: 0 18px 40px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(217, 185, 120, 0.06);
 
   /* ── shadcn semantic tokens, mapped onto the ZR dark palette ── */
-  --background: var(--zr-cream);
-  --foreground: #ece3da;
+  --background: var(--zr-bg);
+  --foreground: var(--zr-text);
   --card: var(--zr-surface);
-  --card-foreground: #ece3da;
+  --card-foreground: var(--zr-text);
   --popover: var(--zr-surface);
-  --popover-foreground: #ece3da;
-  --primary: var(--zr-pink);
-  --primary-foreground: #14100f;
-  --secondary: var(--zr-pink-light);
-  --secondary-foreground: var(--zr-pink-dark);
+  --popover-foreground: var(--zr-text);
+  --primary: var(--zr-primary);
+  --primary-foreground: #2b1a20;
+  --secondary: var(--zr-gold-soft);
+  --secondary-foreground: var(--zr-gold-deep);
   --muted: var(--zr-pink-light);
-  --muted-foreground: var(--zr-gray);
+  --muted-foreground: var(--zr-text-muted);
   --accent: var(--zr-pink-tint);
   --accent-foreground: var(--zr-pink-dark);
   --destructive: oklch(0.704 0.191 22.216);
   --border: var(--zr-border);
   --input: var(--zr-border);
-  --ring: var(--zr-pink);
+  --ring: var(--zr-ring);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -189,5 +234,14 @@
   }
   html {
     @apply font-sans;
+  }
+  /* Veliki display naslovi → Cormorant Garamond. Manje UI labele ostaju DM Sans;
+     footer brend/slogan/ribbon zadržavaju Caveat (preko svog CSS modula). */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--zr-font-heading);
+    font-weight: 600;
+    letter-spacing: 0.01em;
   }
 }

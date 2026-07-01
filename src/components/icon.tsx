@@ -108,7 +108,7 @@ export function Icon({
   name,
   size = 20,
   filled = false,
-  strokeWidth = 1.7,
+  strokeWidth = 1.5,
   ...rest
 }: IconProps) {
   const Glyph = MAP[name];
