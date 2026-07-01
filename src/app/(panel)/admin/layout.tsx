@@ -42,7 +42,7 @@ export default async function AdminLayout({
   return (
     <div className="flex min-h-full flex-col lg:grid lg:grid-cols-[248px_1fr]">
       {/* Sidebar (tamna) */}
-      <aside className="flex flex-col bg-[#1f1318] px-4 py-4 lg:sticky lg:top-0 lg:h-screen lg:py-6">
+      <aside className="flex flex-col bg-panel px-4 py-4 lg:sticky lg:top-0 lg:h-screen lg:py-6">
         <div className="mb-5 flex items-center gap-2.5 border-b border-white/10 pb-4">
           <Icon name="flower" size={24} className="text-pink" strokeWidth={1.6} />
           <span className="font-script text-2xl leading-none text-white">

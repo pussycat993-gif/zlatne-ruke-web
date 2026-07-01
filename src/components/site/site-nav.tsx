@@ -148,7 +148,7 @@ export function SiteNav({
             </Link>
             <UserButton
               appearance={{ elements: { avatarBox: "size-9" } }}
-              userProfileProps={{ appearance: { variables: { colorPrimary: "#C0637A" } } }}
+              userProfileProps={{ appearance: { variables: { colorPrimary: "#A0445A" } } }}
             >
               <UserButton.MenuItems>
                 <UserButton.Link

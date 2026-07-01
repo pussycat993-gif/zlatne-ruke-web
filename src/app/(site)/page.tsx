@@ -54,7 +54,7 @@ export default async function HomePage() {
               još spava. Iza svakog komada — sat, tri, ponekad tri dana rada. Iza
               svakog komada — žena.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <Button asChild size="cta">
                 <Link href="/katalog">Istraži rukotvorine</Link>
               </Button>
