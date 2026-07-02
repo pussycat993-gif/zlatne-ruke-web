@@ -16,7 +16,7 @@ const CHANNELS: { icon: IconName; t: string; d: string }[] = [
 
 export default function ContactPage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 pb-20 md:px-8">
+    <div className="mx-auto max-w-7xl px-4 pb-20 md:px-8">
       <Crumbs items={[{ label: "Početna", href: "/" }, { label: "Kontakt" }]} />
 
       <header className="mb-10">

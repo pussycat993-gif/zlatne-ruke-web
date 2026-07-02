@@ -17,7 +17,7 @@ export function LegalPage({
   sections: LegalSection[];
 }) {
   return (
-    <div className="mx-auto max-w-3xl px-4 pb-20 md:px-8">
+    <div className="mx-auto max-w-7xl px-4 pb-20 md:px-8">
       <Crumbs items={[{ label: "Početna", href: "/" }, { label: crumb }]} />
 
       <header className="mb-10">

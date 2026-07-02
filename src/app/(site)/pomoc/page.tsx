@@ -32,7 +32,7 @@ const FAQ: { q: string; a: string }[] = [
 
 export default function HelpPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 pb-20 md:px-8">
+    <div className="mx-auto max-w-7xl px-4 pb-20 md:px-8">
       <Crumbs
         items={[{ label: "Početna", href: "/" }, { label: "Česta pitanja" }]}
       />

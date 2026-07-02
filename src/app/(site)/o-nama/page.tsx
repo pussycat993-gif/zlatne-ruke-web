@@ -20,7 +20,7 @@ const VALUES: { icon: IconName; t: string; d: string }[] = [
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 pb-20 md:px-8">
+    <div className="mx-auto max-w-7xl px-4 pb-20 md:px-8">
       <Crumbs items={[{ label: "Početna", href: "/" }, { label: "O nama" }]} />
 
       <header className="mb-12">

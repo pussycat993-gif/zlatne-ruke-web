@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Show, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
 import { Icon } from "@/components/icon";
 import { Logo } from "@/components/site/logo";
 import { ThemeToggle } from "@/components/site/theme-toggle";
@@ -47,7 +48,7 @@ export function SiteNav({
 
   return (
     <header className="sticky top-0 z-50 border-b border-line-soft bg-surface/95 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 md:gap-8 md:px-8 md:py-4">
+      <Container className="flex items-center gap-4 py-3 md:gap-8 md:py-4">
         <Logo />
 
         {/* Linkovi - desktop */}
@@ -183,7 +184,7 @@ export function SiteNav({
             <Icon name={mobileOpen ? "close" : "menu"} size={22} />
           </button>
         </div>
-      </div>
+      </Container>
 
       {/* Mobilni meni */}
       {mobileOpen && (

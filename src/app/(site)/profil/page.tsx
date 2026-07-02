@@ -30,7 +30,7 @@ export default async function ProfilePage() {
   ]);
 
   return (
-    <div className="mx-auto max-w-4xl px-4 pb-20 md:px-8">
+    <div className="mx-auto max-w-7xl px-4 pb-20 md:px-8">
       <Crumbs items={[{ label: "Početna", href: "/" }, { label: "Profil" }]} />
 
       <div className="flex flex-wrap items-center gap-4">

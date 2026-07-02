@@ -41,7 +41,7 @@ export default async function StoryPage({
   const featuredProducts = shopProducts.slice(0, 4);
 
   return (
-    <article className="mx-auto max-w-3xl px-4 pb-20 md:px-8">
+    <article className="mx-auto max-w-7xl px-4 pb-20 md:px-8">
       <Crumbs
         items={[
           { label: "Početna", href: "/" },
