@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Icon, type IconName } from "@/components/icon";
 import { Button } from "@/components/ui/button";
 import { Crumbs } from "@/components/site/crumbs";
+import { MagicTagline } from "@/components/site/magic-tagline";
 import { toneClass } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -28,10 +29,7 @@ export default function AboutPage() {
           O nama
         </div>
         <h1 className="text-balance font-heading text-4xl font-semibold leading-tight text-foreground md:text-6xl">
-          Kad žena stvara srcem,{" "}
-          <span className="font-script font-normal text-pink">
-            nastaje magija.
-          </span>
+          <MagicTagline trigger="scroll" />
         </h1>
         <p className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-ink md:text-lg">
           Zlatne Ruke su katalog i magazin koji povezuju žene zanatlije iz cele
