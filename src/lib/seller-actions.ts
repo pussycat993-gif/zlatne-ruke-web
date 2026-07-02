@@ -13,13 +13,18 @@ export type FormState = { ok: boolean; error?: string };
 
 // Pretvara ulogovanog kupca u prodavca (postavlja publicMetadata.role) i vodi
 // ga u panel. Neulogovani se šalju na registraciju.
+//
+// Postavlja SAMO osnovnu ulogu "prodavac" i čuva ostatak publicMetadata-e.
+// Admin status je odvojen (email-based, is-admin.ts) i ne živi u role polju,
+// pa ova akcija ne može da ga pregazi — korisnik može biti admin i prodavac.
 export async function becomeSeller() {
   const { userId } = await auth();
   if (!userId) redirect("/register");
 
   const client = await clerkClient();
+  const user = await client.users.getUser(userId);
   await client.users.updateUser(userId, {
-    publicMetadata: { role: "prodavac" },
+    publicMetadata: { ...(user.publicMetadata ?? {}), role: "prodavac" },
   });
 
   redirect("/prodavac/radnja");

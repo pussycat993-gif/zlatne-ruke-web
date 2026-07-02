@@ -2,7 +2,7 @@ import { SiteNav } from "@/components/site/site-nav";
 import Footer from "@/components/Footer";
 import { getCategories } from "@/lib/db/queries";
 import { getUnreadNotificationCount } from "@/lib/notifications";
-import { getCurrentRole } from "@/lib/auth";
+import { isCurrentUserAdmin } from "@/lib/is-admin";
 
 // Layout za javni deo sajta (naslovna, katalog, proizvod, radnja, magazin…).
 // Auth i paneli (prodavac/admin) dobijaju svoje layout-e u zasebnim grupama.
@@ -11,10 +11,12 @@ export default async function SiteLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [categories, notifCount, role] = await Promise.all([
+  // isAdmin se određuje po email-u (ADMIN_EMAILS), nezavisno od uloge — pa se
+  // Admin link prikazuje i kad je korisnik ujedno prodavac.
+  const [categories, notifCount, isAdmin] = await Promise.all([
     getCategories(),
     getUnreadNotificationCount(),
-    getCurrentRole(),
+    isCurrentUserAdmin(),
   ]);
 
   return (
@@ -22,7 +24,7 @@ export default async function SiteLayout({
       <SiteNav
         categories={categories.map((c) => ({ id: c.id, name: c.name }))}
         notifCount={notifCount}
-        isAdmin={role === "admin"}
+        isAdmin={isAdmin}
       />
       <main className="flex-1">{children}</main>
       <Footer />

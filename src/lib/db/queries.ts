@@ -1,4 +1,15 @@
-import { and, asc, desc, eq, gte, ilike, lte, or, sql } from "drizzle-orm";
+import {
+  and,
+  asc,
+  desc,
+  eq,
+  gte,
+  ilike,
+  isNotNull,
+  lte,
+  or,
+  sql,
+} from "drizzle-orm";
 import { db } from "./index";
 import {
   products,
@@ -9,6 +20,7 @@ import {
   favorites,
 } from "./schema";
 import type { Category, Product, Review, Shop, Story } from "@/lib/data";
+import { isPlatformLaunched } from "@/lib/platform";
 
 // Mapiranje DB redova → tipovi koje komponente već koriste (data.ts),
 // da prelazak sa seed-a na bazu ne dira UI komponente.
@@ -93,6 +105,18 @@ export async function getCategories(): Promise<Category[]> {
 }
 
 export async function getAllProducts(): Promise<Product[]> {
+  // Kada je platforma lansirana: samo proizvodi radnji sa vlasnikom
+  // (izbaci proizvode demo radnji). Inače: netaknuto ponašanje.
+  if (isPlatformLaunched()) {
+    const rows = await db
+      .select({ p: products })
+      .from(products)
+      .innerJoin(shops, eq(products.shopId, shops.id))
+      .where(isNotNull(shops.ownerId))
+      .orderBy(asc(products.id));
+    return rows.map((r) => toProduct(r.p));
+  }
+
   const rows = await db.select().from(products).orderBy(asc(products.id));
   return rows.map(toProduct);
 }
@@ -103,11 +127,28 @@ export async function getProductById(id: string): Promise<Product | undefined> {
     .from(products)
     .where(eq(products.id, id))
     .limit(1);
-  return row ? toProduct(row) : undefined;
+  if (!row) return undefined;
+
+  // Lansirano: proizvod demo radnje (bez vlasnika) je „nevidljiv" → undefined,
+  // pa /proizvod/:id daje 404.
+  if (isPlatformLaunched()) {
+    const [shop] = await db
+      .select({ ownerId: shops.ownerId })
+      .from(shops)
+      .where(eq(shops.id, row.shopId))
+      .limit(1);
+    if (!shop?.ownerId) return undefined;
+  }
+
+  return toProduct(row);
 }
 
 export async function getAllShops(): Promise<Shop[]> {
-  const rows = await db.select().from(shops).orderBy(asc(shops.id));
+  const rows = await db
+    .select()
+    .from(shops)
+    .where(isPlatformLaunched() ? isNotNull(shops.ownerId) : undefined)
+    .orderBy(asc(shops.id));
   return rows.map(toShop);
 }
 
@@ -116,11 +157,14 @@ export async function getShopCities(): Promise<string[]> {
   const rows = await db
     .selectDistinct({ city: shops.city })
     .from(shops)
+    .where(isPlatformLaunched() ? isNotNull(shops.ownerId) : undefined)
     .orderBy(asc(shops.city));
   return rows.map((r) => r.city).filter(Boolean);
 }
 
 // Mapa shopId → naziv radnje (za kartice proizvoda/priča, bez N+1 upita).
+// Namerno NIJE filtrirana: to je samo lookup mapa za već filtrirane stavke;
+// dodatni redovi u njoj ne izlažu ništa javno.
 export async function getShopNameMap(): Promise<Map<string, string>> {
   const rows = await db.select({ id: shops.id, name: shops.name }).from(shops);
   return new Map(rows.map((r) => [r.id, r.name]));
@@ -128,10 +172,26 @@ export async function getShopNameMap(): Promise<Map<string, string>> {
 
 export async function getShopById(id: string): Promise<Shop | undefined> {
   const [row] = await db.select().from(shops).where(eq(shops.id, id)).limit(1);
-  return row ? toShop(row) : undefined;
+  if (!row) return undefined;
+
+  // Lansirano: demo radnja (bez vlasnika) je „nevidljiva" → undefined,
+  // pa /radnja/:id daje 404.
+  if (isPlatformLaunched() && !row.ownerId) return undefined;
+
+  return toShop(row);
 }
 
 export async function getShopProducts(shopId: string): Promise<Product[]> {
+  // Lansirano: proizvodi se vraćaju samo ako radnja ima vlasnika.
+  if (isPlatformLaunched()) {
+    const rows = await db
+      .select({ p: products })
+      .from(products)
+      .innerJoin(shops, eq(products.shopId, shops.id))
+      .where(and(eq(products.shopId, shopId), isNotNull(shops.ownerId)));
+    return rows.map((r) => toProduct(r.p));
+  }
+
   const rows = await db
     .select()
     .from(products)
@@ -216,6 +276,8 @@ export async function searchProducts(opts: {
       ),
     );
   }
+  // Lansirano: izbaci proizvode demo radnji (bez vlasnika) iz kataloga.
+  if (isPlatformLaunched()) conds.push(isNotNull(shops.ownerId));
   const where = conds.length ? and(...conds) : undefined;
 
   const orderBy =

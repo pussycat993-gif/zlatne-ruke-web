@@ -213,6 +213,21 @@ export const tags = pgTable("tags", {
     .defaultNow(),
 });
 
+// Prijave na obaveštenje o lansiranju („coming soon" forma na /uskoro).
+// Piše se ISKLJUČIVO sa servera (app/api/newsletter/route.ts) — browser nikad
+// ne dira ovu tabelu direktno. Kada se uključi RLS na Supabase-u, ne treba
+// nijedna anon read/insert politika (app se konektuje kao rola postgres koja
+// bypassuje RLS; anon/authenticated nemaju grantove — vidi 0010_enable_rls).
+export const newsletterSignups = pgTable("newsletter_signups", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  email: text("email").notNull().unique(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
 // Praćene radnje po korisniku.
 export const follows = pgTable(
   "follows",

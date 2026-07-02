@@ -6,6 +6,7 @@ import { Icon, type IconName } from "@/components/icon";
 import { Crumbs } from "@/components/site/crumbs";
 import { OtvoriRadnjuButton } from "@/components/ui/otvori-radnju-button";
 import { getCurrentRole } from "@/lib/auth";
+import { isCurrentUserAdmin } from "@/lib/is-admin";
 import { getBuyerUnreadCount } from "@/lib/messages";
 import { getUnreadNotificationCount } from "@/lib/notifications";
 
@@ -23,6 +24,7 @@ const ROLE_LABEL: Record<string, string> = {
 export default async function ProfilePage() {
   const user = await currentUser();
   const role = (await getCurrentRole()) ?? "kupac";
+  const isAdmin = await isCurrentUserAdmin();
   const name = user?.firstName || user?.username || "draga";
   const [unread, notifUnread] = await Promise.all([
     getBuyerUnreadCount(),
@@ -45,6 +47,11 @@ export default async function ProfilePage() {
             <span className="rounded-full bg-pink-light px-2.5 py-0.5 text-xs font-semibold text-pink-dark">
               {ROLE_LABEL[role]}
             </span>
+            {isAdmin && (
+              <span className="rounded-full bg-pink-light px-2.5 py-0.5 text-xs font-semibold text-pink-dark">
+                {ROLE_LABEL.admin}
+              </span>
+            )}
           </div>
         </div>
       </div>
