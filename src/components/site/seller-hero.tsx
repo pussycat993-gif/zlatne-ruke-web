@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { BecomeSellerButton } from "@/components/site/become-seller-button";
+import { OtvoriRadnjuButton } from "@/components/ui/otvori-radnju-button";
 import { ShimmerWord } from "@/components/site/shimmer-word";
 import { CountUp } from "@/components/site/count-up";
 import { cn } from "@/lib/utils";
@@ -83,7 +83,7 @@ export function SellerHero() {
           </motion.p>
 
           <motion.div {...rise(0.44)} className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <BecomeSellerButton>Otvori radnju</BecomeSellerButton>
+            <OtvoriRadnjuButton />
             <Button asChild size="cta" variant="outline">
               <Link href="/magazin">Pročitaj priče prodavačica</Link>
             </Button>

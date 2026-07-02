@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { OtvoriRadnjuButton } from "@/components/ui/otvori-radnju-button";
 import { Icon, type IconName } from "@/components/icon";
 import { SectionHeader } from "@/components/site/section-header";
 import { ProductCard } from "@/components/site/product-card";
@@ -61,27 +61,8 @@ export default async function HomePage() {
               <Button asChild size="cta" variant="outline">
                 <Link href="/magazin">Pročitaj priču</Link>
               </Button>
-              {/* „Otvori radnju" - isti pill kao primarno dugme + animacija
-                  (shine sweep + hover lift + strelica). Animacije su gašene uz
-                  prefers-reduced-motion (motion-safe: i @media guard u globals). */}
-              <Button
-                asChild
-                size="cta"
-                className="relative overflow-hidden duration-[250ms] ease-out motion-safe:hover:-translate-y-[3px] motion-safe:hover:shadow-[0_12px_26px_-10px_var(--zr-gold)]"
-              >
-                <Link href="/postani-prodavac">
-                  <span
-                    aria-hidden="true"
-                    className="zr-shine-sweep pointer-events-none absolute inset-y-0 left-0 w-1/3 -translate-x-[160%] skew-x-12 bg-gradient-to-r from-transparent via-white/35 to-transparent"
-                  />
-                  Otvori radnju
-                  <ArrowRight
-                    aria-hidden="true"
-                    strokeWidth={1.5}
-                    className="size-4 motion-safe:transition-transform motion-safe:duration-[250ms] motion-safe:group-hover/button:translate-x-1"
-                  />
-                </Link>
-              </Button>
+              {/* Jedinstveno animirano „Otvori radnju" dugme (shine + strelica) */}
+              <OtvoriRadnjuButton href="/postani-prodavac" />
             </div>
             <div className="mt-12 flex gap-8 border-t border-line-soft pt-7">
               <Stat n="200+" l="majstorica" />

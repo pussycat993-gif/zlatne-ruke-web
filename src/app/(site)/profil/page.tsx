@@ -4,7 +4,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { UserButton } from "@clerk/nextjs";
 import { Icon, type IconName } from "@/components/icon";
 import { Crumbs } from "@/components/site/crumbs";
-import { BecomeSellerButton } from "@/components/site/become-seller-button";
+import { OtvoriRadnjuButton } from "@/components/ui/otvori-radnju-button";
 import { getCurrentRole } from "@/lib/auth";
 import { getBuyerUnreadCount } from "@/lib/messages";
 import { getUnreadNotificationCount } from "@/lib/notifications";
@@ -117,9 +117,7 @@ export default async function ProfilePage() {
               Otvori svoju radnju i prodaj rukotvorine na celu Srbiju.
             </p>
             <div className="mt-4">
-              <BecomeSellerButton size="compact">
-                Otvori radnju
-              </BecomeSellerButton>
+              <OtvoriRadnjuButton size="compact" />
             </div>
           </div>
         )}
