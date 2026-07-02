@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Toaster } from "sonner";
+import { Container } from "@/components/ui/container";
 import { Icon } from "@/components/icon";
 import type { Metadata } from "next";
 import { PanelNav, type PanelNavItem } from "@/components/panel/panel-nav";
@@ -80,8 +81,8 @@ export default async function AdminLayout({
           </div>
         </header>
 
-        <main className="min-w-0 flex-1 bg-cream px-4 py-8 md:px-8">
-          <div className="mx-auto max-w-5xl">{children}</div>
+        <main className="min-w-0 flex-1 bg-cream py-8">
+          <Container size="fluid">{children}</Container>
         </main>
       </div>
 

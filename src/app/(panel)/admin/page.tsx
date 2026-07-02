@@ -26,8 +26,8 @@ export default async function AdminOverviewPage() {
         <Kpi label="Recenzija" value={String(o.reviewCount)} />
       </div>
 
-      <div className="mt-6 grid gap-5 lg:grid-cols-[1.4fr_1fr]">
-        <section className="rounded-2xl border border-line-soft bg-surface p-6">
+      <div className="mt-6 grid gap-5 lg:grid-cols-3">
+        <section className="rounded-2xl border border-line-soft bg-surface p-6 lg:col-span-2">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="font-heading text-lg font-semibold text-foreground">
               Novi proizvodi po danu
@@ -39,7 +39,7 @@ export default async function AdminOverviewPage() {
           <BarChart data={o.newProductsByDay} />
         </section>
 
-        <section className="rounded-2xl border border-line-soft bg-surface p-6">
+        <section className="rounded-2xl border border-line-soft bg-surface p-6 lg:col-span-1">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="font-heading text-lg font-semibold text-foreground">
               Najnoviji proizvodi
