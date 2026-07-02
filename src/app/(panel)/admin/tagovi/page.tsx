@@ -23,14 +23,14 @@ export default async function AdminTagsPage() {
       </div>
 
       {pending.length === 0 ? (
-        <div className="mt-6">
+        <div className="mt-6" data-testid="tag-queue">
           <EmptyState
             title="Nema tagova na čekanju"
             text="Sve je pregledano. Lepa pauza."
           />
         </div>
       ) : (
-        <div className="mt-6 space-y-3">
+        <div className="mt-6 space-y-3" data-testid="tag-queue">
           {pending.map((t) => (
             <article
               key={t.id}

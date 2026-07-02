@@ -29,7 +29,7 @@ export function ProductCard({
         initialFavorited={favorited}
         className="absolute right-3 top-3 z-10"
       />
-      <Link href={`/proizvod/${product.id}`} className="block">
+      <Link href={`/proizvod/${product.id}`} className="block" data-testid="product-card">
         <div
           className={cn(
             "relative aspect-[5/6] w-full overflow-hidden rounded-2xl transition-transform duration-200 group-hover:-translate-y-1",

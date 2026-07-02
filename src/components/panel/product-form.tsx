@@ -192,7 +192,7 @@ export function ProductForm({
             <p className="text-sm font-medium text-destructive">{state.error}</p>
           )}
 
-          <Button type="submit" size="cta" disabled={pending}>
+          <Button type="submit" size="cta" disabled={pending} data-testid="product-submit">
             {pending ? "Čuvam…" : submitLabel}
           </Button>
         </div>

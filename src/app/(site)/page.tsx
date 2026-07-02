@@ -127,6 +127,7 @@ export default async function HomePage() {
               <Link
                 key={c.id}
                 href={`/katalog?cat=${c.id}`}
+                data-testid="category-card"
                 className="flex flex-col items-center rounded-2xl border border-transparent bg-cream p-5 text-center transition-all hover:-translate-y-1 hover:border-pink"
               >
                 <span className="font-heading text-lg font-semibold text-pink-dark">

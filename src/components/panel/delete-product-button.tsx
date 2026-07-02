@@ -31,6 +31,7 @@ export function DeleteProductButton({
       type="button"
       onClick={onClick}
       disabled={pending}
+      data-testid="delete-product"
       title={error ?? "Obriši proizvod"}
       className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-xs font-semibold text-ink transition-colors hover:border-destructive hover:text-destructive disabled:opacity-60"
     >

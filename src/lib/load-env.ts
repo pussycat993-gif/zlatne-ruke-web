@@ -12,8 +12,10 @@ export function loadEnvLocal(path = ".env.local") {
       if (!m) continue;
       const key = m[1];
       const val = m[2].trim().replace(/^["']|["']$/g, "");
-      // Prazne vrednosti (placeholder linije) preskačemo; poslednja prava pobeđuje.
-      if (val !== "") process.env[key] = val;
+      // Prazne vrednosti (placeholder linije) preskačemo. Već postavljena
+      // process.env vrednost POBEĐUJE nad .env.local (npr. kad ciljamo test bazu
+      // preko inline env-a) — sprečava slučajno pisanje u produkciju.
+      if (val !== "" && process.env[key] === undefined) process.env[key] = val;
     }
   } catch {
     // .env.local ne postoji - oslanjamo se na postojeći process.env
