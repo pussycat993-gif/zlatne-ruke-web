@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Sparkle, Sparkles, Star, Loader2, Bell, Check } from "lucide-react";
 import { Logo } from "@/components/site/logo";
+import { ThemeToggle } from "@/components/site/theme-toggle";
 
 // „Coming soon" stranica. Prikazuje se posetiocima dok je MAINTENANCE_MODE='true'
 // (osim adminima — vidi proxy.ts). Samostalna: koristi root layout (fontovi,
@@ -56,7 +57,14 @@ export default function UskoroPage() {
   }
 
   return (
-    <main className="usk flex min-h-dvh flex-col items-center justify-center bg-cream px-5 py-14 text-center">
+    <main className="usk relative flex min-h-dvh flex-col items-center justify-center bg-cream px-5 py-14 text-center">
+      {/* Prebacivanje teme (svetla ↔ tamna/zlatna) — ista globalna komponenta
+          kao u headeru: menja `.dark` na <html> i pamti u localStorage `zr-theme`,
+          pa ostaje u sinhronizaciji. Gornji desni ugao, iznad sadržaja. */}
+      <div className="absolute right-4 top-4 z-20 md:right-6 md:top-6">
+        <ThemeToggle />
+      </div>
+
       {/* Lokalni stilovi — svi ispod prefers-reduced-motion: no-preference. */}
       <style>{`
         .usk-script { color: var(--zr-gold-deep); }
