@@ -3,6 +3,7 @@ import { Icon, type IconName } from "@/components/icon";
 import { SectionHeader } from "@/components/site/section-header";
 import { BecomeSellerButton } from "@/components/site/become-seller-button";
 import { SellerHero } from "@/components/site/seller-hero";
+import { Reveal } from "@/components/site/reveal";
 import { formatPrice } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -57,19 +58,21 @@ export default function BecomeSellerPage() {
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <SectionHeader eyebrow="Kako počinje" title="Tri koraka do prve prodaje" />
           <div className="grid gap-6 md:grid-cols-3">
-            {STEPS.map((s) => (
-              <div key={s.n} className="rounded-3xl border border-line-soft bg-surface p-8">
-                <div className="font-mono text-xs font-semibold uppercase tracking-wider text-ink">
-                  {s.n}
+            {STEPS.map((s, i) => (
+              <Reveal key={s.n} delay={i * 0.14} className="h-full">
+                <div className="h-full rounded-3xl border border-line-soft bg-surface p-8">
+                  <div className="font-mono text-xs font-semibold uppercase tracking-wider text-ink">
+                    {s.n}
+                  </div>
+                  <span className="mt-3 flex size-11 items-center justify-center rounded-full bg-pink-light text-pink-dark">
+                    <Icon name={s.icon} size={22} />
+                  </span>
+                  <h3 className="mt-5 font-heading text-xl font-semibold text-foreground">
+                    {s.t}
+                  </h3>
+                  <p className="mt-2.5 text-sm leading-relaxed text-ink">{s.d}</p>
                 </div>
-                <span className="mt-3 flex size-11 items-center justify-center rounded-full bg-pink-light text-pink-dark">
-                  <Icon name={s.icon} size={22} />
-                </span>
-                <h3 className="mt-5 font-heading text-xl font-semibold text-foreground">
-                  {s.t}
-                </h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-ink">{s.d}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
