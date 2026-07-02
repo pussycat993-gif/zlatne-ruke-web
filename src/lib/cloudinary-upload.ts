@@ -33,3 +33,40 @@ export async function uploadImage(file: File, folder: string): Promise<string> {
       .end(buffer);
   });
 }
+
+// Briše slike sa Cloudinary-ja po public_id-u. „Best-effort": nikad ne baca
+// grešku — pozivalac (npr. brisanje radnje) je već obavio brisanje iz baze,
+// pa neuspeh na Cloudinary strani ne sme da obori celu akciju. Neuspesi se
+// samo loguju sa spiskom public id-eva. Cloudinary API dozvoljava najviše
+// 100 id-eva po pozivu, pa šaljemo u serijama.
+export async function deleteImages(publicIds: string[]): Promise<void> {
+  // Ukloni prazne/duplirane vrednosti.
+  const ids = Array.from(
+    new Set(publicIds.filter((id): id is string => Boolean(id))),
+  );
+  if (ids.length === 0) return;
+
+  if (!process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+    console.warn(
+      `[cloudinary] Preskačem brisanje ${ids.length} slika — nedostaje ` +
+        `CLOUDINARY_API_KEY ili CLOUDINARY_API_SECRET.`,
+    );
+    return;
+  }
+
+  const BATCH = 100;
+  for (let i = 0; i < ids.length; i += BATCH) {
+    const batch = ids.slice(i, i + BATCH);
+    try {
+      await cloudinary.api.delete_resources(batch, {
+        resource_type: "image",
+        invalidate: true,
+      });
+    } catch (error) {
+      console.error(
+        `[cloudinary] Brisanje slika nije uspelo za: ${batch.join(", ")}`,
+        error,
+      );
+    }
+  }
+}
