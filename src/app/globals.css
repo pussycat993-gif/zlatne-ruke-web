@@ -265,3 +265,31 @@
     animation: zr-shine 3.2s ease-in-out infinite;
   }
 }
+
+/* ── MagicTagline — jednokratni zlatni shimmer + treperave zvezde ── */
+@keyframes zr-tagline-shimmer {
+  from { background-position: 120% 0; }
+  to { background-position: -40% 0; }
+}
+@keyframes zr-tagline-twinkle {
+  0%, 100% { opacity: 0.25; transform: scale(0.8) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.15) rotate(18deg); }
+}
+/* Zlatni preliv isečen na tekst (roze → zlato → roze), prelazi jednom. */
+.zr-shimmer-text {
+  background-image: linear-gradient(100deg, #c0637a 30%, #f4dca4 50%, #c0637a 70%);
+  background-size: 250% 100%;
+  background-position: 120% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: zr-tagline-shimmer 1.9s ease-in-out forwards;
+}
+/* Zvezdice: nevidljive dok se ne uključe; treperе samo ako su animacije dozvoljene. */
+.zr-star { opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .zr-star--on {
+    animation: zr-tagline-twinkle 2.4s ease-in-out infinite;
+  }
+}

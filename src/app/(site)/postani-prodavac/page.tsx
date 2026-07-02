@@ -1,10 +1,9 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { Icon, type IconName } from "@/components/icon";
-import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/site/section-header";
 import { BecomeSellerButton } from "@/components/site/become-seller-button";
-import { formatPrice, toneClass } from "@/lib/data";
+import { SellerHero } from "@/components/site/seller-hero";
+import { formatPrice } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Postani prodavac - Zlatne Ruke",
@@ -50,44 +49,8 @@ const TESTIMONIALS = [
 export default function BecomeSellerPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="bg-cream">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 md:px-8 lg:grid-cols-[1.1fr_1fr] lg:py-24">
-          <div>
-            <div className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-ink">
-              Za majstorice & kreatorke
-            </div>
-            <h1 className="text-balance font-heading text-5xl font-semibold leading-[0.98] text-foreground md:text-7xl">
-              Tvoje ruke{" "}
-              <span className="font-script font-normal text-pink">zaslužuju</span>{" "}
-              tržište.
-            </h1>
-            <p className="mt-6 max-w-md text-pretty text-base leading-relaxed text-ink md:text-lg">
-              Otvori radnju za nekoliko minuta. Prodaj na celu Srbiju. Mi se
-              brinemo o sajtu i vidljivosti - ti pleti, mesi, kuj. Bez provizije,
-              bez mesečne pretplate.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <BecomeSellerButton>Otvori radnju</BecomeSellerButton>
-              <Button asChild size="cta" variant="outline">
-                <Link href="/magazin">Pročitaj priče prodavačica</Link>
-              </Button>
-            </div>
-            <div className="mt-10 flex gap-8">
-              <Stat n="247" l="aktivnih radnji" />
-              <Stat n="38" l="gradova" />
-              <Stat n="0 RSD" l="provizija po prodaji" />
-            </div>
-          </div>
-
-          {/* Kolaž slika */}
-          <div className="relative h-[420px] md:h-[520px]">
-            <div className={`absolute left-0 top-0 h-72 w-56 -rotate-3 rounded-3xl ${toneClass.v3}`} />
-            <div className={`absolute right-2 top-14 h-80 w-52 rotate-3 rounded-3xl ${toneClass.v4}`} />
-            <div className={`absolute bottom-0 left-12 h-56 w-48 -rotate-1 rounded-3xl ${toneClass.v2}`} />
-          </div>
-        </div>
-      </section>
+      {/* Hero (animiran, tema-svestan) */}
+      <SellerHero />
 
       {/* Kako počinje */}
       <section className="py-16 md:py-20">
@@ -197,7 +160,7 @@ export default function BecomeSellerPage() {
 
       {/* CTA */}
       <section className="bg-hero py-16 text-center text-hero-foreground md:py-20">
-        <div className="mx-auto max-w-3xl px-4">
+        <div className="mx-auto max-w-7xl px-4 md:px-8">
           <h2 className="text-balance font-heading text-4xl font-semibold md:text-5xl">
             Spremna da otvoriš{" "}
             <span className="font-script font-normal text-pink">
@@ -210,15 +173,6 @@ export default function BecomeSellerPage() {
         </div>
       </section>
     </>
-  );
-}
-
-function Stat({ n, l }: { n: string; l: string }) {
-  return (
-    <div>
-      <div className="text-3xl font-bold leading-none text-pink-dark">{n}</div>
-      <div className="mt-1.5 font-mono text-xs tracking-wide text-ink">{l}</div>
-    </div>
   );
 }
 
