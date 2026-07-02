@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { DM_Sans, Caveat, JetBrains_Mono, Cormorant_Garamond } from "next/font/google";
+import {
+  DM_Sans,
+  Caveat,
+  JetBrains_Mono,
+  Cormorant_Garamond,
+  Playfair_Display,
+} from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
@@ -34,6 +40,14 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
+// Playfair Display - serifni akcenat (seller hero: naslov + brojevi) → font-playfair
+const playfair = Playfair_Display({
+  variable: "--font-playfair-display",
+  subsets: ["latin", "latin-ext"],
+  weight: ["500", "600", "700"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "Zlatne Ruke - rukotvorine žena iz Srbije",
@@ -60,7 +74,7 @@ export default function RootLayout({
       <html
         lang="sr"
         suppressHydrationWarning
-        className={`${dmSans.variable} ${caveat.variable} ${jetBrainsMono.variable} ${cormorant.variable} h-full antialiased`}
+        className={`${dmSans.variable} ${caveat.variable} ${jetBrainsMono.variable} ${cormorant.variable} ${playfair.variable} h-full antialiased`}
       >
         <head>
           <script dangerouslySetInnerHTML={{ __html: themeInit }} />

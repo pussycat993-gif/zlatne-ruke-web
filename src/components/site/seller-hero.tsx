@@ -64,7 +64,7 @@ export function SellerHero() {
 
           <motion.h1
             {...rise(0.18)}
-            className="text-balance font-heading text-5xl font-semibold leading-[0.98] text-foreground md:text-7xl"
+            className="text-balance font-playfair text-5xl font-semibold leading-[0.98] text-foreground md:text-7xl"
           >
             Tvoje ruke{" "}
             <ShimmerWord delay={1000} className="font-script font-normal text-pink">
@@ -147,7 +147,7 @@ export function SellerHero() {
 function StatBlock({ value, label }: { value: React.ReactNode; label: string }) {
   return (
     <div>
-      <div className="font-heading text-3xl font-semibold text-foreground">
+      <div className="font-playfair text-3xl font-semibold text-foreground">
         {value}
       </div>
       <div className="mt-1.5 font-mono text-xs tracking-wide text-ink">{label}</div>
