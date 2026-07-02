@@ -95,13 +95,19 @@ export default function BecomeSellerPage() {
               unapred, a prvih 100 prodavaca dobija trajni popust.
             </p>
             <ul className="mt-6 space-y-2.5">
-              {BENEFITS.map((b) => (
-                <li key={b} className="flex items-start gap-3 text-sm text-ink">
+              {BENEFITS.map((b, i) => (
+                <Reveal
+                  as="li"
+                  key={b}
+                  delay={i * 0.07}
+                  y={14}
+                  className="flex items-start gap-3 text-sm text-ink"
+                >
                   <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-pink-light text-pink-dark">
                     <Icon name="check" size={12} />
                   </span>
                   {b}
-                </li>
+                </Reveal>
               ))}
             </ul>
           </div>
@@ -134,8 +140,13 @@ export default function BecomeSellerPage() {
             title="Šta kažu majstorice koje već prodaju kod nas"
           />
           <div className="grid gap-6 md:grid-cols-3">
-            {TESTIMONIALS.map((t) => (
-              <figure key={t.n} className="rounded-3xl border border-line-soft bg-surface p-7">
+            {TESTIMONIALS.map((t, i) => (
+              <Reveal
+                as="figure"
+                key={t.n}
+                delay={i * 0.14}
+                className="rounded-3xl border border-line-soft bg-surface p-7"
+              >
                 <div className="font-script text-4xl leading-none text-pink">
                   &ldquo;
                 </div>
@@ -155,7 +166,7 @@ export default function BecomeSellerPage() {
                     </span>
                   </span>
                 </figcaption>
-              </figure>
+              </Reveal>
             ))}
           </div>
         </div>
